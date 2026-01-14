@@ -378,35 +378,68 @@ h6 {
 }
 
 /* Education Section */
-.education-section {
+.education-section,
+.experience-section {
     padding-bottom: 40px;
 }
 
-.education-card {
+.education-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.education-card,
+.experience-card {
     background: #fff;
     border: 1px solid var(--border-color);
     padding: 30px;
     border-radius: 4px;
-    margin-bottom: 20px;
     transition: border-color 0.2s;
+    height: 100%;
+    /* Ensure equal height */
 }
 
-.education-card:hover {
+.education-card:hover,
+.experience-card:hover {
     border-color: var(--text-muted);
 }
 
-.edu-content h3 {
-    font-size: 1.25rem;
-    margin-bottom: 5px;
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.edu-degree {
+.card-logo {
+    height: 48px;
+    width: auto;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.edu-content h3,
+.experience-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.edu-degree,
+.experience-role {
     font-weight: 500;
     color: var(--text-color);
     font-size: 1.05rem;
 }
 
-.edu-meta {
+.edu-meta,
+.experience-meta {
     color: var(--text-muted);
     font-size: 0.9rem;
     margin-top: 5px;
@@ -419,4 +452,13 @@ video {
     border-radius: 2px;
     margin-bottom: 30px;
     border: 1px solid var(--border-color);
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+
+    .education-grid,
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
 }

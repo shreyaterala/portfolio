@@ -376,3 +376,47 @@ h6 {
         font-size: 2rem;
     }
 }
+
+/* Education Section */
+.education-section {
+    padding-bottom: 40px;
+}
+
+.education-card {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+}
+
+.education-card:hover {
+    border-color: var(--text-muted);
+}
+
+.edu-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+
+.edu-degree {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1.05rem;
+}
+
+.edu-meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    font-family: var(--font-mono);
+}
+
+/* Video Styling */
+video {
+    width: 100%;
+    border-radius: 2px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color);
+}

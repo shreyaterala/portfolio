@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openModal = function (modalId) {
         const modal = document.getElementById(modalId);
         if (modal) {
-            modal.style.display = 'flex';
+            modal.style.display = 'block'; // Use block for better scrolling behavior
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
     };

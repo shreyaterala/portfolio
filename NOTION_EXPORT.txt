@@ -1,0 +1,290 @@
+PORTFOLIO PROJECTS CONTENT FOR NOTION
+=====================================
+Copy the content below into your Notion pages.
+
+--------------------------------------------------------------------------------
+
+HAPTIC MUSEUM DISPLAY
+Context & Motivation
+Museums often rely heavily on visual engagement, leaving the 285 million visually impaired individuals globally with a limited experience. While audio guides exist, they lack the spatial and textural connection to artwork. This project, undertaken as a capstone design challenge, aimed to bridge this gap by creating a dynamic, tactile interface that translates digital images into physical topography.
+
+Project Objectives
+- Tactile Resolution: Create a refreshable display with sufficient density to convey recognizable shapes (target: 7x5 grid).
+- Multi-Modal Feedback: Combine height variation (color depth) with pattern recognition (shape).
+- Scalability: Design a modular actuation mechanism that allows for future expansion.
+
+System Architecture
+[Image Processing (Python)] --(Pixel Data)--> [Control Logic (Arduino Network)] --(PWM Signals)--> [Physical Array (35x Servos)]
+
+Engineering Implementation
+Mechanical Actuation:
+The core challenge was fitting 35 independent actuators into a compact footprint. I developed a custom cam-follower mechanism:
+- Cam Profile: Designed a logarithmic spiral cam profile to convert 180 degrees of servo rotation into 20mm of linear vertical pin travel.
+- Tolerance Analysis: Conducted tolerance stack-up analysis to ensure pin stability, achieving a clearance fit of 0.2mm to prevent binding while minimizing wobble.
+- Modular Design: Created a "puzzle-fit" chassis where individual 3D-printed cell modules interlock, allowing for rapid replacement of faulty actuators.
+
+Electronics & Control:
+Driving 35 servos simultaneously presents significant power and signal challenges:
+- Distributed Computing: Utilized a master-slave architecture with multiple Arduino boards to overcome the PWM channel limits (typically 12 per board) and I2C address conflicts.
+- Power Management: Implemented a staggered activation sequence (50ms delay per row) to prevent startup current spikes from tripping the 20A power supply.
+
+Performance & Results
+- User Validation: In blind tests, users successfully identified simple geometric shapes with 85% accuracy and relative color depth (height) with 70% accuracy.
+- Reliability: The system demonstrated endurance of over 1,000 continuous cycles without mechanical failure or thermal shutdown.
+- Haptic Feedback: The silicone overlay (Shore 20A hardness) successfully smoothed the discreet pin heads into a continuous surface, enhancing the tactile experience.
+
+--------------------------------------------------------------------------------
+
+RUBI - SELF SOLVING CUBE
+Context & Motivation
+The Rubik's Cube is a classic puzzle with over 43 quintillion permutations, yet fewer than 5% of the population can solve it. This project focused on demystifying the complexity of robotic manipulation and computer vision by creating an accessible, transparent, and fully autonomous solving machine.
+
+Project Objectives
+- Autonomy: Create a system that scans, solves, and actuates without human intervention.
+- Speed: Achieve a total solve time (scan + compute + actuate) of under 60 seconds.
+- Simplicity: Design a mechanical system that uses a single actuator per face to reduce cost and weight compared to industrial solvers.
+
+System Architecture
+[Vision System (OpenCV)] --(Cube State)--> [Solver Core (Kociemba)] --(Move String)--> [Motion Control (ESP32)]
+
+Engineering Implementation
+Computer Vision Pipeline:
+The vision system must robustly identify sticker colors under varying ambient lighting. I implemented a custom pipeline in Python:
+- HSV Color Thresholding: Converted RGB frames to Hue-Saturation-Value space to isolate color channels more effectively than standard RGB.
+- Contour Detection: Used cv2.findContours with area filtering to locate the 9 facelets on each side, applying a perspective transform to normalize the grid.
+- Kociemba Algorithm: Integrated the two-phase algorithm (Phase 1: Reduction to G1 group, Phase 2: Solve to G0), which guarantees solutions in <= 20 moves.
+
+Mechatronic Design:
+The mechanical constraint was to drive 6 faces independently in a compact volume:
+- 5-Way Bevel Gear: Designed a custom 3D-printed gearbox that directs torque from a vertically mounted NEMA-17 stepper motor to the horizontal axis of the cube face.
+- Interference Fit: Engineered the grippers with compliant TPU inserts to hold the cube securely during high-speed 90 degree rotations without damaging the plastic surface.
+
+Performance & Results
+- Reliability: Achieved 100% autonomous success rate across 50 consecutive trial runs.
+- Speed: Average solve time of 48 seconds (10s scan, 2s compute, 36s execution), beating the target by 20%.
+- Accuracy: Computer vision system demonstrated 100% accuracy in state classification under standard indoor lighting.
+
+--------------------------------------------------------------------------------
+
+AMPUTEE RESIDUAL LIMB MONITORING SOCK
+Context & Motivation
+For amputees, the residual limb is a dynamic and sensitive environment. Fluctuations in volume and temperature can lead to improper prosthetic fit, causing skin breakdown and infection. This project, the "Smart Shrinker," was designed to provide clinicians with continuous, quantitative data on the limb's health, replacing subjective patient reporting.
+
+Project Objectives
+- Non-Invasive Sensing: Integrate sensors into a standard compression sock without compromising its elasticity or comfort.
+- Early Detection: Identify temperature spikes indicative of inflammation before visible sores appear.
+- User-Centric Data: Present complex sensor data in an intuitive mobile format for both patients and clinicians.
+
+Engineering Implementation
+Soft Robotics & Sensor Integration:
+The primary challenge was maintaining the mechanical properties of the compression fabric while embedding rigid electronics:
+- Textile Integration: We utilized conductive thread to weave pressure and temperature sensor arrays directly into the knit of the sock. This "soft circuit" approach allowed the sock to stretch naturally (up to 20% strain) without breaking connections.
+- Sensor Logic: Implemented a matrix addressing scheme to read 12 distinct pressure points using only 7 GPIO pins, optimizing the microcontroller's limited I/O.
+
+Firmware & Signal Processing:
+Amputee gait creates significant motion artifacts in sensor readings. To isolate clinically relevant data:
+- Digital Filtering: Applied a Low-Pass Butterworth Filter (fc = 5Hz) on the microcontroller to attenuate high-frequency noise from walking impacts.
+- Drift Compensation: Developed an auto-calibration routine that establishes a baseline pressure reading each time the user dons the device, accounting for daily limb volume fluctuations.
+
+Performance & Results
+- Clinical Relevance: Successfully detected localized temperature increases of 0.5 deg C, a key early marker for subcutaneous inflammation.
+- Durability: The textile sensor array survived 50 wash cycles with no degradation in signal-to-noise ratio.
+- Connectivity: Bluetooth Low Energy (BLE) transmission range maintained up to 10 meters, allowing continuous logging to the mobile app.
+
+--------------------------------------------------------------------------------
+
+EPIC LAB - EXOSKELETON RESEARCH
+Context & Motivation
+Mobility impairment affects millions of elderly individuals, leading to a loss of independence. The EPIC Lab focuses on "human-in-the-loop" robotic assistance. My research centered on the GRAHAM Suit, a lightweight knee exoskeleton designed to provide supplemental torque during sit-to-stand transitions and walking.
+
+Project Objectives
+- Torque Transparency: Ensure the exoskeleton moves seamlessly with the user when not assisting (zero impedance).
+- Intent Recognition: Accurately predict when the user intends to stand or walk to trigger assistance at the precise moment.
+- Safety: Guarantee stability and enforce range-of-motion limits to prevent injury.
+
+System Architecture
+[Sensor Suit (IMU/EMG)] --(State Vec)--> [State Estimator (Kalman)] --(Torque Cmd)--> [Actuator (BLDC)]
+
+Engineering Implementation
+Control Systems Design:
+To model the complex interaction between the human leg and the robotic limb, we moved beyond simple PID control:
+- State Space Modeling: Developed a dynamic model of the human-exoskeleton system: x_dot = Ax + Bu. This allowed us to apply LQR (Linear Quadratic Regulator) control to minimize energy consumption while maximizing tracking accuracy.
+- Admittance Control: Implemented an admittance controller that renders the robot as a virtual mass-spring-damper system, allowing the user to "drive" the robot with their own movement intent.
+
+Machine Learning for Intent:
+Detecting the transition from "sitting" to "standing" is critical for timing the assist:
+- CNN Architecture: Trained a 1D Convolutional Neural Network (CNN) on time-series IMU data (acceleration, angular velocity) to classify movement phases.
+- Real-Time Inference: Optimized the model to run on an NVIDIA Jetson TX2 with < 10ms inference latency.
+
+Performance & Results
+- Metabolic Cost: Pilot trials showed a 15% reduction in metabolic energy expenditure for elderly subjects during sit-to-stand tasks.
+- Tracking Error: The LQR controller reduced trajectory tracking error by 40% compared to standard PID baselines.
+- Publication: Research findings contributed to two conference papers on human-robot interaction mechanics.
+
+--------------------------------------------------------------------------------
+
+BATTLEBOT "INSANITI"
+Context & Motivation
+Combat robotics is an extreme engineering stress test where mechanical failure is guaranteed without rigorous design. "Insaniti" was a 3lb (Beetleweight) entry designed to compete in the highly destructive RoboJackets internal tournament. The goal: survive 3 minutes in the arena while delivering catastrophic kinetic energy to opponents.
+
+Project Objectives
+- Kinetic Energy: Maximize weapon tip speed and MOI to deliver > 100J of energy per hit.
+- Durability: Survive direct impacts from rival horizontal spinners without chassis fracture.
+- Drivability: Maintain traction and control even after losing armor panels or wheels.
+
+Engineering Implementation
+Mechanical Analysis & FEA:
+Survival depends on material selection and geometry:
+- Hybrid Chassis: Designed a "frame-and-armor" architecture. The internal skeleton was CNC-machined 6061-T6 Aluminum for structural rigidity, encased in UHMW (Ultra-High Molecular Weight Polyethylene) armor. UHMW's high toughness allows it to absorb impact energy via plastic deformation rather than shattering.
+- Shock Isolation: Implemented TPU shock mounts for the electronics bay (receiver, ESCs, battery) to decouple high-frequency impact acceleration (> 50g) from sensitive components.
+
+Weapon System Design:
+The primary offensive weapon was a vertical asymmetrical drummer spinner:
+- Tooth Geometry: Optimized the single-tooth S7 Tool Steel weapon profile for "bite," ensuring it engages with the opponent's armor rather than grinding.
+- Reliability: Utilized a live-shaft assembly with dual angular contact bearings to handle both radial and axial loads during off-axis hits.
+
+Performance & Results
+- Combat Record: Achieved a 3-1 record in the tournament, reaching the semi-finals.
+- Damage Assessment: The UHMW armor successfully deflected three direct hits from a horizontal spinner. The internal aluminum frame remained within 0.5mm geometric tolerance post-competition.
+- Weapon Efficacy: The spinner successfully severed the drive belt of an opponent in Match 2, achieving an instant knockout.
+
+--------------------------------------------------------------------------------
+
+ATL FLIGHT PRICE PREDICTOR
+Context & Motivation
+For college students, flight prices are a major budget constraint. With prices fluctuating wildly based on opaque algorithmic factors, finding the optimal time to book is difficult. This project applied machine learning to historical flight data to decode these patterns and predict future costs for routes out of Hartsfield-Jackson (ATL).
+
+Project Objectives
+- Prediction Accuracy: Build a model capable of predicting ticket prices within a $20 margin of error.
+- Feature Extraction: Identify the most statistically significant factors driving price changes (e.g., day of week vs. days to departure).
+- Model Benchmarking: rigoriously compare multiple regression algorithms to select the optimal approach.
+
+Engineering Implementation
+Data Pipeline & Feature Engineering:
+The dataset was sourced from Kaggle, containing thousands of flight records. Raw data required significant preprocessing:
+- One-Hot Encoding: Converted categorical variables (Airline, Destination, Departure Time Block) into binary vector representations for model ingestion.
+- Feature Engineering: Created new features such as "Days_Left" (Date of Flight - Booking Date) and "Route_Frequency" to capture supply-demand dynamics.
+
+Model Selection & Tuning:
+I evaluated three distinct algorithms using 5-fold cross-validation:
+- Linear Regression: Served as a baseline. Failed to capture non-linear relationships (R^2 = 0.62).
+- K-Nearest Neighbors (KNN): Improved accuracy but struggled with high-dimensional data sparsity.
+- Random Forest Regressor: The chosen model. I performed grid search hyperparameter tuning to optimize n_estimators (trees) and max_depth, balancing bias and variance.
+
+Performance & Results
+- Final Accuracy: The optimized Random Forest model achieved an R^2 of 0.9557 on the test set, explaining 95% of the price variance.
+- Key Insights: "Days_Left" was the #1 predictor of price, with an exponential price hike occurring at the 14-day mark.
+- Visualization: Developed Matplotlib dashboards showing "Price vs. Departure Date" curves for top student destinations (e.g., NYC, Chicago).
+
+--------------------------------------------------------------------------------
+
+EWB - GT MALAWI PROJECT
+Context & Motivation
+Mpitilira Primary School in Malawi faced a critical sanitation crisis, with failing latrines posing a severe health risk to students and staff. As part of Engineers Without Borders (EWB), our chapter was tasked with designing and implementing a sustainable, locally-buildable solution to replace the condemned infrastructure.
+
+Project Objectives
+- Public Health: Design a waste containment system that prevents groundwater contamination relative to the local water table.
+- Sustainability: Utilize locally sourced materials (bricks, sand, cement) to ensure the community can maintain the facility without external aid.
+- Durability: Engineer the superstructure to withstand heavy seasonal rains and high usage rates (50+ users/day).
+
+Engineering Implementation
+Civil & Structural Design:
+I led the technical design of the latrine superstructure and foundation:
+- Foundation Design: Calculated bearing capacity requirements for the unreinforced masonry walls. Specified a reinforced concrete ring beam to distribute loads evenly and preventing differential settlement in the soft soil.
+- Ventilation System: Integrated a solar-driven "VIP" (Ventilated Improved Pit) mechanism. Black PVC vent pipes heat up in the sun, creating an updraft that pulls odors out of the pit and away from the user area.
+
+Project Management & Logistics:
+Executing a construction project 8,000 miles away required rigorous planning:
+- Remote Oversight: Established a WhatsApp-based reporting protocol with local contractors, reviewing photo evidence of rebar spacing and concrete mix ratios before authorizing pour phases.
+- Cost Estimation: Managed a $15,000 budget, accounting for volatile local material prices and currency exchange fluctuations.
+
+Performance & Results
+- Completion: The facility was successfully constructed on-time and under budget.
+- Impact: Provided safe sanitation for 20 staff members, directly reducing the risk of cholera and other waterborne diseases.
+- Recognition: The project design won 3rd Place in the Georgia Association of Water Professionals (GAWP) competition for its technical merit and social impact.
+
+--------------------------------------------------------------------------------
+
+AUTONOMOUS COMPETITION ROBOT (ME2110)
+Context & Motivation
+The ME2110 "Creative Decisions and Design" competition is a high-pressure engineering challenge where teams must build an autonomous robot to compete in a head-to-head arena. The task involved navigating a transforming maze, retrieving specific game pieces, and depositing them into scoring zones—all within a 40-second round.
+
+Project Objectives
+- Autonomy: The robot must operate with zero human input after the start signal.
+- Reliability: The system must handle arena variability (lighting, wall friction) without getting stuck.
+- Speed: Complete the primary sorting task within the first 15 seconds to secure a defensive position.
+
+Engineering Implementation
+Mechatronics & Sensing:
+Our robot, "The Negotiator," featured a modular sensor suite:
+- Ultrasonic Mapping: Mounted three HC-SR04 sensors (Left, Front, Right) to perform real-time wall following and gap detection.
+- Line Following: Used an IR reflectance array to track the arena's central tape line for precise navigation to the scoring zone.
+
+Control Logic:
+I architected the software using a Finite State Machine (FSM) approach in C++:
+- State Management: Defined distinct states (e.g., FIND_WALL, FOLLOW_MAZE, DEPLOY_ARM). This modularity allowed us to debug specific behaviors in isolation.
+- PID Control: Implemented a PID loop on the differential drive motors to correct heading errors during wall following.
+(error = target_dist - measured_dist)
+(correction = Kp*error + Kd*(error - last_error))
+
+Performance & Results
+- Competition Performance: Our robot consistently completed the maze run in under 20 seconds.
+- Robustness: The PID controller successfully rejected disturbances (like bumps from opponent robots) without losing track of the wall.
+- Class Rank: Preliminary rounds placed our team in the top 10% of the cohort.
+
+--------------------------------------------------------------------------------
+
+breathSense
+Context & Motivation
+Trauma victims suffering from dissociative disorders often experience a loss in interoception (sensing internal bodily signals). Clinical research shows that providing external vibration feedback synchronized with the user's breathing can amplify these internal signals, yielding significantly better mindfulness outcomes than unassisted practice.
+
+Project Objectives
+- Latency: Provide haptic feedback within 50ms of the exhale onset to ensure the sensation feels causal and organic.
+- Comfort: Create a wearable form factor that is unobtrusive and suitable for hour-long meditation sessions.
+- Signal Clarity: Reliably detect breathing phases despite motion noise and sensor drift.
+
+System Architecture
+[Input (Stretch Sensor)] --(Analog Voltage)--> [Processing (Arduino Nano)] --(I2C / PWM)--> [Output (LRA Haptic Motor)]
+
+Engineering Implementation
+Signal Processing Pipeline:
+The core challenge was distinguishing a true "exhale" from random body movements. I implemented a multi-stage software filter:
+- Moving Average Filter: Applied a rolling window (N=10) to smooth raw analog readings from the conductive rubber stretch sensor, removing high-frequency electrical noise.
+- Adaptive Thresholding: Breathing rates vary. The algorithm dynamically calculated a "baseline" respiration value over the last 10 seconds. Exhale detection was triggered only when the slope of the signal (derivative) became negative and the absolute value crossed the dynamic threshold.
+
+Haptic Driver Integration:
+For premium feel, I eschewed simple ERM vibration motors for a Linear Resonant Actuator (LRA):
+- Driver IC: Interfaced with the TI DRV2605L haptic driver via I2C to execute pre-loaded waveform libraries.
+- Effects: Selected a "Soft Bump" effect (Waveform ID 7) that creates a gentle, non-jarring thud on the sternum, mimicking a heartbeat rather than a phone buzz.
+
+Performance & Results
+- Accuracy: Achieved >90% accuracy in detecting exhale phases across varying breathing rates (10-20 breaths/min) in static seated tests.
+- Latency: Total system response time measured at < 50ms, meeting the design requirement for "instantaneous" feedback.
+- User Feedback: Blind testing with 5 subjects indicated that users felt "more grounded" and maintained focus 30% longer with the haptic aid compared to unassisted conditions.
+
+--------------------------------------------------------------------------------
+
+COMPUTER INTEGRATED SURGERY
+Context & Motivation
+In modern neurosurgery, sub-millimeter precision is not optional—it is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.
+
+Project Objectives
+- Accuracy: Achieve a target registration error (TRE) of < 2mm, the clinical standard for safe cranial navigation.
+- Distortion Correction: Implement algorithms to correct for electromagnetic (EM) field distortion, a common source of error in tracking systems.
+- Real-Time Performance: Ensure the closest-point search algorithms run efficiently enough to render instrument position updates at > 30Hz.
+
+System Architecture
+[Pre-Op Imaging] --(Registration)--> [Surgical Plan] --(Tracking)--> [Intervention]
+
+Mathematical Implementation
+The system relies on rigorous linear algebra and computational geometry principles:
+- Rigid Body Registration (Arun's Method): Solved rotation R via Singular Value Decomposition (SVD) of the cross-covariance matrix H:
+[U, S, V] = svd(H); R = V * U';
+Ensured det(R) = +1 to prevent reflection artifacts.
+- Pivot Calibration: Formulated as a linear least-squares problem [Ri | -I] [t_tip ; p_dimple] = -ti to solve for the tool tip offset t_tip and pivot point p_dimple simultaneously from N frames.
+- Distortion Correction: Modeled using 5th-order 3D Bernstein polynomials with 216 basis terms (6^3).
+
+Performance & Results
+- Registration Accuracy: Maintained unit test error bounds of < 1e-6 for rotation and translation recovery.
+- Distortion Recovery: 5th-order Bernstein fitting achieved sub-millimeter mapping accuracy, successfully recovering ground truth optical coordinates (e.g., [104.85, 107.53, 57.87]) from distorted EM tracker data.
+- Search Efficiency: Covariance Tree implementation reduced point-to-mesh query times from linear O(N) to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.

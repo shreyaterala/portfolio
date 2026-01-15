@@ -267,7 +267,7 @@ export const projectsData: Record<string, Project> = {
     },
     "battlebot": {
         id: "battlebot",
-        title: "Battlebot "Insaniti"",
+        title: "Battlebot \"Insaniti\"",
         meta: "Mechanical Designer",
         image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
         technologies: ["SolidWorks", "FEA", "Rapid Prototyping"],
@@ -603,7 +603,10 @@ export const projectsData: Record<string, Project> = {
 };
 
 export const Project = {
-    findAll: async () => Object.values(projectsData),
+    findAll: async () => {
+        const order = ["ur5", "cis", "rubi", "haptic", "sock", "epic", "battlebot", "flight", "malawi", "me2110", "breath"];
+        return order.map(id => projectsData[id]).filter(Boolean);
+    },
     findById: async (id: string) => projectsData[id]
 };
 

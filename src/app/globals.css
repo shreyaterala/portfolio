@@ -114,7 +114,7 @@ body::before {
 
 .prose-ink .arrow-line::after {
     content: "";
-    @apply absolute block w-2 h-2 border-t-2 border-r-2 border-sage rotate-45 right-0 -top-1 md:top-[-3px];
+    @apply absolute block w-2 h-2 border-sage rotate-45 border-r-2 border-b-2 border-t-0 bottom-0 left-1/2 -translate-x-1/2 md:border-b-0 md:border-t-2 md:right-0 md:top-1/2 md:-translate-y-1/2 md:left-auto md:translate-x-0 md:bottom-auto;
 }
 
 /* Gallery Handling */

@@ -92,7 +92,7 @@ export const projectsData: Record<string, Project> = {
     "rubi": {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
-        meta: "Mechatronics | Computer Vision",
+        meta: "Oct 2024 - Dec 2024 | Mechatronic & Computer Vision",
         image: "/portfolio/assets/rubi/demo.jpg",
         technologies: ["Python", "YOLOv8", "OpenCV", "Arduino", "BLE"],
         content: `<div>
@@ -171,7 +171,7 @@ export const projectsData: Record<string, Project> = {
     "epic": {
         id: "epic",
         title: "EPIC Lab - Exoskeleton Research",
-        meta: "Undergraduate Researcher",
+        meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
         technologies: ["Control Theory", "Machine Learning", "Python"],
         content: `<div>
@@ -247,7 +247,7 @@ export const projectsData: Record<string, Project> = {
     "battlebot": {
         id: "battlebot",
         title: "Battlebot \"Insaniti\"",
-        meta: "Mechanical Designer",
+        meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
         image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
         technologies: ["SolidWorks", "FEA", "Rapid Prototyping"],
         content: `<div>
@@ -309,7 +309,7 @@ export const projectsData: Record<string, Project> = {
     "flight": {
         id: "flight",
         title: "ATL Flight Price Predictor",
-        meta: "Machine Learning Project",
+        meta: "Oct 2023 - Dec 2023 | Machine Learning Project",
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
         technologies: ["Python", "Amadeus API", "Lasso Regression", "Pandas"],
         content: `<div>
@@ -345,7 +345,7 @@ export const projectsData: Record<string, Project> = {
     "malawi": {
         id: "malawi",
         title: "EWB - GT Malawi Project",
-        meta: "Project & Technical Lead",
+        meta: "Oct 2021 - Dec 2024 | Project & Technical Lead",
         image: "/portfolio/assets/ewb/ewb_malawi.jpg",
         technologies: ["Civil Engineering", "Project Management", "AutoCAD"],
         content: `<div>
@@ -392,7 +392,7 @@ export const projectsData: Record<string, Project> = {
     "me2110": {
         id: "me2110",
         title: "Autonomous Competition Robot",
-        meta: "Software Lead",
+        meta: "Aug 2022 - Nov 2022 | Software Lead",
         image: "/portfolio/assets/me2110/me2110_robot.jpg",
         technologies: ["Arduino", "C++", "PID Control"],
         content: `<div>
@@ -442,9 +442,9 @@ export const projectsData: Record<string, Project> = {
     "breath": {
         id: "breath",
         title: "breathSense",
-        meta: "Medical Device | Embeded Systems",
+        meta: "Aug 2024 - Dec 2024 | Medical Aid",
         image: "/portfolio/assets/breath/poster.jpg",
-        technologies: ["C++", "PCB Design", "Signal Processing", "Haptics"],
+        technologies: ["C++", "Python", "PCB Design", "Signal Processing", "Haptics"],
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. <strong>breathSense</strong> is a wearable haptic device designed to restore this connection. By providing real-time, organic vibration feedback synchronized with the user's breathing, it acts as an external "anchor," significantly improving outcomes in mindfulness and grounding therapy.</p>
@@ -550,7 +550,7 @@ export const projectsData: Record<string, Project> = {
     "ur5": {
         id: "ur5",
         title: "UR5 Manipulator Control",
-        meta: "Fall 2025 | Robotics Control",
+        meta: "Dec 2025 | Robotics Control",
         image: "/portfolio/assets/ur5_control.png",
         technologies: ["MATLAB", "ROS", "Kinematics", "Controls"],
         content: `
@@ -567,7 +567,7 @@ export const projectsData: Record<string, Project> = {
     "tom": {
         id: "tom",
         title: "Cascading Shower Handle",
-        meta: "TOM: GT Makeathon 2022 | Assistive Technology",
+        meta: "Feb 2022 | Mechanical Design",
         image: "/portfolio/assets/tom/IMG_1959.JPG",
         technologies: ["3D Printing", "Rapid Prototyping", "Product Design"],
         content: `<div>
@@ -606,7 +606,7 @@ export const projectsData: Record<string, Project> = {
     "pid": {
         id: "pid",
         title: "Ad Astra - PID Autonomous Control",
-        meta: "VEX Change Up | C++ Implementation",
+        meta: "Apr 2020 - Apr 2021 | C++ Implementation",
         image: "/portfolio/assets/pid/pid_robot_v5.png",
         technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
         content: `<div>

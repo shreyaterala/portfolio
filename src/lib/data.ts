@@ -387,27 +387,36 @@ const projectsData: Record<string, ProjectData> = {
                     <span>Arduino Nano</span>
                 </div>
                  <div class="diagram-arrow">
-                    <span class="arrow-label">PWM</span>
+                    <span class="arrow-label">I2C</span>
                     <div class="arrow-line"></div>
                 </div>
                 <div class="diagram-node">
                     <strong>Output</strong>
-                    <span>Haptic Motor</span>
+                    <span>LRA Motor</span>
                 </div>
             </div>
 
-            <h2>Outcome</h2>
+            <h2>Technical Specifications</h2>
             <ul>
-                <li>Developed a device that met all engineering specifications in testing.</li>
-                <li>Successful operation: Worn without assistance, no training required, no external wiring.</li>
-                <li>Performance: Vibration delay < 250ms, sampling every 5ms, continuous use > 180 mins.</li>
+                <li><strong>Hardware Core:</strong> Arduino Nano microcontroller for low-latency signal processing.</li>
+                <li><strong>Sensing:</strong> Conductive rubber cord stretch sensor (2mm diameter) woven into a chest strap to track thoracic expansion.</li>
+                <li><strong>Haptics:</strong> Linear Resonant Actuator (LRA) driven by a <strong>DRV2605L</strong> driver for precise, crisp vibration effects.</li>
+                <li><strong>Power:</strong> 9V battery for portable operation during hour-long meditation sessions.</li>
             </ul>
 
-            <h2>Technical Details</h2>
+            <h2>Algorithm Design</h2>
+            <p>The core challenge was detecting the "exhale" phase in real-time amidst noise:</p>
             <ul>
-                <li><strong>Sensors & Haptics:</strong> Receives breath signal and delivers synced vibrations (force > 5N, strength 0-100%). Control over vibration feel and strength.</li>
-                <li><strong>Energy:</strong> USB-C rechargeable 1200mAh battery with > 3-hour continuous battery life and < 2-hour charge time.</li>
-                <li><strong>Ergonomics:</strong> Designed for a general audience (5th-95th percentile). Minimalistic design for public use. Weight target: 350-500g.</li>
+                <li><strong>Signal Filtering:</strong> Implemented a <strong>Moving Average Filter</strong> (window size = 10 samples) to smooth the analog sensor data.</li>
+                <li><strong>State Detection:</strong> Used an <strong>Adaptive Thresholding</strong> algorithm that dynamically adjusts baselines to detect the negative slope of chest contraction (exhale) versus inhalation.</li>
+                <li><strong>Feedback Loop:</strong> Triggers a "soft bump" haptic effect immediately upon exhale detection, reinforcing the release of breath.</li>
+            </ul>
+
+            <h2>Results</h2>
+            <ul>
+                <li><strong>Accuracy:</strong> Achieved >90% accuracy in detecting exhale phase across various breathing rates (10-20 breaths/min).</li>
+                <li><strong>User Testing:</strong> Blind tests indicated that users felt "more grounded" and maintained focus longer with haptic feedback compared to unassisted meditation.</li>
+                <li><strong>Latency:</strong> System response time of &lt;50ms, ensuring feedback felt instantaneous and organic.</li>
             </ul>
 
             <h2>Gallery</h2>

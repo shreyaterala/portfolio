@@ -223,6 +223,17 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>CNN Architecture:</strong> Trained a 1D Convolutional Neural Network (CNN) on time-series IMU data (acceleration, angular velocity) to classify movement phases.</li>
                 <li><strong>Real-Time Inference:</strong> Optimized the model to run on an NVIDIA Jetson TX2 with $< 10ms$ inference latency.</li>
             </ul>
+
+            <h3>Data-Driven GRF Estimation</h3>
+            <p>To improve state estimation, we integrated high-resolution pressure data from <strong>XSensor Insoles</strong> to predict Ground Reaction Forces (GRF). I engineered a full ML pipeline to map pressure heatmaps to force vectors:</p>
+            <ul>
+                <li><strong>Signal Conditioning (MATLAB):</strong> Raw 1000Hz sensor data was processed using a <strong>4th-Order Butterworth Low-Pass Filter</strong> with a 6Hz cutoff to remove gait artifacts and sensor noise.</li>
+                <li><strong>Model Architecture (TensorFlow):</strong> Comparative analysis of FCN vs. CNN using Leave-One-Subject-Out (LOSO) cross-validation.
+                    <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-xs text-slate-600">
+                        Input (N×N Heatmap) -> Conv2D(32, 3x3) -> MaxPool(2x2) -> Conv2D(64, 3x3) -> Dense(64) -> Output(Force_N)
+                    </div>
+                </li>
+            </ul>
             <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="Exoskeleton Controls Lab" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Performance & Results</h2>
@@ -246,11 +257,31 @@ export const projectsData: Record<string, Project> = {
             <h2>Project Objectives</h2>
             <ul>
                 <li><strong>Kinetic Energy:</strong> Maximize weapon tip speed and MOI to deliver $> 100J$ of energy per hit.</li>
+                <li><strong>Spin-Up Time:</strong> Achieve operational RPM in <strong>&lt; 4 seconds</strong> to allow for rapid recovery and counter-attacks.</li>
                 <li><strong>Durability:</strong> Survive direct impacts from rival horizontal spinners without chassis fracture.</li>
-                <li><strong>Drivability:</strong> Maintain traction and control even after losing armor panels or wheels.</li>
             </ul>
 
             <h2>Engineering Implementation</h2>
+            
+            <h3 class="text-lg font-bold mt-6 mb-3">Weapon Motor Simulation & Selection</h3>
+            <p>To optimize the lethality of the robot, I developed a custom <strong>MATLAB simulation</strong> to model the weapon's physical behavior. Simply attempting to "max out" power often leads to burned stators or batteries that can't supply the burst current. I simulated the system dynamics using a Forward Euler integration method:</p>
+            
+            <div class="bg-slate-100 p-4 rounded-lg my-4 font-mono text-sm">
+                <p class="mb-2 text-xs text-slate-500">// Forward Euler State Space Model</p>
+                <div class="space-y-1">
+                    <p>Current: <span class="text-blue-600">i(t)</span> = (V - &omega;(t)/K<sub>v</sub>) / R</p>
+                    <p>Torque: <span class="text-blue-600">&tau;</span> = K<sub>i</sub> * i(t)</p>
+                    <p>Acceleration: <span class="text-blue-600">&alpha;(t)</span> = (1/J) * (&tau; - D*&omega;(t))</p>
+                    <p>Update: <span class="text-purple-600">&omega;(t+dt)</span> = &omega;(t) + &alpha;(t)*dt</p>
+                </div>
+            </div>
+
+            <p>This script allowed us to iterate through a database of brushless outrunner motors. We selected the <strong>Scorpion SII-3020-1110KV</strong> for its optimal balance of torque and KV rating.</p>
+            <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li><strong>Motor Specs:</strong> 1110 KV, 0.031&Omega; Internal Resistance.</li>
+                <li><strong>Reduction:</strong> Implemented a <strong>3:1 pulley reduction</strong> to multiply torque for faster spin-up.</li>
+                <li><strong>Performance:</strong> The simulation predicted a spin-up time of <strong>&lt; 4s</strong> to operational speed, ensuring rapid recovery after hits.</li>
+            </ul>
             <h3>Mechanical Analysis & FEA</h3>
             <p>Survival depends on material selection and geometry:</p>
             <img src="/portfolio/assets/battlebot/iso_view.jpeg" alt="Robot Iso View CAD" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
@@ -280,41 +311,35 @@ export const projectsData: Record<string, Project> = {
         title: "ATL Flight Price Predictor",
         meta: "Machine Learning Project",
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
-        technologies: ["Python", "Scikit-Learn", "Pandas"],
+        technologies: ["Python", "Amadeus API", "Lasso Regression", "Pandas"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>For college students, flight prices are a major budget constraint. With prices fluctuating wildly based on opaque algorithmic factors, finding the optimal time to book is difficult. This project applied machine learning to historical flight data to decode these patterns and predict future costs for routes out of Hartsfield-Jackson (ATL).</p>
+            <p>For college students, flight prices are a major budget constraint. With prices fluctuating wildly based on opaque algorithmic factors, finding the optimal time to book is difficult. This project applied machine learning to analyze real-time flight data effectively.</p>
 
             <h2>Project Objectives</h2>
             <ul>
-                <li><strong>Prediction Accuracy:</strong> Build a model capable of predicting ticket prices within a $20 margin of error.</li>
-                <li><strong>Feature Extraction:</strong> Identify the most statistically significant factors driving price changes (e.g., day of week vs. days to departure).</li>
-                <li><strong>Model Benchmarking:</strong> rigoriously compare multiple regression algorithms to select the optimal approach.</li>
+                <li><strong>Data Acquisition:</strong> Utilize the <strong>Amadeus Flight Offers Search API</strong> to access real-time data from over 400 airlines.</li>
+                <li><strong>Feature Selection:</strong> Identify the most statistically significant factors driving price changes using regularization techniques.</li>
+                <li><strong>Model Optimization:</strong> Compare regression algorithms to select the optimal approach for price forecasting.</li>
             </ul>
 
             <h2>Engineering Implementation</h2>
-            <h3>Data Pipeline & Feature Engineering</h3>
-            <p>The dataset was sourced from Kaggle, containing thousands of flight records. Raw data required significant preprocessing:</p>
+            <h3>Data Pipeline & Preprocessing</h3>
+            <p>Raw flight data contains many redundant variables. I implemented a robust cleaning pipeline in Python:</p>
             <ul>
-                <li><strong>One-Hot Encoding:</strong> Converted categorical variables (Airline, Destination, Departure Time Block) into binary vector representations for model ingestion.</li>
-                <li><strong>Feature Engineering:</strong> Created new features such as "Days_Left" (Date of Flight - Booking Date) and "Route_Frequency" to capture supply-demand dynamics.</li>
+                <li><strong>Duration Standardization:</strong> Wrote custom scripts to convert ISO 8601 duration strings (e.g., "PT2H30M") into total minutes for numerical analysis.</li>
+                <li><strong>Dimensionality Reduction:</strong> Utilized <strong>Lasso Regression (L1 Regularization)</strong> to penalize less important features and prevent overfitting.</li>
             </ul>
+            
+            <div class="bg-slate-100 p-4 rounded-lg my-4 font-mono text-sm">
+                <p class="mb-2 text-xs text-slate-500">// Feature Importance Analysis (Lasso Coef)</p>
+                <p>1. <span class="text-blue-600">seatsRemaining</span> (-25.64): Rare supply drives price up.</p>
+                <p>2. <span class="text-blue-600">segmentsAirlineName</span> (-14.56): Different carriers have distinct base pricing models.</p>
+                <p>3. <span class="text-red-500">departureDate</span> (0.00): Dropped by Lasso model as statistically insignificant relative to other time factors.</p>
+            </div>
 
-            <h3>Model Selection & Tuning</h3>
-            <p>I evaluated three distinct algorithms using 5-fold cross-validation:</p>
-            <ul>
-                <li><strong>Linear Regression:</strong> Served as a baseline. Failed to capture non-linear relationships ($R^2 = 0.62$).</li>
-                <li><strong>K-Nearest Neighbors (KNN):</strong> Improved accuracy but struggled with high-dimensional data sparsity.</li>
-                <li><strong>Random Forest Regressor:</strong> The chosen model. I performed grid search hyperparameter tuning to optimize <code>n_estimators</code> (trees) and <code>max_depth</code>, balancing bias and variance.</li>
-            </ul>
-
-            <h2>Performance & Results</h2>
-            <ul>
-                <li><strong>Final Accuracy:</strong> The optimized Random Forest model achieved an <strong>$R^2$ of 0.9557</strong> on the test set, explaining 95% of the price variance.</li>
-                <li><strong>Key Insights:</strong> "Days_Left" was the #1 predictor of price, with an exponential price hike occurring at the 14-day mark.</li>
-                <li><strong>Visualization:</strong> Developed Matplotlib dashboards showing "Price vs. Departure Date" curves for top student destinations (e.g., NYC, Chicago).</li>
-            </ul>
-             <img src="/portfolio/assets/flight_predictor/flight_price_predictor.png" alt="Price Prediction Dashboard" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <h3>Key Findings</h3>
+            <p>The analysis revealed that <strong>inventory scarcity</strong> (searchDate, seatsRemaining) played a much larger role in dynamic pricing logic than the simple calendar date of the flight. This suggests that airlines price purely on demand curves rather than seasonal baselines for the routes analyzed.</p>
         </div>`,
     },
     "malawi": {
@@ -382,21 +407,19 @@ export const projectsData: Record<string, Project> = {
             </ul>
 
             <h2>Engineering Implementation</h2>
-            <h3>Mechatronics & Sensing</h3>
-            <p>Our robot, "The Negotiator," featured a modular sensor suite:</p>
+            <h3>Mechatronics & Mechanisms</h3>
+            <p>Our robot was designed as a multi-stage deployment system featuring three primary subsystems:</p>
             <ul>
-                <li><strong>Ultrasonic Mapping:</strong> Mounted three HC-SR04 sensors (Left, Front, Right) to perform real-time wall following and gap detection.</li>
-                <li><strong>Line Following:</strong> Used an IR reflectance array to track the arena's central tape line for precise navigation to the scoring zone.</li>
+                <li><strong>Scissor Lift:</strong> An electromechanical lift mechanism (triggered via <code>digital(4)</code>) designed to extend vertically for high-goal scoring.</li>
+                <li><strong>Legolas Conveyor:</strong> A high-friction belt drive (Motor 2) used to intake and transport game pieces ("rings") into the hopper.</li>
+                <li><strong>Pneumatic Actuation:</strong> Utilized solenoid-driven pistons (mounted on custom 3D-printed brackets) to trigger "Deploy Arrow" and "Release Ring" events at precise timing intervals.</li>
             </ul>
 
             <h3>Control Logic</h3>
-            <p>I architected the software using a <strong>Finite State Machine (FSM)</strong> approach in C++:</p>
+            <p>I architected the software using a <strong>Time-Sequenced State Machine</strong> in C++ to handle the strict 40-second round limits:</p>
             <ul>
-                <li><strong>State Management:</strong> Defined distinct states (e.g., <code>FIND_WALL</code>, <code>FOLLOW_MAZE</code>, <code>DEPLOY_ARM</code>). This modularity allowed us to debug specific behaviors in isolation.</li>
-                <li><strong>PID Control:</strong> Implemented a PID loop on the differential drive motors to correct heading errors during wall following.
-                    <br><code>error = target_dist - measured_dist;</code>
-                    <br><code>correction = Kp*error + Kd*(error - last_error);</code>
-                </li>
+                <li><strong>Event Scheduling:</strong> utilized non-blocking <code>millis()</code> timers to sequence actions. Crucial triggers (like the 27.5s end-game move) were hard-coded to ensure we didn't miss the window.</li>
+                <li><strong>Sensor Integration:</strong> Implemented a "Wait-for-Trigger" logic using limit switches (Buttons 3 & 4). The robot would autonomously hold position until physical contact was made with the arena wall, ensuring accurate starting coordinates for the blind-reckoning sequences.</li>
             </ul>
 
             <h2>Performance & Results</h2>
@@ -541,11 +564,102 @@ export const projectsData: Record<string, Project> = {
     </ul>
     `,
     },
+    "tom": {
+        id: "tom",
+        title: "Cascading Shower Handle",
+        meta: "TOM: GT Makeathon 2022 | Assistive Technology",
+        image: "/portfolio/assets/tom/IMG_1959.JPG",
+        technologies: ["3D Printing", "Rapid Prototyping", "Product Design"],
+        content: `<div>
+            <h2>Context & Motivation</h2>
+            <p>Sarah, a 20-year-old college student, was diagnosed with Postural Orthostatic Tachycardia Syndrome (POTS). This condition causes improper blood flow, leading to dizziness, fatigue, and fainting—especially when standing in heat. For Sarah, taking a hot shower became a dangerous activity with a high risk of injury.</p>
+            
+            <h2>Project Objectives</h2>
+            <ul>
+                <li><strong>Stability:</strong> Provide a reliable physical support handle for Sarah to hold while showering.</li>
+                <li><strong>Safety:</strong> Integrate a waterproof phone attachment to allow immediate contact with loved ones in case of an emergency.</li>
+                <li><strong>Portability:</strong> Design a collapsible system that can be used at home or while traveling.</li>
+            </ul>
+
+            <h2>Engineering Implementation</h2>
+            <h3>Design & Fabrication</h3>
+            <p>We developed a custom solution using rapid prototyping techniques:</p>
+            <ul>
+                <li><strong>Structure:</strong> Utilized 1-1/4" Schedule 40 PVC pipe for the main handle structure, ensuring lightweight durability.</li>
+                <li><strong>Custom Joints:</strong> Designed and 3D printed custom corner brackets and end caps to connect the PVC segments.</li>
+                <li><strong>Attachment:</strong> Employed strong M6 threaded suction cups for non-invasive, temporary mounting to shower walls.</li>
+                <li><strong>Collapsibility:</strong> Integrated neodymium magnets (0.04" x 0.04") into the joints to allow the handle to snap together and break down easily for transport.</li>
+            </ul>
+            <img src="/portfolio/assets/tom/IMG_1961.JPG" alt="Prototype Assembly" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h2>Performance</h2>
+            <ul>
+                <li><strong>Lightweight:</strong> The entire assembly weighs approximately 1.44 ounces, maximizing portability.</li>
+                <li><strong>User Impact:</strong> The device provides Sarah with physical stability and peace of mind, restoring her independence in daily hygiene.</li>
+            </ul>
+             <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                 <img src="/portfolio/assets/tom/Corner.JPG" alt="3D Printed Corner" style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                 <img src="/portfolio/assets/tom/Hook.JPG" alt="Phone Attachment Hook" style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+            </div>
+        </div>`,
+    },
+    "pid": {
+        id: "pid",
+        title: "Ad Astra - PID Autonomous Control",
+        meta: "VEX Change Up | C++ Implementation",
+        image: "/portfolio/assets/pid/pid_robot_v5.png",
+        technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
+        content: `<div>
+            <h2>Context & Motivation</h2>
+            <p>In high-stakes VEX Robotics competition, consistency is king. For the "Change Up" season, Team 8823A "Ad Astra" needed an autonomous routine that could reliably score points in the 15-second autonomous period. Standard time-based movements were too inaccurate, so we developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
+
+            <h2>System Architecture</h2>
+            <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
+                [Target State] -> [PID Controller] -> [Slew Rate Limiter] -> [Motor Comp] -> [VEX V5 Motors]
+            </p>
+
+            <h2>Engineering Implementation</h2>
+            <h3>Adaptive PID Controller</h3>
+            <p>One set of constants doesn't fit all movements. Short, precise adjustments need different gain values than long cross-field sprints. I implemented an <strong>Adaptive PID system</strong> that dynamically switches gain scheduling based on the target distance:</p>
+            <ul>
+                <li><strong>Gain Scheduling:</strong> The system checks the target distance against defined ranges (e.g., 0-11 inches vs. 48+ inches) and loads the optimal <code>kP</code>, <code>kD</code>, and <code>kI</code> values from a lookup table.</li>
+                <li><strong>Struct-Based Configuration:</strong> <code>movepidValues</code> structure stores these tuned constants, allowing for rapid iteration and tuning in the pit.</li>
+            </ul>
+
+            <h3>Inertial Sensor Fusion</h3>
+            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, we implemented a <strong>multi-sensor fusion algorithm</strong>:</p>
+            <ul>
+                <li><strong>Triple Redundancy:</strong> We mounted three separate V5 Inertial Sensors on the chassis.</li>
+                <li><strong>Voter Algorithm:</strong> The code continuously calculates the average heading of all three sensors. It also computes the standard deviation. If one sensor deviates significantly (> 1%) from the consensus of the other two, it is flagged as an outlier and dynamically excluded from the calculation, ensuring the robot drives straight even if a sensor fails mid-match.</li>
+            </ul>
+             <pre style="background: #1e1e1e; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #d4d4d4;">
+// Outlier Rejection Logic
+avgAll = (Inertial.rotation() + InertialB.rotation() + InertialC.rotation()) / 3;
+standardDev = sqrt((1/3) * (pow(Inertial.rotation() - avgAll, 2) + ...));
+
+if (fabs(Inertial.rotation()) > fabs(standardDev + avgAll)) {
+  currentDeg = avgBC; // Exclude Sensor A
+}
+            </pre>
+
+            <h3>Motion Profiling</h3>
+            <p>To prevent wheel slip and reduce mechanical stress, we implemented a custom slew rate limiter (acceleration control):</p>
+            <ul>
+                <li><strong>Slew Rate Limiting:</strong> Instead of jumping instantly to full power, the <code>speedChange</code> array dictates a smooth ramp-up curve (e.g., 1, 1.5, 2... 81 speed units). This prevents the robot from "doing a wheelie" or losing traction on the anti-static tiles.</li>
+            </ul>
+
+            <h2>Performance</h2>
+            <ul>
+                <li><strong>Accuracy:</strong> The fusion algorithm reduced heading error to &lt; 1 degree over a 1-minute run.</li>
+                <li><strong>Reliability:</strong> The adaptive PID allowed the robot to settle at target positions within 200ms, significantly faster than a generic PID loop.</li>
+            </ul>
+        </div>`,
+    },
 };
 
 export const Project = {
     findAll: async () => {
-        const order = ["ur5", "cis", "rubi", "haptic", "sock", "epic", "battlebot", "flight", "malawi", "me2110", "breath"];
+        const order = ["pid", "tom", "ur5", "cis", "rubi", "haptic", "sock", "epic", "battlebot", "flight", "malawi", "me2110", "breath"];
         return order.map(id => projectsData[id]).filter(Boolean);
     },
     findById: async (id: string) => projectsData[id]

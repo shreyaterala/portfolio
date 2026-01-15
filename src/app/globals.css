@@ -223,11 +223,23 @@ h6 {
     margin-bottom: 15px;
 }
 
+/* Center logos in Experience Cards specifically */
+.experience-card .card-header {
+    justify-content: center;
+}
+
 .card-logo {
     height: 48px;
     width: auto;
     margin-right: 15px;
     object-fit: contain;
+}
+
+/* Remove margin for centered logos in Experience Cards */
+.experience-card .card-logo {
+    margin-right: 0;
+    height: 64px;
+    /* Slightly larger for visual balance since they are standalone */
 }
 
 .education-card h3,

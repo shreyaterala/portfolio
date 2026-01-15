@@ -23,6 +23,30 @@ const projectsData: Record<string, ProjectData> = {
                 <strong>Solution:</strong> A 7x5 refreshable pin array with a pin-wise replication control system and a silicone overlay. The display conveys shape through the pattern of the actuated pins and color through the height of the corresponding pins. Users interact with the device to sense contours and colors representing artworks.
             </div>
             
+            <h2>System Architecture</h2>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>Image Processing</strong>
+                    <span>Processing / Python</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">Serial</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Control Unit</strong>
+                    <span>Arduino Mega</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">I2C</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Actuation</strong>
+                    <span>32x Servos</span>
+                </div>
+            </div>
+            
             <h2>Outcome</h2>
             <ul>
                 <li>Designed and developed a 7x5 refreshable pin array with software controlling pin height based on image replication.</li>
@@ -346,6 +370,30 @@ const projectsData: Record<string, ProjectData> = {
 
             <div class="highlight-box">
                 <strong>Solution:</strong> A haptic meditation aid that tracks the user’s exhale and outputs a synchronized vibration response on the sternum to support a mind-body connection.
+            </div>
+
+            <h2>System Architecture</h2>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>Input</strong>
+                    <span>Stretch Sensor</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">Analog</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Processing</strong>
+                    <span>Arduino Nano</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">PWM</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Output</strong>
+                    <span>Haptic Motor</span>
+                </div>
             </div>
 
             <h2>Outcome</h2>

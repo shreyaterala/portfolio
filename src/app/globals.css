@@ -488,7 +488,107 @@ h6 {
     box-shadow: var(--shadow-md);
 }
 
+/* System Diagram Styling */
+.system-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0;
+    padding: 30px;
+    background: var(--bg-alt);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.diagram-node {
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    min-width: 120px;
+    max-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.diagram-node strong {
+    display: block;
+    color: var(--text-color);
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.diagram-node span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.2;
+}
+
+.diagram-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    margin: 0 5px;
+}
+
+.arrow-line {
+    width: 30px;
+    height: 2px;
+    background-color: var(--text-secondary);
+    position: relative;
+    margin-top: 4px;
+}
+
+.arrow-line::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -4px;
+    border: 5px solid transparent;
+    border-left-color: var(--text-secondary);
+}
+
+.arrow-label {
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 @media (max-width: 768px) {
+    .system-diagram {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .arrow-line {
+        width: 2px;
+        height: 20px;
+        margin-top: 0;
+    }
+
+    .arrow-line::after {
+        top: auto;
+        bottom: 0;
+        right: -4px;
+        border-left-color: transparent;
+        border-top-color: var(--text-secondary);
+    }
+
+    .arrow-label {
+        margin-bottom: 2px;
+    }
+
     .modal-gallery {
         grid-template-columns: 1fr;
     }

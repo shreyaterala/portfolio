@@ -86,6 +86,28 @@ const projectsData: Record<string, ProjectData> = {
             </div>
 
             <h2>System Architecture</h2>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>Computer Vision</strong>
+                    <span>Laptop / OpenCV</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">Bluetooth</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Controller</strong>
+                    <span>ESP32 MCU</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">GPIO</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Actuation</strong>
+                    <span>Stepper Motors</span>
+                </div>
+            </div>
             <p>The system operates on a closed-loop control architecture designed for speed and reliability:</p>
             <ul>
                 <li><strong>High-Level Control (Laptop):</strong> Runs the Computer Vision pipeline (OpenCV) to map the cube's state and the Kociemba solving algorithm to generate the move sequence.</li>
@@ -110,6 +132,7 @@ const projectsData: Record<string, ProjectData> = {
             <h2>Gallery</h2>
             <div class="modal-gallery">
                 <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System Overview">
+                <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="Cube Mechanism Detail">
             </div>
 
             <h2>Technologies Used</h2>

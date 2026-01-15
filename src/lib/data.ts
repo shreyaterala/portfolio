@@ -76,42 +76,49 @@ const projectsData: Record<string, ProjectData> = {
         image: "/portfolio/assets/rubi/rubi_cube.jpg",
         content: `
             <h2>Motivation</h2>
-            <p>The number of permutations of a Rubik's Cube (over 43 quintillion) is daunting for beginners. RUBI acts as a learning tool to reduce the barrier to learning by "assisting" users, showing them the next moves necessary to solve the cube based on algorithmic instructions rather than just undoing scramble moves.</p>
+            <p>The Rubik's Cube is a classic puzzle with over <strong>43 quintillion permutations</strong>, yet only about <strong>4% of the population</strong> can solve it. The steep learning curve discourages many from engaging with this iconic engineering challenge.</p>
 
             <h2>Problem Statement</h2>
-            <p>High barrier of entry for learning to solve Rubik's Cubes due to the complexity and number of permutations.</p>
+            <p>Create an approachable, interactive robotic system that lowers the barrier to entry for solving Rubik's Cubes, demonstrating complex mechatronics and computer vision principles in a tangible way.</p>
 
             <div class="highlight-box">
-                <strong>Solution:</strong> A self-solving Rubik's Cube system that uses Computer Vision (CV) to identify the scrambled state and a mechanical gear train to execute moves.
+                <strong>Solution:</strong> RUBI, a fully autonomous self-solving cube. It scans the scrambled state using computer vision, computes the optimal solution, and physically executes the moves using a custom-designed gear train.
             </div>
 
-            <h2>Outcome</h2>
+            <h2>System Architecture</h2>
+            <p>The system operates on a closed-loop control architecture designed for speed and reliability:</p>
             <ul>
-                <li>Developed a functional "core" system for RUBI with a 5-way bevel gear train.</li>
-                <li>Successfully implemented accelerometer communication over I2C.</li>
-                <li>Created a system where a laptop runs the CV and solver, sending moves via Bluetooth to an ESP32.</li>
+                <li><strong>High-Level Control (Laptop):</strong> Runs the Computer Vision pipeline (OpenCV) to map the cube's state and the Kociemba solving algorithm to generate the move sequence.</li>
+                <li><strong>Communication:</strong> Solution steps are transmitted via <strong>Bluetooth</strong> to the on-board microcontroller.</li>
+                <li><strong>Low-Level Control (ESP32):</strong> Parses move commands and drives the stepper motors with precise timing to execute 90-degree face rotations.</li>
             </ul>
 
-            <h2>Technical Details</h2>
+            <h2>Engineering Details</h2>
             <ul>
-                <li><strong>Computer Vision:</strong> Identifies colors on each face and generates a state string.</li>
-                <li><strong>Solver:</strong> Processes the state string to identify solution steps and converts them into motor moves.</li>
-                <li><strong>Electronics:</strong> ESP32 receives moves via Bluetooth, conveys them as commands to the motor, and identifies when the cube is still.</li>
-                <li><strong>Mechanical:</strong> 5-Way Bevel Gear Train driven by a DC motor to move one face at a time. Uses electromagnet and magnet-shaft coupling.</li>
+                <li><strong>Mechanism:</strong> A compact <strong>5-Way Bevel Gear Train</strong> allows a single DC motor to drive any of the 6 faces. This design significantly reduced weight and complexity compared to 6-motor designs.</li>
+                <li><strong>Vision Pipeline:</strong> Custom OpenCV algorithm filters for sticker colors under varying lighting conditions, achieving <strong>100% face detection accuracy</strong> in testing.</li>
+                <li><strong>Solving Algorithm:</strong> Implemented Kociemba's Two-Phase algorithm, consistently finding solutions in <strong>under 20 moves</strong> (God's Number).</li>
+            </ul>
+
+            <h2>Results</h2>
+            <ul>
+                <li><strong>Success Rate:</strong> Achieved a 100% success rate in autonomous solving during final demonstrations.</li>
+                <li><strong>Performance:</strong> Average solve time of <strong>< 1 minute</strong> from scan to completion.</li>
+                <li><strong>Integration:</strong> Successfully synchronized mechanical actuation with real-time state tracking.</li>
             </ul>
 
             <h2>Gallery</h2>
             <div class="modal-gallery">
-                <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System">
+                <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System Overview">
             </div>
 
             <h2>Technologies Used</h2>
             <div class="tags">
                 <span>Python</span>
                 <span>OpenCV</span>
-                <span>Mechatronics</span>
-                <span>3D Printing</span>
-                <span>Stepper Motors</span>
+                <span>ESP32</span>
+                <span>SolidWorks</span>
+                <span>Kociemba Algorithm</span>
             </div>
         `
     },

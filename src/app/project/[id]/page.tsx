@@ -21,96 +21,86 @@ export async function generateMetadata({ params }: ProjectPageProps) {
     if (!project) return { title: "Project Not Found" };
 
     return {
-        title: `${project.title} | Shreya Terala`,
+        title: `${project.title} | Shrey.Sys`,
         description: project.meta,
     };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-    // Use simulated DB call
     const project = await Project.findById(params.id);
 
     if (!project) {
         notFound();
     }
 
-    return (
-        <>
-            {/* Project Hero Section */}
-            {/* Project Hero Section */}
-            <section
-                className="project-hero-section"
-                style={{
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${project.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    color: "white"
-                }}
-            >
-                <div className="container">
-                    <div className="project-header">
-                        <Link
-                            href="/#projects"
-                            className="back-link"
-                            style={{ color: "rgba(255, 255, 255, 0.9)" }}
-                        >
-                            <i className="fas fa-arrow-left"></i> Back to Projects
-                        </Link>
-                        <h1 style={{ color: "white", marginTop: "1rem" }}>{project.title}</h1>
-                        <p
-                            className="project-meta"
-                            style={{
-                                color: "rgba(255, 255, 255, 0.9)",
-                                borderLeftColor: "var(--primary-color)"
-                            }}
-                        >
-                            {project.meta}
-                        </p>
+    // Parse meta string (e.g. "Oct 2025 - Dec 2025 | Algorithm Design")
+    const [dateRange, role] = project.meta.split("|").map((s) => s.trim());
 
-                        {project.technologies && (
-                            <div className="tags" style={{ marginTop: "1.5rem" }}>
-                                {project.technologies.map((tech, index) => (
-                                    <span key={index} style={{
-                                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                        color: "white",
-                                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                                        backdropFilter: "blur(5px)"
-                                    }}>
+    return (
+        <div className="min-h-screen bg-paper pb-24">
+            {/* Top spacing for fixed nav */}
+            <div className="h-24"></div>
+
+            <div className="max-w-4xl mx-auto px-6">
+                {/* Navigation Breadcrumb */}
+                <Link href="/#projects" className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors mb-12">
+                    <span>← Index / Selected_Works</span>
+                </Link>
+
+                {/* Project Header Block */}
+                <header className="mb-16 border-b border-slate-200/50 pb-12">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                        <h1 className="text-4xl md:text-6xl font-bold text-ink tracking-tight leading-none">
+                            {project.title}
+                        </h1>
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-sage rounded-full animate-pulse"></div>
+                            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Archived</span>
+                        </div>
+                    </div>
+
+                    {/* Specs Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-6 border-t border-b border-slate-200/50">
+                        <div>
+                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Timeline</span>
+                            <p className="text-sm font-medium text-ink">{dateRange}</p>
+                        </div>
+                        <div>
+                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Role & Context</span>
+                            <p className="text-sm font-medium text-ink">{role}</p>
+                        </div>
+                        <div>
+                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Core Tech</span>
+                            <div className="flex flex-wrap gap-2">
+                                {project.technologies?.map((tech) => (
+                                    <span key={tech} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded border border-slate-200">
                                         {tech}
                                     </span>
                                 ))}
                             </div>
-                        )}
+                        </div>
                     </div>
+                </header>
+
+                {/* Main Content Area */}
+                <div className="flex flex-col gap-12">
+                    {/* If we wanted the main image at the top, we could put it here, 
+                 but standard practice in this theme is letting the flow dictate it. 
+                 However, many projects have it in the content already. */}
+
+                    <article className="prose-ink">
+                        <div dangerouslySetInnerHTML={{ __html: project.content }} />
+                    </article>
                 </div>
-            </section>
-
-            {/* Main Content */}
-            <div className="container project-page-container">
-                <div className="project-content-wrapper">
-                    {/* Main Image removed as it is now in the header */}
-
-                    <div
-                        className="project-body-content"
-                        dangerouslySetInnerHTML={{ __html: project.content }}
-                    />
-                </div>
-
-                <footer id="contact" className="footer">
-                    <div className="social-links">
-                        <a href="https://github.com/shreyaterala" target="_blank">
-                            <i className="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/shreya-terala/" target="_blank">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="mailto:shreyaterala@outlook.com">
-                            <i className="fas fa-envelope"></i>
-                        </a>
-                    </div>
-                    <p>&copy; 2026 Shreya Terala</p>
-                </footer>
             </div>
-        </>
+
+            {/* Footer Navigation */}
+            <div className="max-w-4xl mx-auto px-6 mt-24 pt-12 border-t border-slate-200/50 flex justify-between items-center">
+                <Link href="/#projects" className="text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors">
+                    Back to Index
+                </Link>
+                <span className="text-[10px] font-mono text-slate-300">End of File</span>
+            </div>
+        </div>
     );
 }

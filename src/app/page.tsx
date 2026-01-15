@@ -38,13 +38,24 @@ export default function Home() {
                     </div>
                 </div>
 
-                <p className="max-w-2xl text-xl text-slate-600 leading-relaxed">
-                    I'm currently a grad student at John’s Hopkins pursuing a masters in robotics. I’m super passionate about combining my interests in human-centric and bio-inspired design with robotics.
-                </p>
+                <div className="max-w-3xl space-y-6 text-lg text-slate-600 leading-relaxed">
+                    <p>
+                        Welcome to my portfolio! I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
+                    </p>
+                    <p>
+                        As a <strong>Robotics Master's student at Johns Hopkins University</strong>, I engage in cutting-edge research through the Laboratory for Computational Sensing and Robotics (LCSR). My diverse projects—ranging from Resolved-Rate Control for manipulators to Computer Integrated Surgery—focus on applying rigorous engineering principles to enhance human health and capability.
+                    </p>
+                    <p>
+                        I hold a <strong>B.S. in Mechanical Engineering from the Georgia Institute of Technology</strong>, where I built a foundation in rapid prototyping, FEA, and mechatronics. My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>. These experiences solidified my commitment to designing systems that work <em>with</em> people, whether it's providing sanitation infrastructure in Malawi with <strong>Engineers Without Borders</strong> or creating haptic feedback devices for therapy.
+                    </p>
+                    <p>
+                        Curiosity guides me in everything I do. I thrive on iterating designs in the lab to solve real-world problems and exploring the world outside of it. I am dedicated to engineering solutions that prioritize the human element at every stage of the design process.
+                    </p>
+                </div>
 
                 <div className="flex gap-4 mt-12">
-                    <a href="#projects" className="px-8 py-3 bg-ink text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10">
-                        View Projects
+                    <a href="#contact" className="px-8 py-3 bg-ink text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10">
+                        Contact Me
                     </a>
                 </div>
             </section>
@@ -164,7 +175,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 text-sm font-mono text-slate-400">
+            <div id="contact" className="flex flex-col md:flex-row md:items-center justify-between gap-8 text-sm font-mono text-slate-400">
                 <p className="uppercase tracking-widest">© 2026 Shreya Terala</p>
                 <div className="flex gap-8">
                     <a href="https://github.com/shreyaterala" target="_blank" className="hover:text-ink transition-colors uppercase tracking-widest">GitHub</a>

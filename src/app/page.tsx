@@ -84,6 +84,17 @@ export default function Home() {
                 <section id="projects" className="projects-section">
                     <h2 className="section-title">Projects</h2>
 
+                    {/* 10. CIS */}
+                    <Link href="/project/cis" className="project-card">
+                        <div className="card-image"><img src="/portfolio/assets/cis1/navigation.png" alt="CIS Navigation" /></div>
+                        <div className="card-content">
+                            <span className="category">Algorithm Design</span>
+                            <h3>Computer Integrated Surgery</h3>
+                            <p>Stereotactic navigation suite: Calibration, Registration, and Tracking algorithms.</p>
+                            <div className="tags"><span>MATLAB</span><span>Medical Imaging</span></div>
+                        </div>
+                    </Link>
+
                     {/* 1. Haptic Museum */}
                     <Link href="/project/haptic" className="project-card">
                         <div className="card-image"><img src="/portfolio/assets/haptic_museum/haptic_museum_main.jpg" alt="Haptic Museum" />
@@ -191,16 +202,7 @@ export default function Home() {
                     </Link>
 
 
-                    {/* 10. CIS */}
-                    <Link href="/project/cis" className="project-card">
-                        <div className="card-image"><img src="/portfolio/assets/cis1/navigation.png" alt="CIS Navigation" /></div>
-                        <div className="card-content">
-                            <span className="category">Algorithm Design</span>
-                            <h3>Computer Integrated Surgery</h3>
-                            <p>Stereotactic navigation suite: Calibration, Registration, and Tracking algorithms.</p>
-                            <div className="tags"><span>MATLAB</span><span>Medical Imaging</span></div>
-                        </div>
-                    </Link>
+
 
                 </section>
 

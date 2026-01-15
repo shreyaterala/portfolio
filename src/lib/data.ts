@@ -436,72 +436,67 @@ const projectsData: Record<string, ProjectData> = {
     "cis": {
         id: "cis",
         title: "Computer Integrated Surgery",
-        meta: "Algorithm Design | Registration & Calibration",
+        meta: "Oct 2025 - Dec 2025 | Algorithm Design",
         image: "/portfolio/assets/cis1/navigation.png",
         content: `
-            < h2 > Overview </h2>
-            < p > This project involves the development of a core suite of algorithms for computer - integrated surgery, focusing on stereotactic navigation.The algorithms address the critical "interventional loops" of tracking, calibration, registration, and error correction required for precise surgical guidance.</p>
+            <h2>Overview</h2>
+            <p>A comprehensive MATLAB-based system for stereotactic surgical navigation, aligning real-time tracked instruments with pre-operative imaging to provide sub-millimeter guidance accuracy. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction.</p>
 
-                < h2 > System Architecture</ h2 >
-        <div class="system-diagram">
-            <div class="diagram-node">
-                <strong>Pre - Op Imaging</ strong >
-    <span>CT / MRI </span>
-    </div>
-    < div class="diagram-arrow" >
-        <span class="arrow-label" > Registration </span>
-            < div class="arrow-line" > </div>
+            <h2>System Architecture</h2>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>Pre-Op Imaging</strong>
+                    <span>CT / MRI</span>
                 </div>
-                < div class="diagram-node" >
-                    <strong>Surgical Plan </strong>
-                        < span > 3D Coordinates </span>
-                            </div>
-                            < div class="diagram-arrow" >
-                                <span class="arrow-label" > Tracking </span>
-                                    < div class="arrow-line" > </div>
-                                        </div>
-                                        < div class="diagram-node" >
-                                            <strong>Intervention </strong>
-                                            < span > Navigated Tool </span>
-                                                </div>
-                                                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">Registration</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Surgical Plan</strong>
+                    <span>3D Coordinates</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">Tracking</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Intervention</strong>
+                    <span>Navigated Tool</span>
+                </div>
+            </div>
 
-                                                < h2 > Algorithmic Modules </h2>
-                                                    < p > The system is built upon a sequence of programming assignments(PAs), each addressing a fundamental problem in surgical navigation: </p>
+            <h2>Algorithmic Modules</h2>
+            <p>The system was built in stages, evolving from basic rigid-body tracking to advanced deformable surface registration:</p>
 
-                                                        < h3 > PA1: Calibration & Tracking </h3>
-                                                            < ul >
-                                                            <li><strong>Pivot Calibration: </strong> Implemented a least-squares solver to determine the fixed offset of a surgical tool tip relative to its tracking markers.</li >
-                                                                <li><strong>Point Cloud Registration: </strong> Utilized <strong>Arun’s Method (SVD)</strong > to register rigid bodies, calculating the rotation and translation($R, \vec{ t }$) between coordinate frames.</li>
-                                                                    </ul>
+            <h3>PA1 & PA2: Calibration & Distortion Correction</h3>
+            <ul>
+                <li><strong>Pivot Calibration:</strong> implemented a least-squares solver to determine the tool tip offset relative to tracking markers.</li>
+                <li><strong>Distortion Correction:</strong> Mapped electromagnetic (EM) field distortion using 5th-order 3D Bernstein polynomials, achieving sub-millimeter accuracy suitable for neurosurgery.</li>
+            </ul>
 
-                                                                    < h3 > PA2: Distortion Correction & Fiducials </h3>
-                                                                        < ul >
-                                                                        <li><strong>Bernstein Polynomials: </strong> Corrected electromagnetic (EM) field distortion using 5th-order 3D Bernstein polynomials, mapping distorted tracker spatial data to ground truth with sub-millimeter accuracy.</li >
-                                                                            <li><strong>CT Registration: </strong> Registered intraoperative EM tracker coordinates to preoperative CT image space using fiducial markers.</li >
-                                                                                </ul>
+            <h3>PA3: High-Performance Spatial Search</h3>
+            <ul>
+                <li><strong>Covariance Trees:</strong> Developed a Bounding Volume Hierarchy (BVH) using covariance-aligned bounding spheres.</li>
+                <li><strong>Performance:</strong> Reduced closest-point search complexity from linear $O(N)$ to logarithmic time, achieving <strong>sub-millisecond query times</strong> on high-resolution meshes (±0.25mm accuracy).</li>
+            </ul>
 
-                                                                                < h3 > PA3: Spatial Search Algorithms </h3>
-                                                                                    < ul >
-                                                                                    <li><strong>Mesh Processing: </strong> Developed efficient search algorithms to find the closest point on a high-resolution triangular mesh from a query point.</li >
-                                                                                        <li><strong>Optimized Search: </strong> Implemented a **Covariance Tree** (bounding sphere hierarchy) to reduce search complexity from linear $O(N)$ to logarithmic time, enabling real-time performance on complex anatomical models.</li >
-                                                                                            </ul>
+            <h3>PA4: Surface Registration (ICP)</h3>
+            <ul>
+                <li><strong>Standard ICP:</strong> Implemented point-to-point iterative registration for rigid alignment.</li>
+                <li><strong>Generalized ICP:</strong> Extended the solver to minimize point-to-plane error using anisotropic covariance weighting.</li>
+                <li><strong>Results:</strong> G-ICP demonstrated <strong>50% faster convergence</strong> (11.0s vs 37.2s) and significantly higher stability against local minima compared to standard ICP.</li>
+            </ul>
 
-                                                                                            < h3 > PA4: Surface Registration(ICP) </h3>
-                                                                                                < ul >
-                                                                                                <li><strong>Iterative Closest Point: </strong> Implemented the standard ICP algorithm to register sparse intraoperative surface points to a dense preoperative mesh.</li >
-                                                                                                    <li><strong>Generalized ICP: </strong> Extended the solver to minimize point-to-plane error, improving convergence speed and robustness for smooth anatomical surfaces.</li >
-                                                                                                        </ul>
-
-                                                                                                        < h2 > Technologies Used </h2>
-                                                                                                            < div class="tags" >
-                                                                                                                <span>MATLAB </span>
-                                                                                                                < span > Linear Algebra(SVD) </span>
-                                                                                                                    < span > Algorithm Optimization </span>
-                                                                                                                        < span > Medical Imaging(CT) </span>
-                                                                                                                            < span > Search Trees </span>
-                                                                                                                                </div>
-                                                                                                                                    `
+            <h2>Technologies Used</h2>
+            <div class="tags">
+                <span>MATLAB</span>
+                <span>Linear Algebra (SVD)</span>
+                <span>Computational Geometry</span>
+                <span>Medical Imaging (CT)</span>
+                <span>Search Trees</span>
+            </div>
+        `
     }
 };
 

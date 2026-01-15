@@ -40,11 +40,7 @@ export default function Home() {
                 </div>
 
                 <p className="max-w-2xl text-xl text-slate-600 leading-relaxed">
-                    Building the physical systems of tomorrow. I design{" "}
-                    <span className="font-medium text-ink underline decoration-sage/50 underline-offset-4 decoration-2">
-                        high-precision robotics
-                    </span>{" "}
-                    that bridge the gap between abstract code and tactile motion. Currently driving innovation in hardware engineering.
+                    I'm currently a grad student at John’s Hopkins pursuing a masters in robotics. I’m super passionate about combining my interests in human-centric and bio-inspired design with robotics.
                 </p>
 
                 <div className="flex gap-4 mt-12">
@@ -110,15 +106,15 @@ export default function Home() {
                         <div className="space-y-12">
                             <div className="relative pl-8 border-l border-slate-200">
                                 <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-sage"></div>
-                                <span className="text-xs font-mono text-slate-400 mb-2 block">2026 (Expected)</span>
+                                <span className="text-xs font-mono text-slate-400 mb-2 block">Expected December 2026</span>
                                 <h4 className="text-lg font-bold text-ink">Johns Hopkins University</h4>
                                 <p className="text-sm text-slate-600 mt-1">M.S.E. in Robotics</p>
                             </div>
                             <div className="relative pl-8 border-l border-slate-200">
                                 <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-slate-300"></div>
-                                <span className="text-xs font-mono text-slate-400 mb-2 block">2024</span>
-                                <h4 className="text-lg font-bold text-ink">Georgia Tech</h4>
-                                <p className="text-sm text-slate-600 mt-1">B.S. Mechanical Engineering</p>
+                                <span className="text-xs font-mono text-slate-400 mb-2 block">Graduated December 2024</span>
+                                <h4 className="text-lg font-bold text-ink">Georgia Institute of Technology</h4>
+                                <p className="text-sm text-slate-600 mt-1">B.S. in Mechanical Engineering, Minor in Robotics</p>
                             </div>
                         </div>
                     </div>
@@ -128,17 +124,17 @@ export default function Home() {
                         <h3 className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-8">Work_Log</h3>
                         <div className="space-y-12">
                             <div className="group">
-                                <span className="text-xs font-mono text-slate-400 mb-1 block">Jan 2025 - Present</span>
+                                <span className="text-xs font-mono text-slate-400 mb-1 block">January 2025 - June 2025</span>
                                 <h4 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Amazon Robotics</h4>
                                 <p className="text-sm text-slate-600">Hardware Engineering Co-op</p>
                             </div>
                             <div className="group">
-                                <span className="text-xs font-mono text-slate-400 mb-1 block">2023 - 2025</span>
+                                <span className="text-xs font-mono text-slate-400 mb-1 block">April 2023 - May 2025</span>
                                 <h4 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Rockwell Automation</h4>
                                 <p className="text-sm text-slate-600">Mechanical Engineering Intern</p>
                             </div>
                             <div className="group">
-                                <span className="text-xs font-mono text-slate-400 mb-1 block">2022</span>
+                                <span className="text-xs font-mono text-slate-400 mb-1 block">July 2022 - October 2022</span>
                                 <h4 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Siemens</h4>
                                 <p className="text-sm text-slate-600">Software Development Intern</p>
                             </div>

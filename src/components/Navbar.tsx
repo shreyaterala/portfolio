@@ -13,7 +13,7 @@ export default function Navbar() {
     return (
         <nav className="navbar">
             <div className="container nav-container">
-                <a href="/assets/Resume.pdf" target="_blank" className="resume-logo-btn">
+                <a href="/portfolio/assets/Resume.pdf" target="_blank" className="resume-logo-btn">
                     RESUME
                 </a>
 

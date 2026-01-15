@@ -11,7 +11,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "haptic",
         title: "Haptic Museum Display",
         meta: "Mechanical Design Lead | Fusion 360, Arduino, Fabrication",
-        image: "/assets/haptic_museum/haptic_museum_main.jpg",
+        image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
         content: `
             <h2>Overview</h2>
             <p>Museums have limited accessibility for those with visual impairments, restricting their engagement with exhibits. Traditional audio guides often fail to convey the physical intricacies of artifacts.</p>
@@ -34,11 +34,11 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Gallery</h2>
             <div class="modal-gallery">
-                <img src="/assets/haptic_museum/pin_array_cad.png" alt="CAD Design">
-                <img src="/assets/haptic_museum/haptic_museum_main.jpg" alt="Main View">
-                <img src="/assets/haptic_museum/pin_array_electronics.png" alt="Electronics">
-                <img src="/assets/haptic_museum/pin_array_w_silicone.png" alt="Prototype with Silicone">
-                <img src="/assets/haptic_museum/pin_array_image.png" alt="System View">
+                <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design">
+                <img src="/portfolio/assets/haptic_museum/haptic_museum_main.jpg" alt="Main View">
+                <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics">
+                <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Prototype with Silicone">
+                <img src="/portfolio/assets/haptic_museum/pin_array_image.png" alt="System View">
             </div>
 
             <h2>Technologies Used</h2>
@@ -55,7 +55,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
         meta: "Oct 2024 - Dec 2024 | Mechatronics & CV",
-        image: "/assets/rubi/rubi_cube.jpg",
+        image: "/portfolio/assets/rubi/rubi_cube.jpg",
         content: `
             <h2>Overview</h2>
             <p>RUBI is an interactive learning tool designed to solve a scrambled Rubik's cube autonomously. The goal was to create a system that demonstrates robotics and computer vision in an approachable form factor.</p>
@@ -89,7 +89,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "sock",
         title: "Amputee Residual Limb Monitoring Sock",
         meta: "Mechanical Design & Software Lead",
-        image: "/assets/compression_sock/compression_sock.jpg",
+        image: "/portfolio/assets/compression_sock/compression_sock.jpg",
         content: `
             <h2>Overview</h2>
             <p>This project focused on developing a "Smart Shrinker" compression sleeve for amputees. The device monitors the residual limb environment to detect early signs of infection and inflammation, which are critical for patient recovery and prosthetic fitting.</p>
@@ -121,7 +121,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "epic",
         title: "EPIC Lab - Exoskeleton Research",
         meta: "Undergraduate Researcher",
-        image: "/assets/epic_lab/epic_lab_research.jpg",
+        image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
         content: `
             <h2>Overview</h2>
             <p>As a researcher at the EPIC Lab, I contributed to the development of the <strong>GRAHAM Suit</strong>, a knee exoskeleton combined with a sensor suit and electronics backpack designed to assist mobility.</p>
@@ -147,7 +147,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "battlebot",
         title: "Battlebot \"Insaniti\"",
         meta: "Mechanical Designer | 3lb Combat Robot",
-        image: "/assets/battlebot/battlebot_insaniti.jpg",
+        image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
         content: `
             <h2>Overview</h2>
             <p>Designed and built "Insaniti", a 3lb combat robot managed by the RoboJackets Battlebots team. The project emphasized robust mechanical design to survive high-kinetic energy impacts in a competitive arena.</p>
@@ -161,8 +161,8 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Gallery</h2>
             <div class="modal-gallery">
-                <img src="/assets/battlebot/iso_view.jpeg" alt="CAD Iso View">
-                <img src="/assets/battlebot/top_view.jpeg" alt="CAD Top View">
+                <img src="/portfolio/assets/battlebot/iso_view.jpeg" alt="CAD Iso View">
+                <img src="/portfolio/assets/battlebot/top_view.jpeg" alt="CAD Top View">
             </div>
 
             <h2>Technologies Used</h2>
@@ -178,7 +178,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "flight",
         title: "ATL Flight Price Predictor",
         meta: "Machine Learning Project",
-        image: "/assets/flight_predictor/flight_price_predictor.png",
+        image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
         content: `
             <h2>Overview</h2>
             <p>Developed a machine learning model to predict flight costs for Georgia Tech students flying out of ATL. The project utilized Kaggle datasets to analyze pricing trends and optimize booking times.</p>
@@ -203,7 +203,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "malawi",
         title: "EWB - GT Malawi Project",
         meta: "Project & Technical Lead",
-        image: "/assets/ewb/ewb_malawi.jpg",
+        image: "/portfolio/assets/ewb/ewb_malawi.jpg",
         content: `
             <h2>Overview</h2>
             <p>Served as Technical Lead for an Engineers Without Borders project to improve sanitation at Mpitilira Primary School in Malawi. The project aimed to design and construct sustainable latrines for school staff.</p>
@@ -219,9 +219,9 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Gallery</h2>
             <div class="modal-gallery">
-                <img src="/assets/ewb/completed_student_latrine.png" alt="Completed Latrine">
-                <img src="/assets/ewb/staff_latrine_designs.png" alt="Design Blueprints">
-                <img src="/assets/ewb/malawi_project_objectives.png" alt="Project Objectives">
+                <img src="/portfolio/assets/ewb/completed_student_latrine.png" alt="Completed Latrine">
+                <img src="/portfolio/assets/ewb/staff_latrine_designs.png" alt="Design Blueprints">
+                <img src="/portfolio/assets/ewb/malawi_project_objectives.png" alt="Project Objectives">
             </div>
 
             <h2>Technologies Used</h2>
@@ -237,7 +237,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "me2110",
         title: "Autonomous Competition Robot",
         meta: "Software Lead | Arduino, C++",
-        image: "/assets/me2110/me2110_robot.jpg",
+        image: "/portfolio/assets/me2110/me2110_robot.jpg",
         content: `
             <h2>Overview</h2>
             <p>As Software Lead, I programmed an autonomous robot to navigate a complex maze and perform physical tasks under strict time constraints. The robot required robust logic to handle variability in the arena.</p>

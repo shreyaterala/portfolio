@@ -20,7 +20,7 @@ export default function Home() {
                             </p>
                         </div>
                         <div className="intro-image">
-                            <img src="/assets/profile.jpg" alt="Shreya Terala" className="profile-img" />
+                            <img src="/portfolio/assets/profile.jpg" alt="Shreya Terala" className="profile-img" />
                         </div>
                     </div>
                 </header>
@@ -32,7 +32,7 @@ export default function Home() {
                         <div className="education-card">
                             <div className="edu-content">
                                 <div className="card-header">
-                                    <img src="/assets/logos/jhu.png" alt="JHU Logo" className="card-logo" />
+                                    <img src="/portfolio/assets/logos/jhu.png" alt="JHU Logo" className="card-logo" />
                                     <h3>Johns Hopkins University</h3>
                                 </div>
                                 <p className="edu-degree">M.S.E. in Robotics</p>
@@ -42,7 +42,7 @@ export default function Home() {
                         <div className="education-card">
                             <div className="edu-content">
                                 <div className="card-header">
-                                    <img src="/assets/logos/gt.png" alt="Georgia Tech Logo" className="card-logo" />
+                                    <img src="/portfolio/assets/logos/gt.png" alt="Georgia Tech Logo" className="card-logo" />
                                     <h3>Georgia Institute of Technology</h3>
                                 </div>
                                 <p className="edu-degree">B.S. in Mechanical Engineering, Minor in Robotics</p>
@@ -58,21 +58,21 @@ export default function Home() {
                     <div className="experience-grid">
                         <div className="experience-card">
                             <div className="card-header">
-                                <img src="/assets/logos/amazon.png" alt="Amazon Robotics Logo" className="card-logo" />
+                                <img src="/portfolio/assets/logos/amazon.png" alt="Amazon Robotics Logo" className="card-logo" />
                             </div>
                             <p className="experience-role">Hardware Engineering Co-op</p>
                             <p className="experience-meta">January 2025 - June 2025</p>
                         </div>
                         <div className="experience-card">
                             <div className="card-header">
-                                <img src="/assets/logos/rockwell.png" alt="Rockwell Automation Logo" className="card-logo" />
+                                <img src="/portfolio/assets/logos/rockwell.png" alt="Rockwell Automation Logo" className="card-logo" />
                             </div>
                             <p className="experience-role">Mechanical Engineering Intern</p>
                             <p className="experience-meta">April 2023 - May 2025</p>
                         </div>
                         <div className="experience-card">
                             <div className="card-header">
-                                <img src="/assets/logos/siemens.png" alt="Siemens Logo" className="card-logo" />
+                                <img src="/portfolio/assets/logos/siemens.png" alt="Siemens Logo" className="card-logo" />
                             </div>
                             <p className="experience-role">Software Development Intern</p>
                             <p className="experience-meta">July 2022 - October 2022</p>
@@ -86,7 +86,7 @@ export default function Home() {
 
                     {/* 1. Haptic Museum */}
                     <Link href="/project/haptic" className="project-card">
-                        <div className="card-image"><img src="/assets/haptic_museum/haptic_museum_main.jpg" alt="Haptic Museum" />
+                        <div className="card-image"><img src="/portfolio/assets/haptic_museum/haptic_museum_main.jpg" alt="Haptic Museum" />
                         </div>
                         <div className="card-content">
                             <span className="category">Mechanical Design Lead</span>
@@ -99,7 +99,7 @@ export default function Home() {
 
                     {/* 2. breathSense */}
                     <Link href="/project/breath" className="project-card">
-                        <div className="card-image"><img src="/assets/breath_sense/breath_sense.jpg" alt="breathSense" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/breath_sense/breath_sense.jpg" alt="breathSense" /></div>
                         <div className="card-content">
                             <span className="category">Haptic Device</span>
                             <h3>breathSense</h3>
@@ -110,7 +110,7 @@ export default function Home() {
 
                     {/* 3. EPIC Lab */}
                     <Link href="/project/epic" className="project-card">
-                        <div className="card-image"><img src="/assets/epic_lab/epic_lab_research.jpg" alt="Exoskeleton" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="Exoskeleton" /></div>
                         <div className="card-content">
                             <span className="category">Research</span>
                             <h3>Exoskeleton Control</h3>
@@ -122,7 +122,7 @@ export default function Home() {
 
                     {/* 4. RUBI */}
                     <Link href="/project/rubi" className="project-card">
-                        <div className="card-image"><img src="/assets/rubi/rubi_cube.jpg" alt="RUBI" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI" /></div>
                         <div className="card-content">
                             <span className="category">Mechatronics & CV</span>
                             <h3>RUBI - Self Solving Cube</h3>
@@ -134,7 +134,7 @@ export default function Home() {
 
                     {/* 5. Compression Sock */}
                     <Link href="/project/sock" className="project-card">
-                        <div className="card-image"><img src="/assets/compression_sock/compression_sock.jpg" alt="Smart Sock" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/compression_sock/compression_sock.jpg" alt="Smart Sock" /></div>
                         <div className="card-content">
                             <span className="category">Medical Device</span>
                             <h3>Smart Compression Sock</h3>
@@ -146,7 +146,7 @@ export default function Home() {
 
                     {/* 6. EWB Malawi */}
                     <Link href="/project/malawi" className="project-card">
-                        <div className="card-image"><img src="/assets/ewb/ewb_malawi.jpg" alt="Malawi" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/ewb/ewb_malawi.jpg" alt="Malawi" /></div>
                         <div className="card-content">
                             <span className="category">Project Lead</span>
                             <h3>EWB Malawi Sanitation</h3>
@@ -158,7 +158,7 @@ export default function Home() {
 
                     {/* 7. Flight Predictor */}
                     <Link href="/project/flight" className="project-card">
-                        <div className="card-image"><img src="/assets/flight_predictor/flight_price_predictor.png" alt="Flight" />
+                        <div className="card-image"><img src="/portfolio/assets/flight_predictor/flight_price_predictor.png" alt="Flight" />
                         </div>
                         <div className="card-content">
                             <span className="category">Machine Learning</span>
@@ -170,7 +170,7 @@ export default function Home() {
 
                     {/* 8. Battlebot */}
                     <Link href="/project/battlebot" className="project-card">
-                        <div className="card-image"><img src="/assets/battlebot/battlebot_insaniti.jpg" alt="Battlebot" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/battlebot/battlebot_insaniti.jpg" alt="Battlebot" /></div>
                         <div className="card-content">
                             <span className="category">Combat Robotics</span>
                             <h3>Battlebot "Insaniti"</h3>
@@ -181,7 +181,7 @@ export default function Home() {
 
                     {/* 9. ME2110 */}
                     <Link href="/project/me2110" className="project-card">
-                        <div className="card-image"><img src="/assets/me2110/me2110_robot.jpg" alt="ME2110" /></div>
+                        <div className="card-image"><img src="/portfolio/assets/me2110/me2110_robot.jpg" alt="ME2110" /></div>
                         <div className="card-content">
                             <span className="category">Software Lead</span>
                             <h3>Autonomous Competition Robot</h3>

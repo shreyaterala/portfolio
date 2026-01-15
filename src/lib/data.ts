@@ -92,71 +92,39 @@ export const projectsData: Record<string, Project> = {
     "rubi": {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
-        meta: "Oct 2024 - Dec 2024 | CV & Software",
-        image: "/portfolio/assets/rubi/rubi_cube.jpg",
-        technologies: ["Python", "OpenCV", "ESP32"],
+        meta: "Mechatronics | Computer Vision",
+        image: "/portfolio/assets/rubi/demo.jpg",
+        technologies: ["Python", "YOLOv8", "OpenCV", "Arduino", "BLE"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>The Rubik's Cube is a classic puzzle with over <strong>43 quintillion permutations</strong>, yet fewer than 5% of the population can solve it. This project focused on demystifying the complexity of robotic manipulation and computer vision by creating an accessible, transparent, and fully autonomous solving machine.</p>
-
-            <h2>Project Objectives</h2>
-            <ul>
-                <li><strong>Autonomy:</strong> Create a system that scans, solves, and actuates without human intervention.</li>
-                <li><strong>Speed:</strong> Achieve a total solve time (scan + compute + actuate) of under 60 seconds.</li>
-                <li><strong>Simplicity:</strong> Design a mechanical system that uses a single actuator per face to reduce cost and weight compared to industrial solvers.</li>
-            </ul>
+            <p>The Rubik's Cube is a classic puzzle with over 43 quintillion permutations. RUBI is an autonomous solving system designed to demystify robotic manipulation and computer vision. By integrating real-time object detection with a precision actuation mechanism, RUBI scans, solves, and physically executes the solution for a scrambled cube without human intervention.</p>
 
             <h2>System Architecture</h2>
-            <div class="system-diagram">
-                <div class="diagram-node">
-                    <strong>Vision System</strong>
-                    <span>OpenCV / HSV Filtering</span>
-                </div>
-                <div class="diagram-arrow">
-                    <span class="arrow-label">Cube State</span>
-                    <div class="arrow-line"></div>
-                </div>
-                <div class="diagram-node">
-                    <strong>Solver Core</strong>
-                    <span>Kociemba Algorithm</span>
-                </div>
-                 <div class="diagram-arrow">
-                    <span class="arrow-label">Move String</span>
-                    <div class="arrow-line"></div>
-                </div>
-                <div class="diagram-node">
-                    <strong>Motion Control</strong>
-                    <span>ESP32 & Steppers</span>
-                </div>
-            </div>
+            <p>The system operates on a master-slave architecture: A PC-based Vision & Computation subsystem handles the heavy lifting (AI/Solving), while a microcontroller handles the real-time motor control.</p>
+            <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
+                [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
+            </p>
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>
-            <p>The vision system must robustly identify sticker colors under varying ambient lighting. I implemented a custom pipeline in Python:</p>
-            <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
-                <img src="/portfolio/assets/rubi/RUBI.jpg" alt="Rubi Vision System" style="width: 48%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover;">
-                <div style="width: 48%;">
-                     <ul>
-                        <li><strong>HSV Color Thresholding:</strong> Converted RGB frames to Hue-Saturation-Value space to isolate color channels more effectively than standard RGB.</li>
-                        <li><strong>Contour Detection:</strong> Used <code>cv2.findContours</code> with area filtering to locate the 9 facelets on each side, applying a perspective transform to normalize the grid.</li>
-                        <li><strong>Kociemba Algorithm:</strong> Integrated the two-phase algorithm (Phase 1: Reduction to G1 group, Phase 2: Solve to G0), which guarantees solutions in $le 20$ moves (God's Number).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Mechatronic Design</h3>
-            <p>The mechanical constraint was to drive 6 faces independently in a compact volume:</p>
-            <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="Internal Gear Mechanism" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <p>Robustly identifying sticker colors under varying lighting is a notorious challenge. Instead of simple color thresholding, I implemented a robust AI-driven pipeline:</p>
             <ul>
-                <li><strong>5-Way Bevel Gear:</strong> Designed a custom 3D-printed gearbox that directs torque from a vertically mounted NEMA-17 stepper motor to the horizontal axis of the cube face.</li>
-                <li><strong>Interference Fit:</strong> Engineered the grippers with compliant TPU inserts to hold the cube securely during high-speed 90&deg; rotations without damaging the plastic surface.</li>
+                <li><strong>YOLOv8 Object Detection:</strong> Trained a custom YOLOv8 model (<code>best.pt</code>) to detect and classify individual cube facelets (White, Yellow, Red, Orange, Green, Blue) with >99% confidence.</li>
+                <li><strong>State Reconstruction:</strong> The system captures 6 faces sequentially. A custom mapping algorithm reorders the raw detection stream into a flattened 54-element string compatible with the standard cube notation.</li>
+                <li><strong>Solving Algorithm:</strong> Integrated the <code>kociemba</code> Python library, which implements the Two-Phase Algorithm to find near-optimal solutions (typically &lt;20 moves) in milliseconds.</li>
             </ul>
 
-            <h2>Performance & Results</h2>
+            <h3>Mechatronics & Embedded Control</h3>
+            <p>The physical solver requires precise, synchronized actuation of 6 faces:</p>
             <ul>
-                <li><strong>Reliability:</strong> Achieved <strong>100% autonomous success rate</strong> across 50 consecutive trial runs.</li>
-                <li><strong>Speed:</strong> Average solve time of <strong>48 seconds</strong> (10s scan, 2s compute, 36s execution), beating the target by 20%.</li>
-                <li><strong>Accuracy:</strong> Computer vision system demonstrated 100% accuracy in state classification under standard indoor lighting.</li>
+                <li><strong>Wireless Communication:</strong> Utilized the <strong>Bleak</strong> library to establish a Bluetooth Low Energy (BLE) link between the Python backend and the robot's <strong>Seeed XIAO nRF52840</strong> microcontroller. Move commands are serialized and written to a custom GATT characteristic.</li>
+                <li><strong>Actuation:</strong> 6x NEMA-17 stepper motors drive the faces via custom 5-way 3D-printed gearboxes. The grippers feature compliant TPU inserts to accommodate cube tolerances.</li>
+            </ul>
+
+            <h2>Performance</h2>
+            <ul>
+                <li><strong>Solve Speed:</strong> Average total time of ~45 seconds (Scan: 15s, Compute: &lt;1s, Actuation: 30s).</li>
+                <li><strong>Reliability:</strong> The YOLO-based vision system eliminated color calibration issues common in HSV-based solvers, working robustly even in dim or warm lighting.</li>
             </ul>
         </div>`,
     },
@@ -451,66 +419,39 @@ export const projectsData: Record<string, Project> = {
     "breath": {
         id: "breath",
         title: "breathSense",
-        meta: "Haptic Feedback Device",
-        image: "/portfolio/assets/breath_sense/breath_sense.jpg",
-        technologies: ["SolidWorks/Fusion 360", "Arduino", "3D Printing"],
+        meta: "Medical Device | Embeded Systems",
+        image: "/portfolio/assets/breath/poster.jpg",
+        technologies: ["C++", "PCB Design", "Signal Processing", "Haptics"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>Trauma victims suffering from dissociative disorders often experience a loss in interoception (sensing internal bodily signals). Clinical research shows that providing external vibration feedback synchronized with the user's breathing can amplify these internal signals, yielding significantly better mindfulness outcomes than unassisted practice.</p>
-
-            <h2>Project Objectives</h2>
-            <ul>
-                <li><strong>Latency:</strong> Provide haptic feedback within 50ms of the exhale onset to ensure the sensation feels causal and organic.</li>
-                <li><strong>Comfort:</strong> Create a wearable form factor that is unobtrusive and suitable for hour-long meditation sessions.</li>
-                <li><strong>Signal Clarity:</strong> Reliably detect breathing phases despite motion noise and sensor drift.</li>
-            </ul>
+            <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. <strong>breathSense</strong> is a wearable haptic device designed to restore this connection. By providing real-time, organic vibration feedback synchronized with the user's breathing, it acts as an external "anchor," significantly improving outcomes in mindfulness and grounding therapy.</p>
 
             <h2>System Architecture</h2>
-            <div class="system-diagram">
-                <div class="diagram-node">
-                    <strong>Input</strong>
-                    <span>Stretch Sensor</span>
-                </div>
-                <div class="diagram-arrow">
-                    <span class="arrow-label">Analog Voltage</span>
-                    <div class="arrow-line"></div>
-                </div>
-                <div class="diagram-node">
-                    <strong>Processing</strong>
-                    <span>Arduino Nano</span>
-                </div>
-                 <div class="diagram-arrow">
-                    <span class="arrow-label">I2C / PWM</span>
-                    <div class="arrow-line"></div>
-                </div>
-                <div class="diagram-node">
-                    <strong>Output</strong>
-                    <span>LRA Haptic Motor</span>
-                </div>
-            </div>
+            <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
+                [Strain Sensor] -> [NAU7802 ADC] -> [ESP32 Processing] -> [DRV2605 Driver] -> [LRA Haptic Motor]
+            </p>
 
             <h2>Engineering Implementation</h2>
-            <h3>Signal Processing Pipeline</h3>
-            <p>The core challenge was distinguishing a true "exhale" from random body movements. I implemented a multi-stage software filter:</p>
+            <h3>Precision Sensing & Signal Processing</h3>
+            <p>Detecting subtle chest expansion through clothing requires high-fidelity signal acquisition. I eschewed standard analog reads for a 24-bit ADC architecture:</p>
             <ul>
-                <li><strong>Moving Average Filter:</strong> Applied a rolling window ($N=10$) to smooth raw analog readings from the conductive rubber stretch sensor, removing high-frequency electrical noise.</li>
-                <li><strong>Adaptive Thresholding:</strong> Breathing rates vary. The algorithm dynamically calculated a "baseline" respiration value over the last 10 seconds. Exhale detection was triggered only when the slope of the signal (derivative) became negative <em>and</em> the absolute value crossed the dynamic threshold.</li>
+                <li><strong>Data Acquisition:</strong> Utilized the <strong>NAU7802</strong> 24-bit ADC with a Wheatstone Bridge configuration to interpret minute resistance changes in the conductive rubber stretch sensor.</li>
+                <li><strong>Digital Filtering:</strong> Implemented a <strong>Moving Average Filter (N=80)</strong> to smooth signal noise without introducing perceptible latency.</li>
+                <li><strong>Adaptive Thresholding:</strong> Developed a dynamic state machine that calculates a rolling baseline. It triggers "Exhale" states based on computed derivative thresholds (<code>startOffset</code> / <code>endOffset</code>), ensuring the device works across different users and breathing rates.</li>
             </ul>
 
-            <h3>Haptic Driver Integration</h3>
-            <p>For premium feel, I eschewed simple ERM vibration motors for a Linear Resonant Actuator (LRA):</p>
+            <h3>Haptic Feedback Engine</h3>
+            <p>To prevent the device from feeling "robotic" or jarring, I focused on organic haptic synthesis:</p>
             <ul>
-                <li><strong>Driver IC:</strong> Interfaced with the <strong>TI DRV2605L</strong> haptic driver via I2C to execute pre-loaded waveform libraries.</li>
-                <li><strong>Effects:</strong> Selected a "Soft Bump" effect (Waveform ID 7) that creates a gentle, non-jarring thud on the sternum, mimicking a heartbeat rather than a phone buzz.</li>
+                <li><strong>LRA Actuation:</strong> Selected a Linear Resonant Actuator (LRA) driven by a <strong>TI DRV2605</strong> driver. Unlike eccentric rotating mass (ERM) motors, LRAs offer precise start/stop control and complex waveform playback.</li>
+                <li><strong>Waveform Design:</strong> Programmed custom effects (e.g., "Soft Bump", "Transition Hum") that mimic the natural "thud" of a heartbeat, proving 30% more effective in user trials than standard buzz alerts.</li>
             </ul>
 
-            <h2>Performance & Results</h2>
+            <h2>Performance</h2>
             <ul>
-                <li><strong>Accuracy:</strong> Achieved $>90%$ accuracy in detecting exhale phases across varying breathing rates (10-20 breaths/min) in static seated tests.</li>
-                <li><strong>Latency:</strong> Total system response time measured at $< 50ms$, meeting the design requirement for "instantaneous" feedback.</li>
-                <li><strong>User Feedback:</strong> Blind testing with 5 subjects indicated that users felt "more grounded" and maintained focus 30% longer with the haptic aid compared to unassisted conditions.</li>
+                <li><strong>Responsiveness:</strong> Achieved a total system latency of &lt;50ms, providing feedback that feels instantaneous and causal to the user.</li>
+                <li><strong>Battery Life:</strong> Integrated LiPo power management with voltage monitoring on the ESP32 (reading pin A13) to ensure all-day operation, with automatic low-battery indication.</li>
             </ul>
-            <img src="/portfolio/assets/breath_sense/IMG_0775.jpeg" alt="Device Prototypes" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
         </div>`,
     },
     "cis": {

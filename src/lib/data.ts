@@ -13,23 +13,28 @@ const projectsData: Record<string, ProjectData> = {
         meta: "Mechanical Design Lead | Fusion 360, Arduino, Fabrication",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
         content: `
-            <h2>Overview</h2>
-            <p>Museums have limited accessibility for those with visual impairments, restricting their engagement with exhibits. Traditional audio guides often fail to convey the physical intricacies of artifacts.</p>
-            <p>To address this, we developed a <strong>tactile display device</strong> consisting of a 7x5 pin array with a pin-wise replication control system and a silicone overlay. The tactile display aims to convey shape through the pattern of the actuated pins and color through the height of the corresponding pins.</p>
+            <h2>Motivation</h2>
+            <p>Museums have limited accessibility for those with visual impairments, leaving individuals with these impairments often disappointed and unwelcome in art spaces. Introducing a refreshable tactile display will enable all museum-goers the ability to interact with art in a different way and enable a richer, more inclusive museum experience.</p>
             
-            <h2>Key Features</h2>
+            <h2>Problem Statement</h2>
+            <p>Limited accessibility in museums for visually impaired individuals to experience visual art.</p>
+
+            <div class="highlight-box">
+                <strong>Solution:</strong> A 7x5 refreshable pin array with a pin-wise replication control system and a silicone overlay. The display conveys shape through the pattern of the actuated pins and color through the height of the corresponding pins. Users interact with the device to sense contours and colors representing artworks.
+            </div>
+            
+            <h2>Outcome</h2>
             <ul>
-                <li><strong>7x5 Pin Array:</strong> High-resolution tactile output for detailed shape rendering.</li>
-                <li><strong>Variable Height Control:</strong> Pins actuate to different heights to represent color intensity or depth.</li>
-                <li><strong>Silicone Overlay:</strong> Smooths the interaction surface, providing a more organic touch experience.</li>
+                <li>Designed and developed a 7x5 refreshable pin array with software controlling pin height based on image replication.</li>
+                <li>Successfully tested the device, proving that shape can be distinguished easily and color can be taught after an initial learning curve.</li>
             </ul>
 
-            <h2>Engineering Details</h2>
-            <p>The system was designed with a focus on mechanical reliability and user comfort.</p>
+            <h2>Technical Details</h2>
             <ul>
-                <li><strong>Mechanism:</strong> Custom CAM mechanisms with tight tolerances to ensure pin stability and smooth actuation.</li>
-                <li><strong>Electronics:</strong> developed control logic in Arduino to map digital image inputs to pin height outputs.</li>
-                <li><strong>Material Selection:</strong> Iterated on various silicone blends for the overlay to balance sensitivity with durability.</li>
+                <li><strong>Mechanical Design:</strong> Iteratively prototyped a single pin and cam system using 3D prints, identifying the need for custom CAM design and tight tolerances for pin stability. Scaled to a 7x5 grid.</li>
+                <li><strong>Construction:</strong> Base and structural components were laser cut; pin and cam systems were 3D printed. Puzzle-fit design allows for stability and easy maintenance.</li>
+                <li><strong>Electronics & Software:</strong> Each pin is driven by a servo motor. Two motor shields (16 channels each) control 32 servos, with 3 remaining servos directly connected to an Arduino. Separate Arduinos manage each motor shield due to I2C broadcasting issues. Sequential actuation of servos prevents exceeding the maximum current draw.</li>
+                <li><strong>Silicone Overlay:</strong> Fabricated via a custom 3D printed mold. A corner pin system allows for easy tension adjustment. Coated in cornstarch for a smooth, low-friction texture.</li>
             </ul>
 
             <h2>Gallery</h2>
@@ -57,22 +62,29 @@ const projectsData: Record<string, ProjectData> = {
         meta: "Oct 2024 - Dec 2024 | Mechatronics & CV",
         image: "/portfolio/assets/rubi/rubi_cube.jpg",
         content: `
-            <h2>Overview</h2>
-            <p>RUBI is an interactive learning tool designed to solve a scrambled Rubik's cube autonomously. The goal was to create a system that demonstrates robotics and computer vision in an approachable form factor.</p>
-            <p>Unlike simple solvers that blindly reverse moves, RUBI intelligently scans the cube's state and computes an optimal solution path.</p>
+            <h2>Motivation</h2>
+            <p>The number of permutations of a Rubik's Cube (over 43 quintillion) is daunting for beginners. RUBI acts as a learning tool to reduce the barrier to learning by "assisting" users, showing them the next moves necessary to solve the cube based on algorithmic instructions rather than just undoing scramble moves.</p>
 
-            <h2>Key Features</h2>
+            <h2>Problem Statement</h2>
+            <p>High barrier of entry for learning to solve Rubik's Cubes due to the complexity and number of permutations.</p>
+
+            <div class="highlight-box">
+                <strong>Solution:</strong> A self-solving Rubik's Cube system that uses Computer Vision (CV) to identify the scrambled state and a mechanical gear train to execute moves.
+            </div>
+
+            <h2>Outcome</h2>
             <ul>
-                <li><strong>Computer Vision Scanning:</strong> A webcam pipeline detects color stickers on each face to map the cube's state.</li>
-                <li><strong>Optimal Solving:</strong> Uses the Kociemba algorithm to calculate the shortest move sequence.</li>
-                <li><strong>Autonomous Actuation:</strong> Stepper motors physically rotate the cube faces to execute the solution.</li>
+                <li>Developed a functional "core" system for RUBI with a 5-way bevel gear train.</li>
+                <li>Successfully implemented accelerometer communication over I2C.</li>
+                <li>Created a system where a laptop runs the CV and solver, sending moves via Bluetooth to an ESP32.</li>
             </ul>
 
-            <h2>Engineering Details</h2>
+            <h2>Technical Details</h2>
             <ul>
-                <li><strong>Vision System:</strong> OpenCV (Python) used to isolate face regions and classify colors under varying lighting.</li>
-                <li><strong>Mechanical Design:</strong> Custom 3D printed grippers driven by high-torque stepper motors for precise 90-degree turns.</li>
-                <li><strong>Control Logic:</strong> Integrated Python script coordinates the vision capture, solving algorithm, and motor drivers.</li>
+                <li><strong>Computer Vision:</strong> Identifies colors on each face and generates a state string.</li>
+                <li><strong>Solver:</strong> Processes the state string to identify solution steps and converts them into motor moves.</li>
+                <li><strong>Electronics:</strong> ESP32 receives moves via Bluetooth, conveys them as commands to the motor, and identifies when the cube is still.</li>
+                <li><strong>Mechanical:</strong> 5-Way Bevel Gear Train driven by a DC motor to move one face at a time. Uses electromagnet and magnet-shaft coupling.</li>
             </ul>
 
             <h2>Technologies Used</h2>
@@ -278,19 +290,28 @@ const projectsData: Record<string, ProjectData> = {
         meta: "Haptic Feedback Device | Healthcare Tech",
         image: "/portfolio/assets/breath_sense/breath_sense.jpg",
         content: `
-            <h2>Overview</h2>
-            <p>breathSense is a wearable haptic feedback device designed to aid in meditation and anxiety management. By providing gentle physical cues, the device guides users into a rhythmic breathing pattern without demanding cognitive attention.</p>
+            <h2>Motivation</h2>
+            <p>Trauma victims suffering from dissociative disorders often experience a loss in interoception (sensing internal bodily signals). Research shows that providing vibration feedback to the sternum synchronized with breathing yields better mindfulness outcomes than unassisted practice.</p>
 
-            <h2>Key Features</h2>
+            <h2>Problem Statement</h2>
+            <p>Amplify breath sensation to improve the effectiveness of mindfulness practice for trauma victims and general users.</p>
+
+            <div class="highlight-box">
+                <strong>Solution:</strong> A haptic meditation aid that tracks the user’s exhale and outputs a synchronized vibration response on the sternum to support a mind-body connection.
+            </div>
+
+            <h2>Outcome</h2>
             <ul>
-                <li><strong>Tactile Guidance:</strong> Uses vibration motors to signal inhale/exhale timing, allowing users to close their eyes and focus.</li>
-                <li><strong>Ergonomic Design:</strong> Compact, wearable form factor created via 3D printing for comfort during extended use.</li>
+                <li>Developed a device that met all engineering specifications in testing.</li>
+                <li>Successful operation: Worn without assistance, no training required, no external wiring.</li>
+                <li>Performance: Vibration delay < 250ms, sampling every 5ms, continuous use > 180 mins.</li>
             </ul>
 
-            <h2>Engineering Details</h2>
+            <h2>Technical Details</h2>
             <ul>
-                <li><strong>Mechanical:</strong> Iterative CAD modeling in Fusion 360 to house electronics compactly.</li>
-                <li><strong>Electronics:</strong> Microcontroller-driven PWM signals control vibration intensity and accumulation.</li>
+                <li><strong>Sensors & Haptics:</strong> Receives breath signal and delivers synced vibrations (force > 5N, strength 0-100%). Control over vibration feel and strength.</li>
+                <li><strong>Energy:</strong> USB-C rechargeable 1200mAh battery with > 3-hour continuous battery life and < 2-hour charge time.</li>
+                <li><strong>Ergonomics:</strong> Designed for a general audience (5th-95th percentile). Minimalistic design for public use. Weight target: 350-500g.</li>
             </ul>
 
             <h2>Technologies Used</h2>

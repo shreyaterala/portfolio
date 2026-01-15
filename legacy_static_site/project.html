@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Shreya Terala</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <!-- Updated Header: Resume on Left, Navigation on Right -->
+            <a href="assets/Resume.pdf" target="_blank" class="resume-logo-btn">RESUME</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#projects">Projects</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Hero Section -->
+    <section class="project-hero-section">
+        <div class="container">
+            <div class="project-header">
+                <a href="index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                <h1 id="project-title">Project Title</h1>
+                <p id="project-meta" class="project-meta">Project Metadata</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container project-page-container">
+        <div class="project-content-wrapper">
+            <img id="project-image" src="" alt="Project Image" class="main-project-image">
+
+            <div id="project-body" class="project-body-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+
+        <footer id="contact" class="footer">
+            <div class="social-links">
+                <a href="https://github.com/shreyaterala" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shreya-terala/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:shreyaterala@outlook.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2026 Shreya Terala</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="projects.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const projectId = params.get('id');
+
+            if (projectId && projectsData[projectId]) {
+                const project = projectsData[projectId];
+
+                document.title = `${project.title} | Shreya Terala`;
+                document.getElementById('project-title').innerText = project.title;
+                document.getElementById('project-meta').innerText = project.meta;
+                document.getElementById('project-image').src = project.image;
+                document.getElementById('project-image').alt = project.title;
+                document.getElementById('project-body').innerHTML = project.content;
+            } else {
+                document.querySelector('.project-page-container').innerHTML = '<h2>Project not found.</h2><a href="index.html">Return to Home</a>';
+            }
+        });
+    </script>
+</body>
+
+</html>

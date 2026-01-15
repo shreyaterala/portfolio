@@ -466,34 +466,52 @@ const projectsData: Record<string, ProjectData> = {
                 </div>
             </div>
 
+            <h2>Mathematical Implementation</h2>
+            <p>The system relies on rigorous linear algebra and computational geometry principles:</p>
+            <ul>
+                <li><strong>Rigid Body Registration (Arun's Method):</strong> Solved rotation $R$ via Singular Value Decomposition (SVD) of the cross-covariance matrix $H$:
+                    <br><code>[U, S, V] = svd(H); R = V * U';</code>
+                    <br>Ensured $\det(R) = +1$ to prevent reflection artifacts.
+                </li>
+                <li><strong>Pivot Calibration:</strong> Formulated as a linear least-squares problem $[R_i | -I] [t_{tip} ; p_{dimple}] = -t_i$ to solve for the tool tip offset $t_{tip}$ and pivot point $p_{dimple}$ simultaneously from $N$ frames.</li>
+                <li><strong>Distortion Correction:</strong> Modeled using <strong>5th-order 3D Bernstein polynomials</strong> with 216 basis terms ($6^3$):
+                    <br>$f(u,v,w) = \sum_{i,j,k=0}^5 c_{ijk} B_{5,i}(u) B_{5,j}(v) B_{5,k}(w)$
+                </li>
+            </ul>
+
+            <h2>Performance & Validation</h2>
+            <p>Validated against synthetic and ground-truth datasets with strict error tolerances:</p>
+            <ul>
+                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of $< 1 \times 10^{-6}$ for rotation and translation recovery.</li>
+                <li><strong>Distortion Recovery:</strong> 5th-order Bernstein fitting achieved sub-millimeter mapping accuracy, successfully recovering ground truth optical coordinates (e.g., `[104.85, 107.53, 57.87]`) from distorted EM tracker data.</li>
+                <li><strong>Search Efficiency:</strong> Covariance Tree implementation reduced point-to-mesh query times from linears $O(N)$ to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.</li>
+            </ul>
+
             <h2>Algorithmic Modules</h2>
-            <p>The system was built in stages, evolving from basic rigid-body tracking to advanced deformable surface registration:</p>
-
-            <h3>PA1 & PA2: Calibration & Distortion Correction</h3>
+            <h3>PA1: Calibration & Tracking</h3>
             <ul>
-                <li><strong>Pivot Calibration:</strong> implemented a least-squares solver to determine the tool tip offset relative to tracking markers.</li>
-                <li><strong>Distortion Correction:</strong> Mapped electromagnetic (EM) field distortion using 5th-order 3D Bernstein polynomials, achieving sub-millimeter accuracy suitable for neurosurgery.</li>
+                <li>Implemented a robust pivot calibration solver using <code>lsqr</code> for numerical stability.</li>
+                <li>Verified results on unknown datasets, estimating Optical Probe Pivot at `[395.81, 402.09, 192.61]` and EM Probe Pivot at `[190.59, 200.21, 183.47]`.</li>
             </ul>
 
-            <h3>PA3: High-Performance Spatial Search</h3>
+            <h3>PA2: Distortion Correction</h3>
             <ul>
-                <li><strong>Covariance Trees:</strong> Developed a Bounding Volume Hierarchy (BVH) using covariance-aligned bounding spheres.</li>
-                <li><strong>Performance:</strong> Reduced closest-point search complexity from linear $O(N)$ to logarithmic time, achieving <strong>sub-millisecond query times</strong> on high-resolution meshes (±0.25mm accuracy).</li>
+                <li>Corrected non-linear electromagnetic field distortions using the Bernstein polynomial basis.</li>
+                <li>Utilized <code>lsqminnorm</code> to solve for the 216 coefficients, handling rank-deficient cases effectively.</li>
             </ul>
 
-            <h3>PA4: Surface Registration (ICP)</h3>
+            <h3>PA3 & PA4: Spatial Search & Surface Registration</h3>
             <ul>
-                <li><strong>Standard ICP:</strong> Implemented point-to-point iterative registration for rigid alignment.</li>
-                <li><strong>Generalized ICP:</strong> Extended the solver to minimize point-to-plane error using anisotropic covariance weighting.</li>
-                <li><strong>Results:</strong> G-ICP demonstrated <strong>50% faster convergence</strong> (11.0s vs 37.2s) and significantly higher stability against local minima compared to standard ICP.</li>
+                <li>Implemented <strong>Generalized ICP</strong> with anisotropic covariance weighting, achieving <strong>50% faster convergence</strong> (11.0s vs 37.2s) compared to standard point-to-point ICP.</li>
+                <li>Constructed bounding sphere hierarchies (Covariance Trees) to accelerate closest-point queries.</li>
             </ul>
 
             <h2>Technologies Used</h2>
             <div class="tags">
                 <span>MATLAB</span>
                 <span>Linear Algebra (SVD)</span>
-                <span>Computational Geometry</span>
-                <span>Medical Imaging (CT)</span>
+                <span>Bernstein Polynomials</span>
+                <span>Least Squares (LSQR)</span>
                 <span>Search Trees</span>
             </div>
         `

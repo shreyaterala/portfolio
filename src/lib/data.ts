@@ -11,7 +11,7 @@ export const projectsData: Record<string, Project> = {
     "haptic": {
         id: "haptic",
         title: "Haptic Museum Display",
-        meta: "Mechanical Design Lead",
+        meta: "Oct 2025 - Dec 2025 | Mechanical Design & Implementation",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
         technologies: ["Fusion 360", "Arduino", "C++"],
         content: `<div>
@@ -92,7 +92,7 @@ export const projectsData: Record<string, Project> = {
     "rubi": {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
-        meta: "Oct 2024 - Dec 2024 | Personal Project",
+        meta: "Oct 2024 - Dec 2024 | CV & Software",
         image: "/portfolio/assets/rubi/rubi_cube.jpg",
         technologies: ["Python", "OpenCV", "ESP32"],
         content: `<div>
@@ -163,7 +163,7 @@ export const projectsData: Record<string, Project> = {
     "sock": {
         id: "sock",
         title: "Amputee Residual Limb Monitoring Sock",
-        meta: "Mechanical Design & Software Lead",
+        meta: "Oct 2024 - Nov 2024 | Mechanical Design & Software Implementation",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
         technologies: ["Wearable Tech", "Soft Robotics", "Sensors"],
         content: `<div>

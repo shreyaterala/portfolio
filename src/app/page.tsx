@@ -52,7 +52,7 @@ export default function Home() {
             {/* Projects Section */}
             <section id="projects" className="py-24 border-t border-slate-200/50">
                 <div className="flex items-end justify-between mb-16">
-                    <h2 className="text-4xl font-bold text-ink tracking-tight">Selected Works</h2>
+                    <h2 className="text-4xl font-bold text-ink tracking-tight">Projects</h2>
                     <span className="text-xs font-mono text-slate-400 uppercase tracking-widest hidden md:block">Index 2022 — 2026</span>
                 </div>
 
@@ -96,7 +96,7 @@ export default function Home() {
 
             {/* Timeline Section */}
             <section id="experience" className="py-24 border-t border-slate-200/50">
-                <h2 className="text-4xl font-bold text-ink tracking-tight mb-20">Timeline</h2>
+                <h2 className="text-4xl font-bold text-ink tracking-tight mb-20">Experience</h2>
 
                 <div className="relative max-w-5xl mx-auto">
                     {/* Center Line */}

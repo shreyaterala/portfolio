@@ -33,7 +33,7 @@ export default function Home() {
                             />
                         </div>
                         <div className="absolute -bottom-6 right-0 bg-white border border-slate-200 px-2 py-1 rounded text-[8px] font-mono text-slate-400 uppercase tracking-widest">
-                            Node_ID: Shrey
+                            Node_ID: Shreya
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ export default function Home() {
 
                 <div className="flex gap-4 mt-12">
                     <a href="#projects" className="px-8 py-3 bg-ink text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10">
-                        View Selection
+                        View Projects
                     </a>
                 </div>
             </section>

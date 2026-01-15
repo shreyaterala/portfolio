@@ -11,7 +11,7 @@ const projectsData: Record<string, ProjectData> = {
     "haptic": {
         id: "haptic",
         title: "Haptic Museum Display",
-        meta: "Mechanical Design Lead | Fusion 360, Arduino, Fabrication",
+        meta: "Sep 2025 - Dec 2025 | Mechanical Design Lead",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
         technologies: ["Fusion 360", "Arduino", "C++", "Rapid Prototyping", "Mechatronics"],
         content: `
@@ -163,7 +163,7 @@ const projectsData: Record<string, ProjectData> = {
     "sock": {
         id: "sock",
         title: "Amputee Residual Limb Monitoring Sock",
-        meta: "Mechanical Design & Software Lead",
+        meta: "Oct 2025 - Nov 2025 | Mechanical Design & Software Lead",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
         technologies: ["Wearable Tech", "Soft Robotics", "Sensors", "Mobile App Dev"],
         content: `
@@ -203,7 +203,7 @@ const projectsData: Record<string, ProjectData> = {
     "epic": {
         id: "epic",
         title: "EPIC Lab - Exoskeleton Research",
-        meta: "Undergraduate Researcher",
+        meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
         technologies: ["Control Theory", "Machine Learning", "Python", "MATLAB", "Robotics"],
         content: `
@@ -268,7 +268,7 @@ const projectsData: Record<string, ProjectData> = {
     "battlebot": {
         id: "battlebot",
         title: "Battlebot \"Insaniti\"",
-        meta: "Mechanical Designer | 3lb Combat Robot",
+        meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
         image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
         technologies: ["SolidWorks", "FEA", "Rapid Prototyping", "Machining"],
         content: `
@@ -310,7 +310,7 @@ const projectsData: Record<string, ProjectData> = {
     "flight": {
         id: "flight",
         title: "ATL Flight Price Predictor",
-        meta: "Machine Learning Project",
+        meta: "Oct 2023 - Dec 2023 | Machine Learning Project",
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
         technologies: ["Python", "Scikit-Learn", "Pandas", "Data Visualization"],
         content: `
@@ -352,7 +352,7 @@ const projectsData: Record<string, ProjectData> = {
     "malawi": {
         id: "malawi",
         title: "EWB - GT Malawi Project",
-        meta: "Project & Technical Lead",
+        meta: "Oct 2021 - Dec 2024 | Project & Technical Lead",
         image: "/portfolio/assets/ewb/ewb_malawi.jpg",
         technologies: ["Civil Engineering", "Project Management", "AutoCAD", "Remote Collaboration"],
         content: `
@@ -399,7 +399,7 @@ const projectsData: Record<string, ProjectData> = {
     "me2110": {
         id: "me2110",
         title: "Autonomous Competition Robot",
-        meta: "Software Lead | Arduino, C++",
+        meta: "Aug 2022 - Dec 2022 | Software Lead",
         image: "/portfolio/assets/me2110/me2110_robot.jpg",
         technologies: ["Arduino", "C++", "PID Control", "Mechatronics"],
         content: `
@@ -451,7 +451,7 @@ const projectsData: Record<string, ProjectData> = {
     "breath": {
         id: "breath",
         title: "breathSense",
-        meta: "Haptic Feedback Device | Healthcare Tech",
+        meta: "Aug 2024 - Dec 2024 | Software Integration",
         image: "/portfolio/assets/breath_sense/breath_sense.jpg",
         technologies: ["SolidWorks/Fusion 360", "Arduino", "3D Printing", "Human-Computer Interaction"],
         content: `

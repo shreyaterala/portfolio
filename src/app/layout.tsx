@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Shreya Terala | Mechatronics",
-    description: "Mechatronics Design & Software Engineering Portfolio",
+    title: "Shreya Terala",
+    description: "Engineering Portfolio",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
                 <nav className="fixed top-0 left-0 right-0 z-40 bg-paper/80 backdrop-blur-sm border-b border-slate-200/50">
                     <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                         <div className="text-[10px] font-bold tracking-[0.2em] font-mono text-slate-400">
-                            SHREY SYS
+                            SHREYA TERALA
                         </div>
 
                         <div className="hidden md:flex items-center gap-8">
@@ -44,7 +44,7 @@ export default function RootLayout({
                             className="text-[10px] font-bold uppercase tracking-widest px-6 py-2 bg-ink text-white rounded-full hover:bg-slate-700 transition-all shadow-lg shadow-slate-900/10"
                             target="_blank"
                         >
-                            Download Resume
+                            Resume
                         </a>
                     </div>
                 </nav>

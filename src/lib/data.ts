@@ -276,7 +276,7 @@ const projectsData: Record<string, ProjectData> = {
         id: "breath",
         title: "breathSense",
         meta: "Haptic Feedback Device | Healthcare Tech",
-        image: "/assets/breath_sense/breath_sense.jpg",
+        image: "/portfolio/assets/breath_sense/breath_sense.jpg",
         content: `
             <h2>Overview</h2>
             <p>breathSense is a wearable haptic feedback device designed to aid in meditation and anxiety management. By providing gentle physical cues, the device guides users into a rhythmic breathing pattern without demanding cognitive attention.</p>

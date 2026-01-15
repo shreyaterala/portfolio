@@ -37,14 +37,35 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     return (
         <>
             {/* Project Hero Section */}
-            <section className="project-hero-section">
+            {/* Project Hero Section */}
+            <section
+                className="project-hero-section"
+                style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${project.image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    color: "white"
+                }}
+            >
                 <div className="container">
                     <div className="project-header">
-                        <Link href="/#projects" className="back-link">
+                        <Link
+                            href="/#projects"
+                            className="back-link"
+                            style={{ color: "rgba(255, 255, 255, 0.9)" }}
+                        >
                             <i className="fas fa-arrow-left"></i> Back to Projects
                         </Link>
-                        <h1>{project.title}</h1>
-                        <p className="project-meta">{project.meta}</p>
+                        <h1 style={{ color: "white", marginTop: "1rem" }}>{project.title}</h1>
+                        <p
+                            className="project-meta"
+                            style={{
+                                color: "rgba(255, 255, 255, 0.9)",
+                                borderLeftColor: "var(--primary-color)"
+                            }}
+                        >
+                            {project.meta}
+                        </p>
                     </div>
                 </div>
             </section>
@@ -52,11 +73,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Main Content */}
             <div className="container project-page-container">
                 <div className="project-content-wrapper">
-                    <img
-                        src={project.image}
-                        alt={project.title}
-                        className="main-project-image"
-                    />
+                    {/* Main Image removed as it is now in the header */}
 
                     <div
                         className="project-body-content"

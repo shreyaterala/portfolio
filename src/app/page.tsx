@@ -190,6 +190,18 @@ export default function Home() {
                         </div>
                     </Link>
 
+
+                    {/* 10. CIS */}
+                    <Link href="/project/cis" className="project-card">
+                        <div className="card-image"><img src="/portfolio/assets/cis1/navigation.png" alt="CIS Navigation" /></div>
+                        <div className="card-content">
+                            <span className="category">Algorithm Design</span>
+                            <h3>Computer Integrated Surgery</h3>
+                            <p>Stereotactic navigation suite: Calibration, Registration, and Tracking algorithms.</p>
+                            <div className="tags"><span>MATLAB</span><span>Medical Imaging</span></div>
+                        </div>
+                    </Link>
+
                 </section>
 
                 <footer id="contact" className="footer">

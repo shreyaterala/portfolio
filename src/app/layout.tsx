@@ -40,8 +40,9 @@ export default function RootLayout({
                         </div>
 
                         <a
-                            href="/resume.pdf"
+                            href="/portfolio/assets/Resume.pdf"
                             className="text-[10px] font-bold uppercase tracking-widest px-6 py-2 bg-ink text-white rounded-full hover:bg-slate-700 transition-all shadow-lg shadow-slate-900/10"
+                            target="_blank"
                         >
                             Download Resume
                         </a>

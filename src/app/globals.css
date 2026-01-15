@@ -68,7 +68,7 @@ body::before {
 }
 
 .prose-ink img {
-    @apply rounded-xl border border-slate-200/50 shadow-sm w-full my-8 bg-white/50 p-2;
+    @apply rounded-xl border border-slate-200/50 shadow-sm w-auto max-h-[600px] mx-auto my-8 bg-white/50 p-2;
 }
 
 .prose-ink video {

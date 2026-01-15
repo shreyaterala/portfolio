@@ -38,23 +38,19 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-lg text-slate-600 leading-relaxed">
-                    <div className="space-y-6">
-                        <p>
-                            Welcome to my portfolio! I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
-                        </p>
-                        <p>
-                            As a <strong>Robotics Master's student at Johns Hopkins University</strong>, I engage in cutting-edge research through the Laboratory for Computational Sensing and Robotics (LCSR). My diverse projects—ranging from Resolved-Rate Control for manipulators to Computer Integrated Surgery—focus on applying rigorous engineering principles to enhance human health and capability.
-                        </p>
-                    </div>
-                    <div className="space-y-6">
-                        <p>
-                            I hold a <strong>B.S. in Mechanical Engineering from the Georgia Institute of Technology</strong>, where I built a foundation in rapid prototyping, FEA, and mechatronics. My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>.
-                        </p>
-                        <p>
-                            Curiosity guides me in everything I do. I thrive on iterating designs in the lab to solve real-world problems and exploring the world outside of it. I am dedicated to engineering solutions that prioritize the human element at every stage of the design process.
-                        </p>
-                    </div>
+                <div className="w-full space-y-6 text-lg text-slate-600 leading-relaxed">
+                    <p>
+                        Welcome to my portfolio! I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
+                    </p>
+                    <p>
+                        As a <strong>Robotics Master's student at Johns Hopkins University</strong>, I engage in cutting-edge research through the Laboratory for Computational Sensing and Robotics (LCSR). My diverse projects—ranging from Resolved-Rate Control for manipulators to Computer Integrated Surgery—focus on applying rigorous engineering principles to enhance human health and capability.
+                    </p>
+                    <p>
+                        I hold a <strong>B.S. in Mechanical Engineering from the Georgia Institute of Technology</strong>, where I built a foundation in rapid prototyping, FEA, and mechatronics. My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>.
+                    </p>
+                    <p>
+                        Curiosity guides me in everything I do. I thrive on iterating designs in the lab to solve real-world problems and exploring the world outside of it. I am dedicated to engineering solutions that prioritize the human element at every stage of the design process.
+                    </p>
                 </div>
 
                 <div className="flex gap-4 mt-12">

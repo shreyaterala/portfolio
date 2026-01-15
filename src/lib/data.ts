@@ -3,6 +3,7 @@ export interface ProjectData {
     title: string;
     meta: string;
     image: string;
+    technologies?: string[]; // Array of technologies used
     content: string; // HTML content or Markdown
 }
 
@@ -12,6 +13,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "Haptic Museum Display",
         meta: "Mechanical Design Lead | Fusion 360, Arduino, Fabrication",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
+        technologies: ["Fusion 360", "Arduino", "C++", "Rapid Prototyping", "Mechatronics"],
         content: `
             <h2>Motivation</h2>
             <p>Museums have limited accessibility for those with visual impairments, leaving individuals with these impairments often disappointed and unwelcome in art spaces. Introducing a refreshable tactile display will enable all museum-goers the ability to interact with art in a different way and enable a richer, more inclusive museum experience.</p>
@@ -83,14 +85,7 @@ const projectsData: Record<string, ProjectData> = {
                 </video>
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Fusion 360</span>
-                <span>Arduino</span>
-                <span>C++</span>
-                <span>Rapid Prototyping</span>
-                <span>Mechatronics</span>
-            </div>
+
         `
     },
     "rubi": {
@@ -98,6 +93,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "RUBI - Self Solving Cube",
         meta: "Oct 2024 - Dec 2024 | Mechatronics & CV",
         image: "/portfolio/assets/rubi/rubi_cube.jpg",
+        technologies: ["Python", "OpenCV", "ESP32", "SolidWorks", "Kociemba Algorithm"],
         content: `
             <h2>Motivation</h2>
             <p>The Rubik's Cube is a classic puzzle with over <strong>43 quintillion permutations</strong>, yet only about <strong>4% of the population</strong> can solve it. The steep learning curve discourages many from engaging with this iconic engineering challenge.</p>
@@ -159,14 +155,7 @@ const projectsData: Record<string, ProjectData> = {
                 <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="Cube Mechanism Detail">
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Python</span>
-                <span>OpenCV</span>
-                <span>ESP32</span>
-                <span>SolidWorks</span>
-                <span>Kociemba Algorithm</span>
-            </div>
+
         `
     },
     "sock": {
@@ -174,6 +163,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "Amputee Residual Limb Monitoring Sock",
         meta: "Mechanical Design & Software Lead",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
+        technologies: ["Wearable Tech", "Soft Robotics", "Sensors", "Mobile App Dev"],
         content: `
             <h2>Overview</h2>
             <p>This project focused on developing a "Smart Shrinker" compression sleeve for amputees. The device monitors the residual limb environment to detect early signs of infection and inflammation, which are critical for patient recovery and prosthetic fitting.</p>
@@ -192,13 +182,7 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Data Processing:</strong> Microcontroller firmware filters noise from motion artifacts to ensure accurate readings.</li>
             </ul>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Wearable Tech</span>
-                <span>Soft Robotics</span>
-                <span>Sensors</span>
-                <span>Mobile App Dev</span>
-            </div>
+
         `
     },
     "epic": {
@@ -206,6 +190,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "EPIC Lab - Exoskeleton Research",
         meta: "Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
+        technologies: ["Control Theory", "Machine Learning", "Python", "MATLAB", "Robotics"],
         content: `
             <h2>Overview</h2>
             <p>As a researcher at the EPIC Lab, I contributed to the development of the <strong>GRAHAM Suit</strong>, a knee exoskeleton combined with a sensor suit and electronics backpack designed to assist mobility.</p>
@@ -217,14 +202,7 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Machine Learning:</strong> Trained Fully Convolutional Networks (FCNs) and CNNs to estimate joint loading, allowing the suit to predict user intent.</li>
             </ul>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Control Theory</span>
-                <span>Machine Learning</span>
-                <span>Python</span>
-                <span>MATLAB</span>
-                <span>Robotics</span>
-            </div>
+
         `
     },
     "battlebot": {
@@ -232,6 +210,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "Battlebot \"Insaniti\"",
         meta: "Mechanical Designer | 3lb Combat Robot",
         image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
+        technologies: ["SolidWorks", "FEA", "Rapid Prototyping", "Machining"],
         content: `
             <h2>Overview</h2>
             <p>Designed and built "Insaniti", a 3lb combat robot managed by the RoboJackets Battlebots team. The project emphasized robust mechanical design to survive high-kinetic energy impacts in a competitive arena.</p>
@@ -249,13 +228,7 @@ const projectsData: Record<string, ProjectData> = {
                 <img src="/portfolio/assets/battlebot/top_view.jpeg" alt="CAD Top View">
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>SolidWorks</span>
-                <span>FEA</span>
-                <span>Rapid Prototyping</span>
-                <span>Machining</span>
-            </div>
+
         `
     },
     "flight": {
@@ -263,6 +236,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "ATL Flight Price Predictor",
         meta: "Machine Learning Project",
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
+        technologies: ["Python", "Scikit-Learn", "Pandas", "Data Visualization"],
         content: `
             <h2>Overview</h2>
             <p>Developed a machine learning model to predict flight costs for Georgia Tech students flying out of ATL. The project utilized Kaggle datasets to analyze pricing trends and optimize booking times.</p>
@@ -274,13 +248,7 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Feature Analysis:</strong> Identified key price drivers such as seasonality, airline choice, and flight duration via feature importance visualization.</li>
             </ul>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Python</span>
-                <span>Scikit-Learn</span>
-                <span>Pandas</span>
-                <span>Data Visualization</span>
-            </div>
+
         `
     },
     "malawi": {
@@ -288,6 +256,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "EWB - GT Malawi Project",
         meta: "Project & Technical Lead",
         image: "/portfolio/assets/ewb/ewb_malawi.jpg",
+        technologies: ["Civil Engineering", "Project Management", "AutoCAD", "Remote Collaboration"],
         content: `
             <h2>Overview</h2>
             <p>Served as Technical Lead for an Engineers Without Borders project to improve sanitation at Mpitilira Primary School in Malawi. The project aimed to design and construct sustainable latrines for school staff.</p>
@@ -308,13 +277,7 @@ const projectsData: Record<string, ProjectData> = {
                 <img src="/portfolio/assets/ewb/malawi_project_objectives.png" alt="Project Objectives">
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Civil Engineering</span>
-                <span>Project Management</span>
-                <span>AutoCAD</span>
-                <span>Remote Collaboration</span>
-            </div>
+
         `
     },
     "me2110": {
@@ -322,6 +285,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "Autonomous Competition Robot",
         meta: "Software Lead | Arduino, C++",
         image: "/portfolio/assets/me2110/me2110_robot.jpg",
+        technologies: ["Arduino", "C++", "PID Control", "Mechatronics"],
         content: `
             <h2>Overview</h2>
             <p>As Software Lead, I programmed an autonomous robot to navigate a complex maze and perform physical tasks under strict time constraints. The robot required robust logic to handle variability in the arena.</p>
@@ -347,13 +311,7 @@ const projectsData: Record<string, ProjectData> = {
                 </video>
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>Arduino</span>
-                <span>C++</span>
-                <span>PID Control</span>
-                <span>Mechatronics</span>
-            </div>
+
         `
     },
     "breath": {
@@ -361,6 +319,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "breathSense",
         meta: "Haptic Feedback Device | Healthcare Tech",
         image: "/portfolio/assets/breath_sense/breath_sense.jpg",
+        technologies: ["SolidWorks/Fusion 360", "Arduino", "3D Printing", "Human-Computer Interaction"],
         content: `
             <h2>Motivation</h2>
             <p>Trauma victims suffering from dissociative disorders often experience a loss in interoception (sensing internal bodily signals). Research shows that providing vibration feedback to the sternum synchronized with breathing yields better mindfulness outcomes than unassisted practice.</p>
@@ -424,13 +383,7 @@ const projectsData: Record<string, ProjectData> = {
                 <img src="/portfolio/assets/breath_sense/IMG_0775.jpeg" alt="Device Close-up">
             </div>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>SolidWorks/Fusion 360</span>
-                <span>Arduino</span>
-                <span>3D Printing</span>
-                <span>Human-Computer Interaction</span>
-            </div>
+
         `
     },
     "cis": {
@@ -438,6 +391,7 @@ const projectsData: Record<string, ProjectData> = {
         title: "Computer Integrated Surgery",
         meta: "Oct 2025 - Dec 2025 | Algorithm Design",
         image: "/portfolio/assets/cis1/navigation.png",
+        technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials", "Least Squares (LSQR)", "Search Trees"],
         content: `
             <h2>Overview</h2>
             <p>A comprehensive MATLAB-based system for stereotactic surgical navigation, aligning real-time tracked instruments with pre-operative imaging to provide sub-millimeter guidance accuracy. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction.</p>
@@ -506,14 +460,7 @@ const projectsData: Record<string, ProjectData> = {
                 <li>Constructed bounding sphere hierarchies (Covariance Trees) to accelerate closest-point queries.</li>
             </ul>
 
-            <h2>Technologies Used</h2>
-            <div class="tags">
-                <span>MATLAB</span>
-                <span>Linear Algebra (SVD)</span>
-                <span>Bernstein Polynomials</span>
-                <span>Least Squares (LSQR)</span>
-                <span>Search Trees</span>
-            </div>
+
         `
     }
 };

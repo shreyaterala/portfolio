@@ -66,6 +66,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         >
                             {project.meta}
                         </p>
+
+                        {project.technologies && (
+                            <div className="tags" style={{ marginTop: "1.5rem" }}>
+                                {project.technologies.map((tech, index) => (
+                                    <span key={index} style={{
+                                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                                        color: "white",
+                                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                                        backdropFilter: "blur(5px)"
+                                    }}>
+                                        {tech}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>

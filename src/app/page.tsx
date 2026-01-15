@@ -20,7 +20,7 @@ export default function Home() {
                         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-ink leading-[1.1] mb-2">
                             Shreya Terala
                         </h1>
-                        <span className="text-xl md:text-2xl text-slate-400 font-light tracking-wide">Mechatronics Engineer</span>
+                        <span className="text-xl md:text-2xl text-slate-400 font-light tracking-wide">Mechanical & Robotics Engineer</span>
                     </div>
 
                     <div className="relative group shrink-0">
@@ -57,7 +57,7 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project) => (
+                    {projects.reverse().map((project) => (
                         <Link
                             href={`/project/${project.id}`}
                             key={project.id}
@@ -100,27 +100,27 @@ export default function Home() {
 
                 <div className="relative max-w-5xl mx-auto">
                     {/* Center Line */}
-                    <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 transform md:-translate-x-1/2"></div>
+                    <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 transform md:-translate-x-1/2"></div>
 
                     {/* Timeline Items */}
                     <div className="space-y-12">
 
                         {/* JHU */}
                         <div className="relative flex flex-col md:flex-row items-center justify-between group">
-                            <div className="w-full md:w-[45%] mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
+                            <div className="w-full md:w-[45%] pl-12 md:pl-0 mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
                                 <span className="text-xs font-mono text-sage uppercase tracking-widest mb-1 block">Expected Dec 2026</span>
                                 <h3 className="text-lg font-bold text-ink">Johns Hopkins University</h3>
                                 <p className="text-sm text-slate-600">M.S.E. in Robotics</p>
                             </div>
-                            <div className="absolute left-[-5px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-sage rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
+                            <div className="absolute left-[11px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-sage rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
                             <div className="w-full md:w-[45%] pl-8 order-3 md:order-3 md:opacity-0"></div>
                         </div>
 
                         {/* Amazon */}
                         <div className="relative flex flex-col md:flex-row items-center justify-between group">
                             <div className="order-1 md:order-1 w-full md:w-[45%] md:opacity-0"></div>
-                            <div className="absolute left-[-5px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
-                            <div className="w-full md:w-[45%] pl-8 md:pl-8 order-3 md:order-3">
+                            <div className="absolute left-[11px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
+                            <div className="w-full md:w-[45%] pl-12 md:pl-8 order-3 md:order-3">
                                 <span className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1 block">Jan 2025 - June 2025</span>
                                 <h3 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Amazon Robotics</h3>
                                 <p className="text-sm text-slate-600">Hardware Engineering Co-op</p>
@@ -129,20 +129,20 @@ export default function Home() {
 
                         {/* Georgia Tech */}
                         <div className="relative flex flex-col md:flex-row items-center justify-between group">
-                            <div className="w-full md:w-[45%] mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
+                            <div className="w-full md:w-[45%] pl-12 md:pl-0 mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
                                 <span className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1 block">Dec 2024</span>
                                 <h3 className="text-lg font-bold text-ink">Georgia Institute of Technology</h3>
                                 <p className="text-sm text-slate-600">B.S. Mechanical Engineering</p>
                             </div>
-                            <div className="absolute left-[-5px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
+                            <div className="absolute left-[11px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
                             <div className="w-full md:w-[45%] pl-8 order-3 md:order-3 md:opacity-0"></div>
                         </div>
 
                         {/* Rockwell */}
                         <div className="relative flex flex-col md:flex-row items-center justify-between group">
                             <div className="order-1 md:order-1 w-full md:w-[45%] md:opacity-0"></div>
-                            <div className="absolute left-[-5px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
-                            <div className="w-full md:w-[45%] pl-8 md:pl-8 order-3 md:order-3">
+                            <div className="absolute left-[11px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
+                            <div className="w-full md:w-[45%] pl-12 md:pl-8 order-3 md:order-3">
                                 <span className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1 block">Apr 2023 - May 2025</span>
                                 <h3 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Rockwell Automation</h3>
                                 <p className="text-sm text-slate-600">Mechanical Engineering Intern</p>
@@ -151,12 +151,12 @@ export default function Home() {
 
                         {/* Siemens */}
                         <div className="relative flex flex-col md:flex-row items-center justify-between group">
-                            <div className="w-full md:w-[45%] mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
+                            <div className="w-full md:w-[45%] pl-12 md:pl-0 mb-4 md:mb-0 md:text-right pr-0 md:pr-8 order-2 md:order-1">
                                 <span className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-1 block">July 2022 - Oct 2022</span>
                                 <h3 className="text-lg font-bold text-ink group-hover:text-sage transition-colors">Siemens</h3>
                                 <p className="text-sm text-slate-600">Software Development Intern</p>
                             </div>
-                            <div className="absolute left-[-5px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
+                            <div className="absolute left-[11px] md:left-1/2 w-2.5 h-2.5 bg-white border-2 border-slate-300 group-hover:border-sage transition-colors rounded-full transform md:-translate-x-1/2 z-10 order-1 md:order-2"></div>
                             <div className="w-full md:w-[45%] pl-8 order-3 md:order-3 md:opacity-0"></div>
                         </div>
 

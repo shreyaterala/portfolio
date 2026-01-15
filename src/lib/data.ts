@@ -1,20 +1,20 @@
-export interface ProjectData {
+﻿export interface Project {
     id: string;
     title: string;
     meta: string;
     image: string;
-    technologies?: string[]; // Array of technologies used
-    content: string; // HTML content or Markdown
+    technologies: string[];
+    content: string;
 }
 
-const projectsData: Record<string, ProjectData> = {
+export const projectsData: Record<string, Project> = {
     "haptic": {
         id: "haptic",
         title: "Haptic Museum Display",
-        meta: "Sep 2025 - Dec 2025 | Mechanical Design Lead",
+        meta: "Mechanical Design Lead",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
-        technologies: ["Fusion 360", "Arduino", "C++", "Rapid Prototyping", "Mechatronics"],
-        content: `
+        technologies: ["Fusion 360", "Arduino", "C++"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>Museums often rely heavily on visual engagement, leaving the <strong>285 million visually impaired individuals globally</strong> with a limited experience. While audio guides exist, they lack the spatial and textural connection to artwork. This project, undertaken as a capstone design challenge, aimed to bridge this gap by creating a dynamic, tactile interface that translates digital images into physical topography.</p>
             
@@ -87,15 +87,15 @@ const projectsData: Record<string, ProjectData> = {
                     Your browser does not support the video tag.
                 </video>
             </div>
-        `
+        </div>`,
     },
     "rubi": {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
-        meta: "Oct 2024 - Dec 2024 | Mechatronics & CV",
+        meta: "Oct 2024 - Dec 2024 | Personal Project",
         image: "/portfolio/assets/rubi/rubi_cube.jpg",
-        technologies: ["Python", "OpenCV", "ESP32", "SolidWorks", "Kociemba Algorithm"],
-        content: `
+        technologies: ["Python", "OpenCV", "ESP32"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>The Rubik's Cube is a classic puzzle with over <strong>43 quintillion permutations</strong>, yet fewer than 5% of the population can solve it. This project focused on demystifying the complexity of robotic manipulation and computer vision by creating an accessible, transparent, and fully autonomous solving machine.</p>
 
@@ -139,7 +139,7 @@ const projectsData: Record<string, ProjectData> = {
                      <ul>
                         <li><strong>HSV Color Thresholding:</strong> Converted RGB frames to Hue-Saturation-Value space to isolate color channels more effectively than standard RGB.</li>
                         <li><strong>Contour Detection:</strong> Used <code>cv2.findContours</code> with area filtering to locate the 9 facelets on each side, applying a perspective transform to normalize the grid.</li>
-                        <li><strong>Kociemba Algorithm:</strong> Integrated the two-phase algorithm (Phase 1: Reduction to G1 group, Phase 2: Solve to G0), which guarantees solutions in $\le 20$ moves (God's Number).</li>
+                        <li><strong>Kociemba Algorithm:</strong> Integrated the two-phase algorithm (Phase 1: Reduction to G1 group, Phase 2: Solve to G0), which guarantees solutions in $le 20$ moves (God's Number).</li>
                     </ul>
                 </div>
             </div>
@@ -158,15 +158,15 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Speed:</strong> Average solve time of <strong>48 seconds</strong> (10s scan, 2s compute, 36s execution), beating the target by 20%.</li>
                 <li><strong>Accuracy:</strong> Computer vision system demonstrated 100% accuracy in state classification under standard indoor lighting.</li>
             </ul>
-        `
+        </div>`,
     },
     "sock": {
         id: "sock",
         title: "Amputee Residual Limb Monitoring Sock",
-        meta: "Oct 2025 - Nov 2025 | Mechanical Design & Software Lead",
+        meta: "Mechanical Design & Software Lead",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
-        technologies: ["Wearable Tech", "Soft Robotics", "Sensors", "Mobile App Dev"],
-        content: `
+        technologies: ["Wearable Tech", "Soft Robotics", "Sensors"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>For amputees, the residual limb is a dynamic and sensitive environment. Fluctuations in volume and temperature can lead to improper prosthetic fit, causing skin breakdown and infection. This project, the "Smart Shrinker," was designed to provide clinicians with continuous, quantitative data on the limb's health, replacing subjective patient reporting.</p>
             
@@ -194,19 +194,19 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Performance & Results</h2>
             <ul>
-                <li><strong>Clinical Relevance:</strong> Successfully detected localized temperature increases of $0.5^\circ C$, a key early marker for subcutaneous inflammation.</li>
+                <li><strong>Clinical Relevance:</strong> Successfully detected localized temperature increases of $0.5^circ C$, a key early marker for subcutaneous inflammation.</li>
                 <li><strong>Durability:</strong> The textile sensor array survived 50 wash cycles with no degradation in signal-to-noise ratio.</li>
                 <li><strong>Connectivity:</strong> Bluetooth Low Energy (BLE) transmission range maintained up to 10 meters, allowing continuous logging to the mobile app.</li>
             </ul>
-        `
+        </div>`,
     },
     "epic": {
         id: "epic",
         title: "EPIC Lab - Exoskeleton Research",
-        meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
+        meta: "Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
-        technologies: ["Control Theory", "Machine Learning", "Python", "MATLAB", "Robotics"],
-        content: `
+        technologies: ["Control Theory", "Machine Learning", "Python"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>Mobility impairment affects millions of elderly individuals, leading to a loss of independence. The EPIC Lab focuses on "human-in-the-loop" robotic assistance. My research centered on the <strong>GRAHAM Suit</strong>, a lightweight knee exoskeleton designed to provide supplemental torque during sit-to-stand transitions and walking.</p>
 
@@ -245,7 +245,7 @@ const projectsData: Record<string, ProjectData> = {
             <h3>Control Systems Design</h3>
             <p>To model the complex interaction between the human leg and the robotic limb, we moved beyond simple PID control:</p>
             <ul>
-                <li><strong>State Space Modeling:</strong> Developed a dynamic model of the human-exoskeleton system: $\dot{x} = Ax + Bu$. This allowed us to apply <strong>LQR (Linear Quadratic Regulator)</strong> control to minimize energy consumption while maximizing tracking accuracy.</li>
+                <li><strong>State Space Modeling:</strong> Developed a dynamic model of the human-exoskeleton system: $dot{x} = Ax + Bu$. This allowed us to apply <strong>LQR (Linear Quadratic Regulator)</strong> control to minimize energy consumption while maximizing tracking accuracy.</li>
                 <li><strong>Admittance Control:</strong> Implemented an admittance controller that renders the robot as a virtual mass-spring-damper system, allowing the user to "drive" the robot with their own movement intent.</li>
             </ul>
 
@@ -263,15 +263,15 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Tracking Error:</strong> The LQR controller reduced trajectory tracking error by 40% compared to standard PID baselines.</li>
                 <li><strong>Publication:</strong> Research findings contributed to two conference papers on human-robot interaction mechanics.</li>
             </ul>
-        `
+        </div>`,
     },
     "battlebot": {
         id: "battlebot",
-        title: "Battlebot \"Insaniti\"",
-        meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
+        title: "Battlebot "Insaniti"",
+        meta: "Mechanical Designer",
         image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
-        technologies: ["SolidWorks", "FEA", "Rapid Prototyping", "Machining"],
-        content: `
+        technologies: ["SolidWorks", "FEA", "Rapid Prototyping"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>Combat robotics is an extreme engineering stress test where mechanical failure is guaranteed without rigorous design. "Insaniti" was a 3lb (Beetleweight) entry designed to compete in the highly destructive RoboJackets internal tournament. The goal: survive 3 minutes in the arena while delivering catastrophic kinetic energy to opponents.</p>
 
@@ -305,15 +305,15 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Damage Assessment:</strong> The UHMW armor successfully deflected three direct hits from a horizontal spinner. The internal aluminum frame remained within 0.5mm geometric tolerance post-competition.</li>
                 <li><strong>Weapon Efficacy:</strong> The spinner successfully severed the drive belt of an opponent in Match 2, achieving an instant knockout.</li>
             </ul>
-        `
+        </div>`,
     },
     "flight": {
         id: "flight",
         title: "ATL Flight Price Predictor",
-        meta: "Oct 2023 - Dec 2023 | Machine Learning Project",
+        meta: "Machine Learning Project",
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
-        technologies: ["Python", "Scikit-Learn", "Pandas", "Data Visualization"],
-        content: `
+        technologies: ["Python", "Scikit-Learn", "Pandas"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>For college students, flight prices are a major budget constraint. With prices fluctuating wildly based on opaque algorithmic factors, finding the optimal time to book is difficult. This project applied machine learning to historical flight data to decode these patterns and predict future costs for routes out of Hartsfield-Jackson (ATL).</p>
 
@@ -347,15 +347,15 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Visualization:</strong> Developed Matplotlib dashboards showing "Price vs. Departure Date" curves for top student destinations (e.g., NYC, Chicago).</li>
             </ul>
              <img src="/portfolio/assets/flight_predictor/flight_price_predictor.png" alt="Price Prediction Dashboard" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-        `
+        </div>`,
     },
     "malawi": {
         id: "malawi",
         title: "EWB - GT Malawi Project",
-        meta: "Oct 2021 - Dec 2024 | Project & Technical Lead",
+        meta: "Project & Technical Lead",
         image: "/portfolio/assets/ewb/ewb_malawi.jpg",
-        technologies: ["Civil Engineering", "Project Management", "AutoCAD", "Remote Collaboration"],
-        content: `
+        technologies: ["Civil Engineering", "Project Management", "AutoCAD"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>Mpitilira Primary School in Malawi faced a critical sanitation crisis, with failing latrines posing a severe health risk to students and staff. As part of Engineers Without Borders (EWB), our chapter was tasked with designing and implementing a sustainable, locally-buildable solution to replace the condemned infrastructure.</p>
 
@@ -383,7 +383,7 @@ const projectsData: Record<string, ProjectData> = {
             <p>Executing a construction project 8,000 miles away required rigorous planning:</p>
             <ul>
                 <li><strong>Remote Oversight:</strong> Established a WhatsApp-based reporting protocol with local contractors, reviewing photo evidence of rebar spacing and concrete mix ratios before authorizing pour phases.</li>
-                <li><strong>Cost Estimation:</strong> Managed a \$15,000 budget, accounting for volatile local material prices and currency exchange fluctuations.</li>
+                <li><strong>Cost Estimation:</strong> Managed a $15,000 budget, accounting for volatile local material prices and currency exchange fluctuations.</li>
             </ul>
              <img src="/portfolio/assets/ewb/malawi_project_objectives.png" alt="Project Objectives & Timeline" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
@@ -394,17 +394,17 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Recognition:</strong> The project design won <strong>3rd Place</strong> in the Georgia Association of Water Professionals (GAWP) competition for its technical merit and social impact.</li>
             </ul>
              <img src="/portfolio/assets/ewb/completed_student_latrine.png" alt="Completed Structure" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-        `
+        </div>`,
     },
     "me2110": {
         id: "me2110",
         title: "Autonomous Competition Robot",
-        meta: "Aug 2022 - Dec 2022 | Software Lead",
+        meta: "Software Lead",
         image: "/portfolio/assets/me2110/me2110_robot.jpg",
-        technologies: ["Arduino", "C++", "PID Control", "Mechatronics"],
-        content: `
+        technologies: ["Arduino", "C++", "PID Control"],
+        content: `<div>
             <h2>Context & Motivation</h2>
-            <p>The ME2110 "Creative Decisions and Design" competition is a high-pressure engineering challenge where teams must build an autonomous robot to compete in a head-to-head arena. The task involved navigating a transforming maze, retrieving specific game pieces, and depositing them into scoring zones—all within a 40-second round.</p>
+            <p>The ME2110 "Creative Decisions and Design" competition is a high-pressure engineering challenge where teams must build an autonomous robot to compete in a head-to-head arena. The task involved navigating a transforming maze, retrieving specific game pieces, and depositing them into scoring zonesùall within a 40-second round.</p>
 
             <h2>Project Objectives</h2>
             <ul>
@@ -446,15 +446,15 @@ const projectsData: Record<string, ProjectData> = {
                     Your browser does not support the video tag.
                 </video>
             </div>
-        `
+        </div>`,
     },
     "breath": {
         id: "breath",
         title: "breathSense",
-        meta: "Aug 2024 - Dec 2024 | Software Integration",
+        meta: "Haptic Feedback Device",
         image: "/portfolio/assets/breath_sense/breath_sense.jpg",
-        technologies: ["SolidWorks/Fusion 360", "Arduino", "3D Printing", "Human-Computer Interaction"],
-        content: `
+        technologies: ["SolidWorks/Fusion 360", "Arduino", "3D Printing"],
+        content: `<div>
             <h2>Context & Motivation</h2>
             <p>Trauma victims suffering from dissociative disorders often experience a loss in interoception (sensing internal bodily signals). Clinical research shows that providing external vibration feedback synchronized with the user's breathing can amplify these internal signals, yielding significantly better mindfulness outcomes than unassisted practice.</p>
 
@@ -506,22 +506,22 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Performance & Results</h2>
             <ul>
-                <li><strong>Accuracy:</strong> Achieved $>90\%$ accuracy in detecting exhale phases across varying breathing rates (10-20 breaths/min) in static seated tests.</li>
+                <li><strong>Accuracy:</strong> Achieved $>90%$ accuracy in detecting exhale phases across varying breathing rates (10-20 breaths/min) in static seated tests.</li>
                 <li><strong>Latency:</strong> Total system response time measured at $< 50ms$, meeting the design requirement for "instantaneous" feedback.</li>
                 <li><strong>User Feedback:</strong> Blind testing with 5 subjects indicated that users felt "more grounded" and maintained focus 30% longer with the haptic aid compared to unassisted conditions.</li>
             </ul>
             <img src="/portfolio/assets/breath_sense/IMG_0775.jpeg" alt="Device Prototypes" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-        `
+        </div>`,
     },
     "cis": {
         id: "cis",
         title: "Computer Integrated Surgery",
-        meta: "Oct 2025 - Dec 2025 | Algorithm Design",
+        meta: "Oct 2025 - Dec 2025 | Academic Project",
         image: "/portfolio/assets/cis1/navigation.png",
-        technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials", "Least Squares (LSQR)", "Search Trees"],
-        content: `
+        technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
+        content: `<div>
             <h2>Context & Motivation</h2>
-            <p>In modern neurosurgery, sub-millimeter precision is not optional—it is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>
+            <p>In modern neurosurgery, sub-millimeter precision is not optionalùit is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>
 
             <h2>Project Objectives</h2>
             <ul>
@@ -560,17 +560,17 @@ const projectsData: Record<string, ProjectData> = {
             <ul>
                 <li><strong>Rigid Body Registration (Arun's Method):</strong> Solved rotation $R$ via Singular Value Decomposition (SVD) of the cross-covariance matrix $H$:
                     <br><code>[U, S, V] = svd(H); R = V * U';</code>
-                    <br>Ensured $\det(R) = +1$ to prevent reflection artifacts.
+                    <br>Ensured $det(R) = +1$ to prevent reflection artifacts.
                 </li>
                 <li><strong>Pivot Calibration:</strong> Formulated as a linear least-squares problem $[R_i | -I] [t_{tip} ; p_{dimple}] = -t_i$ to solve for the tool tip offset $t_{tip}$ and pivot point $p_{dimple}$ simultaneously from $N$ frames.</li>
                 <li><strong>Distortion Correction:</strong> Modeled using <strong>5th-order 3D Bernstein polynomials</strong> with 216 basis terms ($6^3$):
-                    <br>$f(u,v,w) = \sum_{i,j,k=0}^5 c_{ijk} B_{5,i}(u) B_{5,j}(v) B_{5,k}(w)$
+                    <br>$f(u,v,w) = sum_{i,j,k=0}^5 c_{ijk} B_{5,i}(u) B_{5,j}(v) B_{5,k}(w)$
                 </li>
             </ul>
 
             <h2>Performance & Results</h2>
             <ul>
-                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of $< 1 \times 10^{-6}$ for rotation and translation recovery.</li>
+                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of $< 1 	imes 10^{-6}$ for rotation and translation recovery.</li>
                 <li><strong>Distortion Recovery:</strong> 5th-order Bernstein fitting achieved sub-millimeter mapping accuracy, successfully recovering ground truth optical coordinates (e.g., <code>[104.85, 107.53, 57.87]</code>) from distorted EM tracker data.</li>
                 <li><strong>Search Efficiency:</strong> Covariance Tree implementation reduced point-to-mesh query times from linear $O(N)$ to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.</li>
             </ul>
@@ -581,28 +581,30 @@ const projectsData: Record<string, ProjectData> = {
                 <li>Implemented <strong>Generalized ICP</strong> with anisotropic covariance weighting, achieving <strong>50% faster convergence</strong> (11.0s vs 37.2s) compared to standard point-to-point ICP.</li>
                 <li>Constructed bounding sphere hierarchies (Covariance Trees) to accelerate closest-point queries.</li>
             </ul>
-        `
-    }
+        </div>`,
+    },
+    "ur5": {
+        id: "ur5",
+        title: "UR5 Manipulator Control",
+        meta: "Fall 2025 | Robotics Control",
+        image: "/portfolio/assets/ur5_control.png",
+        technologies: ["MATLAB", "ROS", "Kinematics", "Controls"],
+        content: `
+    <p class="mb-4">Implemented Resolved-Rate and Inverse Kinematics control algorithms for a UR5 robot arm to perform a pick-and-place manipulation task. Interfaced with ROS to communicate with the robot hardware.</p>
+    <p class="mb-4">Key achievements include:</p>
+    <ul class="list-disc pl-5 mb-4 space-y-2">
+        <li>Calculated forward and inverse kinematics for the UR5 manipulator.</li>
+        <li>Generated smooth trajectories in SE(3) space using linear path interpolation.</li>
+        <li>Analyzed positioning errors for both control schemes.</li>
+        <li>Demonstrated successful pick-and-place operations in simulation and on real hardware.</li>
+    </ul>
+    `,
+    },
+};
+
+export const Project = {
+    findAll: async () => Object.values(projectsData),
+    findById: async (id: string) => projectsData[id]
 };
 
 export default projectsData;
-
-// Simulated Database Logic
-export class Project {
-    static async findById(id: string): Promise<ProjectData | null> {
-        // Simulate async database call
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(projectsData[id] || null);
-            }, 10);
-        });
-    }
-
-    static async findAll(): Promise<ProjectData[]> {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(Object.values(projectsData));
-            }, 10);
-        });
-    }
-}

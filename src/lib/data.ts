@@ -39,11 +39,24 @@ const projectsData: Record<string, ProjectData> = {
 
             <h2>Gallery</h2>
             <div class="modal-gallery">
+                <img src="/portfolio/assets/haptic_museum/IMG_1573.jpeg" alt="Device Assembly">
                 <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design">
                 <img src="/portfolio/assets/haptic_museum/haptic_museum_main.jpg" alt="Main View">
                 <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics">
                 <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Prototype with Silicone">
                 <img src="/portfolio/assets/haptic_museum/pin_array_image.png" alt="System View">
+            </div>
+
+            <h2>Demos</h2>
+            <div class="video-container" style="margin-top: 2rem;">
+                <video controls style="width: 100%; border-radius: var(--border-radius); border: 1px solid var(--border-color); margin-bottom: 1rem;">
+                    <source src="/portfolio/assets/haptic_museum/IMG_1565.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video controls style="width: 100%; border-radius: var(--border-radius); border: 1px solid var(--border-color);">
+                    <source src="/portfolio/assets/haptic_museum/IMG_6826.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
 
             <h2>Technologies Used</h2>
@@ -86,6 +99,11 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Electronics:</strong> ESP32 receives moves via Bluetooth, conveys them as commands to the motor, and identifies when the cube is still.</li>
                 <li><strong>Mechanical:</strong> 5-Way Bevel Gear Train driven by a DC motor to move one face at a time. Uses electromagnet and magnet-shaft coupling.</li>
             </ul>
+
+            <h2>Gallery</h2>
+            <div class="modal-gallery">
+                <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System">
+            </div>
 
             <h2>Technologies Used</h2>
             <div class="tags">
@@ -313,6 +331,11 @@ const projectsData: Record<string, ProjectData> = {
                 <li><strong>Energy:</strong> USB-C rechargeable 1200mAh battery with > 3-hour continuous battery life and < 2-hour charge time.</li>
                 <li><strong>Ergonomics:</strong> Designed for a general audience (5th-95th percentile). Minimalistic design for public use. Weight target: 350-500g.</li>
             </ul>
+
+            <h2>Gallery</h2>
+            <div class="modal-gallery">
+                <img src="/portfolio/assets/breath_sense/IMG_0775.jpeg" alt="Device Close-up">
+            </div>
 
             <h2>Technologies Used</h2>
             <div class="tags">

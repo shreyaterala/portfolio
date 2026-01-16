@@ -1,8 +1,8 @@
 import Link from "next/link";
-import projectsData from "@/lib/data";
+import projectsData, { Project } from "@/lib/data";
 
-export default function Home() {
-    const projects = Object.values(projectsData);
+export default async function Home() {
+    const projects = await Project.findAll();
 
     return (
         <div className="max-w-7xl mx-auto px-6 pb-24">

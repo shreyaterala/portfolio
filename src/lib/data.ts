@@ -173,7 +173,7 @@ export const projectsData: Record<string, Project> = {
         title: "EPIC Lab - Exoskeleton Research",
         meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
-        technologies: ["Control Theory", "Machine Learning", "Python"],
+        technologies: ["PyTorch", "SolidWorks", "Control Theory", "Python"],
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>Mobility impairment affects millions of elderly individuals, leading to a loss of independence. The EPIC Lab focuses on "human-in-the-loop" robotic assistance. My research centered on the <strong>GRAHAM Suit</strong>, a lightweight knee exoskeleton designed to provide supplemental torque during sit-to-stand transitions and walking.</p>
@@ -210,29 +210,41 @@ export const projectsData: Record<string, Project> = {
             </div>
 
             <h2>Engineering Implementation</h2>
+            <h3>Hardware Design & CAD</h3>
+            <p>To support autonomous operation, I designed a ruggedized <strong>Computational Backpack (V8)</strong> using SolidWorks to house the compute and power systems:</p>
+            <ul>
+                <li><strong>Component Integration:</strong> Created custom mounting interfaces for the <strong>NVIDIA Jetson TX2</strong>, Lithium-Ion battery packs, and a USB hub. The design featured a "Back_Plate_V8" chassis with optimized airflow for passive cooling.</li>
+                <li><strong>Sensor Mounts:</strong> Iterated through 4 versions of the "IMU Holder" (<code>mk1</code> to <code>mk4</code>) to ensure rigid alignment of the inertial sensors with the user's kinematic chain, minimizing drift from mechanical vibrations.</li>
+            </ul>
+
+            <h3>Electronics & Integration</h3>
+            <p>The system required low-latency communication between distributed sensors and the central controller:</p>
+            <ul>
+                <li><strong>Load Cell Broadcasting:</strong> Engineered a high-speed data acquisition layer to stream analog force data from the exoskeleton's footplates. This "broadcasting" architecture ensured that ground reaction force (GRF) data was synchronized with IMU packets at <strong>1000Hz</strong> for real-time control.</li>
+            </ul>
+
+            <h3>Machine Learning & Control</h3>
+            <p>We developed advanced intent recognition models to transition between gait modes (Level Ground, Ramp, Stair):</p>
+            
+            <h4 class="font-bold text-md mt-4 mb-2">1. Temporal Convolutional Networks (TCN)</h4>
+            <p>Moving beyond simple CNNs, I implemented a <strong>TCN pipeline in PyTorch</strong> to capture long-range temporal dependencies in gait cycles:</p>
+            <ul>
+                <li><strong>Parallel Training:</strong> Built a custom <code>DeviceManager</code> and <code>multiprocessing</code> pipeline to distribute training jobs across 32 CPU cores, significantly reducing experiment time for the <code>AbleBodyDataset</code>.</li>
+                <li><strong>Architecture:</strong> The TCN utilized dilated convolutions to expand the receptive field without losing resolution, processing time-series kinematic data to predict joint torque requirements.</li>
+            </ul>
+
+            <h4 class="font-bold text-md mt-4 mb-2">2. Data-Driven GRF Estimation</h4>
+            <p>Comparison of FCN vs. CNN architectures to map pressure heatmaps (XSensor) to force vector:</p>
+            <ul>
+                <li><strong>Pipeline:</strong> MATLAB (4th-order Butterworth, 6Hz) &rarr; TensorFlow (LOSO Validation).</li>
+                <li><strong>Result:</strong> The CNN model achieved lower RMSE by leveraging spatial correlations in the pressure map.</li>
+            </ul>
+
             <h3>Control Systems Design</h3>
-            <p>To model the complex interaction between the human leg and the robotic limb, we moved beyond simple PID control:</p>
+            <p>To model the complex interaction between the human leg and the robotic limb, we applied:</p>
             <ul>
-                <li><strong>State Space Modeling:</strong> Developed a dynamic model of the human-exoskeleton system: $dot{x} = Ax + Bu$. This allowed us to apply <strong>LQR (Linear Quadratic Regulator)</strong> control to minimize energy consumption while maximizing tracking accuracy.</li>
-                <li><strong>Admittance Control:</strong> Implemented an admittance controller that renders the robot as a virtual mass-spring-damper system, allowing the user to "drive" the robot with their own movement intent.</li>
-            </ul>
-
-            <h3>Machine Learning for Intent</h3>
-            <p>Detecting the transition from "sitting" to "standing" is critical for timing the assist:</p>
-            <ul>
-                <li><strong>CNN Architecture:</strong> Trained a 1D Convolutional Neural Network (CNN) on time-series IMU data (acceleration, angular velocity) to classify movement phases.</li>
-                <li><strong>Real-Time Inference:</strong> Optimized the model to run on an NVIDIA Jetson TX2 with $< 10ms$ inference latency.</li>
-            </ul>
-
-            <h3>Data-Driven GRF Estimation</h3>
-            <p>To improve state estimation, we integrated high-resolution pressure data from <strong>XSensor Insoles</strong> to predict Ground Reaction Forces (GRF). I engineered a full ML pipeline to map pressure heatmaps to force vectors:</p>
-            <ul>
-                <li><strong>Signal Conditioning (MATLAB):</strong> Raw 1000Hz sensor data was processed using a <strong>4th-Order Butterworth Low-Pass Filter</strong> with a 6Hz cutoff to remove gait artifacts and sensor noise.</li>
-                <li><strong>Model Architecture (TensorFlow):</strong> Comparative analysis of FCN vs. CNN using Leave-One-Subject-Out (LOSO) cross-validation.
-                    <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-xs text-slate-600">
-                        Input (N×N Heatmap) -> Conv2D(32, 3x3) -> MaxPool(2x2) -> Conv2D(64, 3x3) -> Dense(64) -> Output(Force_N)
-                    </div>
-                </li>
+                <li><strong>State Space Modeling:</strong> Developed a dynamic model (<i>ẋ</i> = <i>Ax</i> + <i>Bu</i>) to apply <strong>LQR (Linear Quadratic Regulator)</strong> control.</li>
+                <li><strong>Admittance Control:</strong> Rendered the robot as a virtual mass-spring-damper, allowing the user to "drive" the robot with their own movement intent.</li>
             </ul>
             <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="Exoskeleton Controls Lab" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
@@ -362,10 +374,12 @@ export const projectsData: Record<string, Project> = {
             <h2>Engineering Implementation</h2>
             <h3>Civil & Structural Design</h3>
             <p>I led the technical design of the latrine superstructure and foundation:</p>
-            <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
-                <img src="/portfolio/assets/ewb/staff_latrine_designs.png" alt="Engineering Blueprints" style="width: 48%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover;">
-                <div style="width: 48%;">
-                    <ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-start">
+                <div class="h-full flex items-center justify-center">
+                    <img src="/portfolio/assets/ewb/staff_latrine_designs.png" alt="Engineering Blueprints" class="w-auto max-h-[400px] object-contain rounded-lg border border-slate-200/50 shadow-sm" style="margin: 0 auto !important;">
+                </div>
+                <div>
+                    <ul class="mt-0">
                         <li><strong>Foundation Design:</strong> Calculated bearing capacity requirements for the unreinforced masonry walls. Specified a reinforced concrete ring beam to distribute loads evenly and preventing differential settlement in the soft soil.</li>
                         <li><strong>Ventilation Design:</strong> Integrated a solar-driven "VIP" (Ventilated Improved Pit) mechanism. Black PVC vent pipes heat up in the sun, creating an updraft that pulls odors out of the pit.</li>
                     </ul>
@@ -522,21 +536,22 @@ export const projectsData: Record<string, Project> = {
             <h2>Mathematical Implementation</h2>
             <p>The system relies on rigorous linear algebra and computational geometry principles:</p>
             <ul>
-                <li><strong>Rigid Body Registration (Arun's Method):</strong> Solved rotation $R$ via Singular Value Decomposition (SVD) of the cross-covariance matrix $H$:
+                <li><strong>Rigid Body Registration (Arun's Method):</strong> Solved rotation <i>R</i> via Singular Value Decomposition (SVD) of the cross-covariance matrix <i>H</i>:
                     <br><code>[U, S, V] = svd(H); R = V * U';</code>
-                    <br>Ensured $det(R) = +1$ to prevent reflection artifacts.
+                    <br>Ensured det(<i>R</i>) = +1 to prevent reflection artifacts.
                 </li>
-                <li><strong>Pivot Calibration:</strong> Formulated as a linear least-squares problem $[R_i | -I] [t_{tip} ; p_{dimple}] = -t_i$ to solve for the tool tip offset $t_{tip}$ and pivot point $p_{dimple}$ simultaneously from $N$ frames.</li>
-                <li><strong>Distortion Correction:</strong> Modeled using <strong>5th-order 3D Bernstein polynomials</strong> with 216 basis terms ($6^3$):
-                    <br>$f(u,v,w) = sum_{i,j,k=0}^5 c_{ijk} B_{5,i}(u) B_{5,j}(v) B_{5,k}(w)$
+                <li><strong>Pivot Calibration:</strong> Formulated as a linear least-squares problem [<i>R<sub>i</sub></i> | -<i>I</i>] [<i>t</i><sub>tip</sub> ; <i>p</i><sub>dimple</sub>] = -<i>t<sub>i</sub></i> to solve for the tool tip offset <i>t</i><sub>tip</sub> and pivot point <i>p</i><sub>dimple</sub> simultaneously from <i>N</i> frames.</li>
+                <li><strong>Distortion Correction:</strong> Modeled using <strong>5th-order 3D Bernstein polynomials</strong> with 216 basis terms (6<sup>3</sup>):
+                    <br><i>f(u,v,w)</i> = &sum;<sub>i,j,k=0</sub><sup>5</sup> <i>c<sub>ijk</sub> B<sub>5,i</sub>(u) B<sub>5,j</sub>(v) B<sub>5,k</sub>(w)</i>
                 </li>
             </ul>
 
             <h2>Performance & Results</h2>
+            <h2>Performance & Results</h2>
             <ul>
-                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of $< 1 	imes 10^{-6}$ for rotation and translation recovery.</li>
+                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of &lt; 1 &times; 10<sup>-6</sup> for rotation and translation recovery.</li>
                 <li><strong>Distortion Recovery:</strong> 5th-order Bernstein fitting achieved sub-millimeter mapping accuracy, successfully recovering ground truth optical coordinates (e.g., <code>[104.85, 107.53, 57.87]</code>) from distorted EM tracker data.</li>
-                <li><strong>Search Efficiency:</strong> Covariance Tree implementation reduced point-to-mesh query times from linear $O(N)$ to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.</li>
+                <li><strong>Search Efficiency:</strong> Covariance Tree implementation reduced point-to-mesh query times from linear <i>O(N)</i> to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.</li>
             </ul>
 
             <h2>Algorithmic Modules</h2>
@@ -551,19 +566,83 @@ export const projectsData: Record<string, Project> = {
         id: "ur5",
         title: "UR5 Manipulator Control",
         meta: "Dec 2025 | Robotics Control",
-        image: "/portfolio/assets/ur5_control.png",
+        image: "/portfolio/assets/ur5/ur5_control.png",
         technologies: ["MATLAB", "ROS", "Kinematics", "Controls"],
-        content: `
-    <p class="mb-4">Implemented Resolved-Rate and Inverse Kinematics control algorithms for a UR5 robot arm to perform a pick-and-place manipulation task. Interfaced with ROS to communicate with the robot hardware.</p>
-    <p class="mb-4">Key achievements include:</p>
-    <ul class="list-disc pl-5 mb-4 space-y-2">
-        <li>Calculated forward and inverse kinematics for the UR5 manipulator.</li>
-        <li>Generated smooth trajectories in SE(3) space using linear path interpolation.</li>
-        <li>Analyzed positioning errors for both control schemes.</li>
-        <li>Demonstrated successful pick-and-place operations in simulation and on real hardware.</li>
-    </ul>
-    `,
+        content: `<div>
+            <h2>Context & Motivation</h2>
+            <p>Robotic manipulation requires precise coordination in SE(3) space. This project focused on a "Push-and-Place" task: programming a UR5e robot to push a target object 3cm along a local axis, lift, and return it. The core objective was to implement and compare two distinct control paradigms: <strong>Resolved-Rate (RR) Control</strong> (differential kinematics) and <strong>Inverse Kinematics (IK)</strong> (analytic plotting).</p>
+
+            <h2>System Architecture</h2>
+            <p>The control framework was implemented in MATLAB, interfacing with the robot via ROS (Robot Operating System) and RTDE (Real-Time Data Exchange).</p>
+            <div class="system-diagram">
+                 <div class="diagram-node">
+                    <strong>Task Planner</strong>
+                    <span>Waypoints in SE(3)</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">g_desired</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Controller</strong>
+                    <span>RR vs. IK</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">q_dot / q_sol</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>UR5e Robot</strong>
+                    <span>Joint Actuation</span>
+                </div>
+            </div>
+
+            <h2>Engineering Implementation</h2>
+            
+            <h3 class="text-lg font-bold mt-6 mb-3">1. Resolved-Rate Control (Differential Kinematics)</h3>
+            <p>RR control drives the robot by iteratively minimizing the error twist &xi;<sub>err</sub> between the current pose <i>g</i><sub>cur</sub> and desired pose <i>g</i><sub>des</sub>. It relies on the Body Jacobian <i>J</i><sub>b</sub>(<i>q</i>) to map Cartesian velocities to joint velocities.</p>
+            <ul>
+                <li><strong>Mathematical Formulation:</strong> The control law is derived from &xi; = <i>J</i><sub>b</sub>(<i>q</i>)<i>q̇</i>. We invert this finding the damped least-squares solution:
+                    <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-sm text-center">
+                        <i>q̇</i> = <i>K</i> &middot; <i>J</i><sup>&dagger;</sup> &middot; &xi;<sub>err</sub>
+                    </div>
+                    where <i>J</i><sup>&dagger;</sup> is the pseudoinverse and <i>K</i> is the proportional gain (<i>K</i><sub>rr</sub> = 0.15).
+                </li>
+                <li><strong>Singularity Handling:</strong> The system continuously monitors manipulability (<i>w</i> = &radic;<span style="border-top:1px solid">det(<i>JJ</i><sup>T</sup>)</span>). If the robot approaches a singular configuration where the Jacobian becomes ill-conditioned, the controller safeguards by aborting motion to prevent infinite joint velocities.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold mt-6 mb-3">2. Analytic Inverse Kinematics</h3>
+            <p>Unlike RR, which serves towards a solution, IK solves for the exact final joint angles analytically. This decouples the path planning from the control loop.</p>
+            <ul>
+                <li><strong>Multiple Solution Optimization:</strong> The UR5 analytic solution yields up to 8 valid joint configurations for a given <i>g</i><sub>des</sub>. To ensure smooth motion, I implemented a cost function to select the optimal branch:
+                     <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-xs text-slate-600">
+                        q_best = argmin(|| wrapToPi(<i>q</i><sub>sol_i</sub> - <i>q</i><sub>current</sub>) ||)
+                    </div>
+                    This prevents dangerous "elbow-flipping" or discontinuous jumps between waypoints.
+                </li>
+                <li><strong>Trajectory Generation:</strong> Intermediate waypoints are generated using SE(3) interpolation (screw motion) between keyframes to ensure the end-effector traces a straight line in Cartesian space.</li>
+            </ul>
+
+            <h2>Performance & Results</h2>
+            <p>We compared the accuracy of both controllers in reaching the target "Home" pose after the task:</p>
+            <ul>
+                <li><strong>Accuracy:</strong> IK achieved near-perfect positioning with rotational error on the order of 10<sup>-15</sup> (machine precision), whereas RR settled with errors around 10<sup>-5</sup> due to the convergence threshold/gain trade-off.</li>
+                <li><strong>Smoothness:</strong> While IK provided higher accuracy, RR via RTDE offered smoother real-time motion control by continuously updating based on instantaneous feedback, making it robust to small external disturbances.</li>
+            </ul>
+
+            <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                <div>
+                    <h4 class="text-center font-bold mb-2">Resolved-Rate Control</h4>
+                    <iframe src="https://drive.google.com/file/d/1FYQMh2KW9Rv3A3gGAT-YKX8QYoL6xuYt/preview" width="100%" height="300" style="border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;" allow="autoplay"></iframe>
+                </div>
+                <div>
+                    <h4 class="text-center font-bold mb-2">Inverse Kinematics</h4>
+                    <iframe src="https://drive.google.com/file/d/1d5jaDda3MjKu2gZaqD9U8fD0ui-C3039/preview" width="100%" height="300" style="border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;" allow="autoplay"></iframe>
+                </div>
+            </div>
+        </div>`,
     },
+    /*
     "tom": {
         id: "tom",
         title: "Cascading Shower Handle",
@@ -603,6 +682,7 @@ export const projectsData: Record<string, Project> = {
             </div>
         </div>`,
     },
+    */
     "pid": {
         id: "pid",
         title: "Ad Astra - PID Autonomous Control",
@@ -659,8 +739,17 @@ if (fabs(Inertial.rotation()) > fabs(standardDev + avgAll)) {
 
 export const Project = {
     findAll: async () => {
-        const order = ["pid", "tom", "ur5", "cis", "rubi", "haptic", "sock", "epic", "battlebot", "flight", "malawi", "me2110", "breath"];
-        return order.map(id => projectsData[id]).filter(Boolean);
+        const projects = Object.values(projectsData);
+
+        // Helper to parse date from "Start - End | Role" or "Date | Role" string
+        const parseDate = (meta: string) => {
+            const datePart = meta.split('|')[0].trim();
+            // If it's a range (contains "-"), take the second part (end date)
+            const dateStr = datePart.includes('-') ? datePart.split('-')[1].trim() : datePart;
+            return new Date(dateStr).getTime();
+        };
+
+        return projects.sort((a, b) => parseDate(b.meta) - parseDate(a.meta));
     },
     findById: async (id: string) => projectsData[id]
 };

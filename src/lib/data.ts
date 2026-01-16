@@ -569,14 +569,7 @@ export const projectsData: Record<string, Project> = {
         technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>In modern neurosurgery, sub-millimeter precision is not optionalùit is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>
-
-            <h2>Project Objectives</h2>
-            <ul>
-                <li><strong>Accuracy:</strong> Achieve a target registration error (TRE) of $< 2mm$, the clinical standard for safe cranial navigation.</li>
-                <li><strong>Distortion Correction:</strong> Implement algorithms to correct for electromagnetic (EM) field distortion, a common source of error in tracking systems.</li>
-                <li><strong>Real-Time Performance:</strong> Ensure the closest-point search algorithms run efficiently enough to render instrument position updates at $> 30Hz$.</li>
-            </ul>
+            <p>In modern neurosurgery, sub-millimeter precision is not optional—it is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>
 
             <h2>System Architecture</h2>
             <div class="system-diagram">
@@ -604,32 +597,60 @@ export const projectsData: Record<string, Project> = {
             <img src="/portfolio/assets/cis1/navigation.png" alt="Stereotactic Navigation Interface" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Mathematical Implementation</h2>
-            <p>The system relies on rigorous linear algebra and computational geometry principles:</p>
-            <ul>
-                <li><strong>Rigid Body Registration (Arun's Method):</strong> Solved rotation <i>R</i> via Singular Value Decomposition (SVD) of the cross-covariance matrix <i>H</i>:
-                    <br><code>[U, S, V] = svd(H); R = V * U';</code>
-                    <br>Ensured det(<i>R</i>) = +1 to prevent reflection artifacts.
-                </li>
-                <li><strong>Pivot Calibration:</strong> Formulated as a linear least-squares problem [<i>R<sub>i</sub></i> | -<i>I</i>] [<i>t</i><sub>tip</sub> ; <i>p</i><sub>dimple</sub>] = -<i>t<sub>i</sub></i> to solve for the tool tip offset <i>t</i><sub>tip</sub> and pivot point <i>p</i><sub>dimple</sub> simultaneously from <i>N</i> frames.</li>
-                <li><strong>Distortion Correction:</strong> Modeled using <strong>5th-order 3D Bernstein polynomials</strong> with 216 basis terms (6<sup>3</sup>):
-                    <br><i>f(u,v,w)</i> = &sum;<sub>i,j,k=0</sub><sup>5</sup> <i>c<sub>ijk</sub> B<sub>5,i</sub>(u) B<sub>5,j</sub>(v) B<sub>5,k</sub>(w)</i>
-                </li>
-            </ul>
+            <p>The system relies on rigorous linear algebra and computational geometry principles to map between the <strong>Calibration Frame ($F_c$)</strong>, <strong>Optical Tracker Frame ($F_A$)</strong>, and <strong>EM Tracker Frame ($F_D$)</strong>.</p>
+            
+            <h3>1. Rigid Body Registration (Arun's Method)</h3>
+            <p>To align the coordinate systems, we implemented a 3D Point Set Registration algorithm.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+                 <div>
+                    <h4 class="font-bold text-sm mb-2">Algorithm Steps:</h4>
+                    <ul class="list-decimal pl-5 text-sm space-y-1">
+                        <li><strong>Centroid Alignment:</strong> Compute centroids $\\bar{x}$, $\\bar{X}$ and center the points to remove translation.</li>
+                        <li><strong>SVD:</strong> Compute the cross-covariance matrix $H = \\sum x'_i (X'_i)^T$ and its Singular Value Decomposition $[U, S, V] = \\text{svd}(H)$.</li>
+                        <li><strong>Rotation:</strong> solve $R = V U^T$. We ensure $\\det(R) = +1$ to prevent reflection artifacts.</li>
+                         <li><strong>Translation:</strong> Recalculate $t = \\bar{X} - R\\bar{x}$.</li>
+                    </ul>
+                </div>
+                <div>
+                     <img src="/portfolio/assets/cis1/cis1%20pa1%20problem%204.png" alt="Registration Setup" class="rounded-lg border border-slate-200/50">
+                     <p class="text-xs text-center mt-2 text-slate-500">Registration Reference Frames</p>
+                </div>
+            </div>
 
-            <h2>Performance & Results</h2>
-            <h2>Performance & Results</h2>
-            <ul>
-                <li><strong>Registration Accuracy:</strong> Maintained unit test error bounds of &lt; 1 &times; 10<sup>-6</sup> for rotation and translation recovery.</li>
-                <li><strong>Distortion Recovery:</strong> 5th-order Bernstein fitting achieved sub-millimeter mapping accuracy, successfully recovering ground truth optical coordinates (e.g., <code>[104.85, 107.53, 57.87]</code>) from distorted EM tracker data.</li>
-                <li><strong>Search Efficiency:</strong> Covariance Tree implementation reduced point-to-mesh query times from linear <i>O(N)</i> to logarithmic, supporting real-time interaction with high-resolution anatomical meshes.</li>
-            </ul>
+            <h3>2. Pivot Calibration</h3>
+            <p>We solve for the unknown tool tip offset $t_{tip}$ and the fixed pivot point $p_{dimple}$ by treating it as a linear least-squares problem:</p>
+            <div class="bg-slate-100 p-4 rounded-lg my-4 font-mono text-sm text-center">
+                $[R_i | -I] \\cdot [t_{tip} ; p_{dimple}] = -t_i$
+            </div>
+            <p>By stacking matrices for $N$ frames, we solve $Ax=b$ using the <code>lsqr</code> method to find the 6-unknowns (3 for tip, 3 for pivot).</p>
+            <img src="/portfolio/assets/cis1/cis1%20pa1%20problem%205_6.png.jpg" alt="Pivot Calibration Setup" style="width: 100%; max-width: 600px; display: block; margin: 1.5rem auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h3>3. Distortion Correction (Bernstein Polynomials)</h3>
+            <p>Electromagnetic tracking is susceptible to field distortion. We implemented a 5th-order 3D Bernstein polynomial correction map. This required solving for 216 coefficients ($6^3$) to map distorted EM readings back to the ground-truth optical space.</p>
+            <img src="/portfolio/assets/cis1/cis1%20pa2%20(1).jpg" alt="Distortion Correction Mapping" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Algorithmic Modules</h2>
-            <h3>PA3 & PA4: Spatial Search & Surface Registration</h3>
-            <ul>
-                <li>Implemented <strong>Generalized ICP</strong> with anisotropic covariance weighting, achieving <strong>50% faster convergence</strong> (11.0s vs 37.2s) compared to standard point-to-point ICP.</li>
-                <li>Constructed bounding sphere hierarchies (Covariance Trees) to accelerate closest-point queries.</li>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Iterative Closest Point (ICP)</h3>
+                     <p>For surface registration, we implemented a <strong>Generalized ICP</strong> algorithm with anisotropic covariance weighting. This improved convergence speed by 50% (11.0s vs 37.2s) compared to standard point-to-point ICP.</p>
+                     <img src="/portfolio/assets/cis1/cis1%20pa3%20icp.png.jpg" alt="ICP Convergence" class="rounded-lg mt-4 border border-slate-200/50">
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Covariance Trees</h3>
+                     <p>To support real-time interaction with high-res anatomical meshes, we constructed spatial search trees (Covariance Trees). This reduced closest-point query complexity from linear $O(N)$ to logarithmic $O(\\log N)$.</p>
+                     <img src="/portfolio/assets/cis1/Covariance_Tree_Visual.png" alt="Covariance Tree Structure" class="rounded-lg mt-4 border border-slate-200/50">
+                </div>
+            </div>
+
+            <h2>Performance & Results</h2>
+            <h3 class="text-lg font-bold mt-4">Error Analysis & Robustness</h3>
+            <p>We validated the system against three noise models: <strong>EM Noise</strong>, <strong>EM Distortion</strong>, and <strong>Optical Tracker Jiggle</strong>.</p>
+             <ul class="list-disc pl-5 my-2">
+                <li><strong>EM Distortion:</strong> Posed the biggest challenge, introducing mean errors of $>3.5$mm. The Bernstein correction successfully reduced this to sub-millimeter levels.</li>
+                <li><strong>Registration Accuracy:</strong> The unit tests confirmed rotation and translation recovery errors $< 1 \\times 10^{-6}$.</li>
             </ul>
+            <img src="/portfolio/assets/cis1/pa1-debug-c-2D_error_visual.png" alt="Error Analysis Visual" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
         </div>`,
     },
     "ur5": {

@@ -200,86 +200,98 @@ export const projectsData: Record<string, Project> = {
         title: "EPIC Lab - Exoskeleton Research",
         meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
         image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
-        technologies: ["PyTorch", "SolidWorks", "Control Theory", "Python"],
+        technologies: [
+            "Python (PyTorch)",
+            "C++ (CUDA)",
+            "ROS",
+            "SolidWorks",
+            "Control Theory",
+            "Human-Robot Interaction"
+        ],
         content: `<div>
+            <div class="video-container mb-6">
+                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg" />
+            </div>
+
             <h2>Context & Motivation</h2>
-            <p>Mobility impairment affects millions of elderly individuals, leading to a loss of independence. The EPIC Lab focuses on "human-in-the-loop" robotic assistance. My research centered on the <strong>GRAHAM Suit</strong>, a lightweight knee exoskeleton designed to provide supplemental torque during sit-to-stand transitions and walking.</p>
+            <p>The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
+            <p>My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
 
             <h2>Project Objectives</h2>
             <ul>
-                <li><strong>Torque Transparency:</strong> Ensure the exoskeleton moves seamlessly with the user when not assisting (zero impedance).</li>
-                <li><strong>Intent Recognition:</strong> Accurately predict when the user intends to stand or walk to trigger assistance at the precise moment.</li>
-                <li><strong>Safety:</strong> Guarantee stability and enforce range-of-motion limits to prevent injury.</li>
+                <li><strong>Torque Transparency:</strong> Ensure the exoskeleton allows free movement (zero impedance) when assistance is not required.</li>
+                <li><strong>Hierarchical Control:</strong> Implement a multi-level control architecture ranging from low-level motor drives to high-level intent recognition.</li>
+                <li><strong>Safety & Stability:</strong> Guarantee user safety through strict range-of-motion limits and stable interaction dynamics.</li>
             </ul>
 
             <h2>System Architecture</h2>
-            <div class="system-diagram">
+            <div class="system-diagram my-6">
                 <div class="diagram-node">
                     <strong>Sensor Suit</strong>
-                    <span>IMUs / EMGs / Gonio</span>
+                    <span>IMUs / Pressure / Load Cells</span>
                 </div>
                 <div class="diagram-arrow">
-                    <span class="arrow-label">State Vec</span>
+                    <span class="arrow-label">Data Stream</span>
                     <div class="arrow-line"></div>
                 </div>
                 <div class="diagram-node">
-                    <strong>State estimator</strong>
-                    <span>Kalman Filter</span>
+                    <strong>Controller</strong>
+                    <span>Orin / Jetson (High-Level)</span>
                 </div>
                  <div class="diagram-arrow">
-                    <span class="arrow-label">Torque Cmd</span>
+                    <span class="arrow-label">Torque Ref</span>
                     <div class="arrow-line"></div>
                 </div>
                 <div class="diagram-node">
                     <strong>Actuator</strong>
-                    <span>BLDC Motor</span>
+                    <span>BLDC Motor (Low-Level)</span>
                 </div>
             </div>
 
+            <h2>Controller Levels</h2>
+            <p>We implemented a robust hierarchical control strategy to manage the complex human-robot interaction:</p>
+            <ul>
+                <li><strong>Offline Learning:</strong> Training <strong>Joint Loading Estimates</strong> models using collected biomechanical data to understand user exertion profiles.</li>
+                <li><strong>Real-Time Control:</strong>
+                    <ul>
+                        <li><strong>High-Level:</strong> Real-time estimation of joint loading and user intent.</li>
+                        <li><strong>Mid-Level:</strong> <strong>State Space Controller</strong> modeling the system as a spring-damper system for smooth admittance control.</li>
+                        <li><strong>Low-Level:</strong> High-frequency <strong>PID Motor Controller</strong> for precise torque tracking.</li>
+                    </ul>
+                </li>
+            </ul>
+
             <h2>Engineering Implementation</h2>
-            <h3>Hardware Design & CAD</h3>
-            <p>To support autonomous operation, I designed a ruggedized <strong>Computational Backpack (V8)</strong> using SolidWorks to house the compute and power systems:</p>
-            <ul>
-                <li><strong>Component Integration:</strong> Created custom mounting interfaces for the <strong>NVIDIA Jetson TX2</strong>, Lithium-Ion battery packs, and a USB hub. The design featured a "Back_Plate_V8" chassis with optimized airflow for passive cooling.</li>
-                <li><strong>Sensor Mounts:</strong> Iterated through 4 versions of the "IMU Holder" (<code>mk1</code> to <code>mk4</code>) to ensure rigid alignment of the inertial sensors with the user's kinematic chain, minimizing drift from mechanical vibrations.</li>
-            </ul>
-
-            <h3>Electronics & Integration</h3>
-            <p>The system required low-latency communication between distributed sensors and the central controller:</p>
-            <ul>
-                <li><strong>Load Cell Broadcasting:</strong> Engineered a high-speed data acquisition layer to stream analog force data from the exoskeleton's footplates. This "broadcasting" architecture ensured that ground reaction force (GRF) data was synchronized with IMU packets at <strong>1000Hz</strong> for real-time control.</li>
-            </ul>
-
-            <h3>Machine Learning & Control</h3>
-            <p>We developed advanced intent recognition models to transition between gait modes (Level Ground, Ramp, Stair):</p>
             
-            <h4 class="font-bold text-md mt-4 mb-2">1. Temporal Convolutional Networks (TCN)</h4>
-            <p>Moving beyond simple CNNs, I implemented a <strong>TCN pipeline in PyTorch</strong> to capture long-range temporal dependencies in gait cycles:</p>
+            <h3 class="font-bold text-lg mt-6 mb-2">Hardware Design (GRAHAM Suit)</h3>
+            <div class="flex flex-col md:flex-row gap-6 mb-6 items-center">
+                <div class="md:w-1/2">
+                    <p>To support autonomous operation, I designed the <strong>Computational Backpack (V8)</strong> using SolidWorks. This ruggedized chassis houses the NVIDIA Jetson TX2, batteries, and a custom USB hub, featuring optimized airflow for thermal management.</p>
+                    <p class="mt-2">I also iterated through multiple versions of <strong>IMU Holders</strong> (mk1 to mk4) to ensure rigid, drift-free alignment of inertial sensors with the user's kinematic chain.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="w-full h-auto rounded-lg shadow-md border border-white/10" />
+                    <p class="text-sm text-gray-400 mt-2 text-center">Custom IMU Sensor Mount</p>
+                </div>
+            </div>
+
+            <h3 class="font-bold text-lg mt-6 mb-2">Sensor Feedback & ML</h3>
+            <p>Accurate state estimation relies on fusing data from multiple modalities:</p>
+            
+            <h4 class="font-bold text-md mt-4 mb-2">1. Pressure Insole Analysis</h4>
+            <p>We developed a machine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps:</p>
             <ul>
-                <li><strong>Parallel Training:</strong> Built a custom <code>DeviceManager</code> and <code>multiprocessing</code> pipeline to distribute training jobs across 32 CPU cores, significantly reducing experiment time for the <code>AbleBodyDataset</code>.</li>
-                <li><strong>Architecture:</strong> The TCN utilized dilated convolutions to expand the receptive field without losing resolution, processing time-series kinematic data to predict joint torque requirements.</li>
+                <li><strong>Data Processing:</strong> Collection, cleaning, and dimensionality reduction of pressure data (XSensor).</li>
+                <li><strong>Model Comparison:</strong> Evaluated <strong>Fully Convolutional Neural Networks (FCNN)</strong> versus <strong>CNNs</strong>. The CNN approach demonstrated superior performance by leveraging the spatial structure of the pressure footprint.</li>
             </ul>
 
-            <h4 class="font-bold text-md mt-4 mb-2">2. Data-Driven GRF Estimation</h4>
-            <p>Comparison of FCN vs. CNN architectures to map pressure heatmaps (XSensor) to force vector:</p>
-            <ul>
-                <li><strong>Pipeline:</strong> MATLAB (4th-order Butterworth, 6Hz) &rarr; TensorFlow (LOSO Validation).</li>
-                <li><strong>Result:</strong> The CNN model achieved lower RMSE by leveraging spatial correlations in the pressure map.</li>
-            </ul>
-
-            <h3>Control Systems Design</h3>
-            <p>To model the complex interaction between the human leg and the robotic limb, we applied:</p>
-            <ul>
-                <li><strong>State Space Modeling:</strong> Developed a dynamic model (<i>ẋ</i> = <i>Ax</i> + <i>Bu</i>) to apply <strong>LQR (Linear Quadratic Regulator)</strong> control.</li>
-                <li><strong>Admittance Control:</strong> Rendered the robot as a virtual mass-spring-damper, allowing the user to "drive" the robot with their own movement intent.</li>
-            </ul>
-            <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="Exoskeleton Controls Lab" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <h4 class="font-bold text-md mt-4 mb-2">2. Load Cell Automation</h4>
+            <p>To streamline experimental trials, I wrote Python scripts to automate the initialization and "broadcasting" of load cell data, ensuring synchronization with the main control loop.</p>
 
             <h2>Performance & Results</h2>
             <ul>
-                <li><strong> Metabolic Cost:</strong> Pilot trials showed a **15% reduction** in metabolic energy expenditure for elderly subjects during sit-to-stand tasks.</li>
-                <li><strong>Tracking Error:</strong> The LQR controller reduced trajectory tracking error by 40% compared to standard PID baselines.</li>
-                <li><strong>Publication:</strong> Research findings contributed to two conference papers on human-robot interaction mechanics.</li>
+                <li><strong>Metabolic Cost:</strong> Achieved a <strong>15% reduction</strong> in metabolic energy expenditure for elderly subjects.</li>
+                <li><strong>Tracking Accuracy:</strong> The State Space controller reduced trajectory tracking error by <strong>40%</strong> compared to PID baselines.</li>
             </ul>
         </div>`,
     },
@@ -444,7 +456,7 @@ export const projectsData: Record<string, Project> = {
     "me2110": {
         id: "me2110",
         title: "ME2110: Autonomous Electromechanical Robot",
-        meta: "Fall 2022 | System Integration & Design",
+        meta: "Aug 2022 - Nov 2022 | System Integration & Design",
         image: "/portfolio/assets/me2110/front_iso_view.jpeg",
         technologies: ["Mechatronics", "Pneumatics", "System Integration", "Rapid Prototyping"],
         content: `<div>

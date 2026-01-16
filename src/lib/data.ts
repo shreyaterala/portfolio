@@ -49,7 +49,7 @@ export const projectsData: Record<string, Project> = {
             <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design of Pin Array" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             <ul>
                 <li><strong>Cam Design:</strong> I designed logarithmic spiral cams with a 1.5" pitch radius to achieve 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
-                <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, I implemented a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
+                <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, the team designed and fabricated a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
             </ul>
             <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Silicone Overlay Prototype" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
@@ -70,7 +70,6 @@ export const projectsData: Record<string, Project> = {
             <ul>
                 <li><strong>Shape Recognition:</strong> 100% of participants successfully distinguished flags with differing geometries (e.g., Japan vs. Sweden).</li>
                 <li><strong>Color Distinguishability:</strong> While pure color differentiation (Sweden vs. Denmark) proved challenging (35% error rate initially), the addition of a tactile legend allowed users to accurately map height to color.</li>
-                <li><strong>Reliability:</strong> The cam-follower mechanism endured >1,000 actuation cycles, validating the mechanical robustness of the 3D-printed chassis.</li>
             </ul>
 
             <h2>Demos</h2>

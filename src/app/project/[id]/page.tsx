@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <div className="max-w-4xl mx-auto px-6">
                 {/* Navigation Breadcrumb */}
                 <Link href="/#projects" className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors mb-12">
-                    <span>← Index / Selected_Works</span>
+                    <span>← BACK</span>
                 </Link>
 
                 {/* Project Header Block */}
@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Footer Navigation */}
             <div className="max-w-4xl mx-auto px-6 mt-24 pt-12 border-t border-slate-200/50 flex justify-between items-center">
                 <Link href="/#projects" className="text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors">
-                    Back to Index
+                    BACK
                 </Link>
                 <span className="text-[10px] font-mono text-slate-300">End of File</span>
             </div>

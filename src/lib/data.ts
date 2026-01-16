@@ -352,15 +352,26 @@ export const projectsData: Record<string, Project> = {
         image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
         technologies: ["Python", "Amadeus API", "Lasso Regression", "Pandas"],
         content: `<div>
-            <h2>Context & Motivation</h2>
-            <p>For college students, flight prices are a major budget constraint. With prices fluctuating wildly based on opaque algorithmic factors, finding the optimal time to book is difficult. This project applied machine learning to analyze real-time flight data effectively.</p>
+            <h2>Context & Background</h2>
+            <p>Flight ticket prices are highly dynamic, often fluctuating based on opaque algoirthms. Our research explored existing predictive models, such as Mulkalla's work on AI-driven pricing and Pratsath et al.'s K-Nearest Neighbors approach (81.77% accuracy). However, we identified that many existing studies relied on limited public datasets (like DB1B) or assumed linear relationships between variables. This project aimed to improve upon these baselines by integrating real-time, high-dimensional data.</p>
 
-            <h2>Project Objectives</h2>
-            <ul>
-                <li><strong>Data Acquisition:</strong> Utilize the <strong>Amadeus Flight Offers Search API</strong> to access real-time data from over 400 airlines.</li>
-                <li><strong>Feature Selection:</strong> Identify the most statistically significant factors driving price changes using regularization techniques.</li>
-                <li><strong>Model Optimization:</strong> Compare regression algorithms to select the optimal approach for price forecasting.</li>
-            </ul>
+            <h2>Dataset & Features</h2>
+            <p>We utilized the <strong>Amadeus Flight Offers Search API</strong> to access a live database of over 400 airlines. Unlike static historical datasets, this allowed us to query real-time pricing. We engineered a model based on 13 key features:</p>
+            <div class="grid grid-cols-2 gap-2 text-sm mb-4">
+                <ul class="list-disc pl-4">
+                    <li>Booking Date & Time</li>
+                    <li>Flight Duration</li>
+                    <li>Departure Date/Time</li>
+                    <li>Arrival Date/Time</li>
+                    <li>Number of Stops</li>
+                </ul>
+                <ul class="list-disc pl-4">
+                    <li>Airline Carrier</li>
+                    <li>Source/Destination</li>
+                    <li>Seats Remaining</li>
+                    <li>Day of Week</li>
+                </ul>
+            </div>
 
             <h2>Engineering Implementation</h2>
             <h3>Data Pipeline & Preprocessing</h3>
@@ -432,51 +443,74 @@ export const projectsData: Record<string, Project> = {
     },
     "me2110": {
         id: "me2110",
-        title: "Autonomous Competition Robot",
-        meta: "Aug 2022 - Nov 2022 | Software Lead",
-        image: "/portfolio/assets/me2110/me2110_robot.jpg",
-        technologies: ["Arduino", "C++", "PID Control"],
+        title: "ME2110: Autonomous Electromechanical Robot",
+        meta: "Fall 2022 | System Integration & Design",
+        image: "/portfolio/assets/me2110/front_iso_view.jpeg",
+        technologies: ["Mechatronics", "Pneumatics", "System Integration", "Rapid Prototyping"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>The ME2110 "Creative Decisions and Design" competition is a high-pressure engineering challenge where teams must build an autonomous robot to compete in a head-to-head arena. The task involved navigating a transforming maze, retrieving specific game pieces, and depositing them into scoring zonesùall within a 40-second round.</p>
-
-            <h2>Project Objectives</h2>
+            <p>For the ME 2110 "Lord of the Rings" design challenge, we were tasked with building an autonomous robot to complete a complex set of tasks within 40 seconds. The machine had to fit within a 12"x24"x18" volume, strictly adhere to a $100 budget, and integrate multiple electromechanical subsystems to score points.</p>
+            
+            <h2>Mission Objectives</h2>
             <ul>
-                <li><strong>Autonomy:</strong> The robot must operate with zero human input after the start signal.</li>
-                <li><strong>Reliability:</strong> The system must handle arena variability (lighting, wall friction) without getting stuck.</li>
-                <li><strong>Speed:</strong> Complete the primary sorting task within the first 15 seconds to secure a defensive position.</li>
+                <li><strong>Ring Placement (High Priority):</strong> Extend upwards to place a ring on "Mt. Doom" (31/16" height).</li>
+                <li><strong>Orc Defense:</strong> Deploy barriers to push enemy "Orc" blocks into the opposing zone.</li>
+                <li><strong>Troop Deployment:</strong> Transport and release "Soldier" figurines and a red arrow into specific battle stations.</li>
+                <li><strong>Legolas Rescue:</strong> Autonomous retrieval of the "Legolas" ball from a moving platform.</li>
             </ul>
+
+            <h2>System Architecture</h2>
+            <p>We prioritized a <strong>reliability-first</strong> design philosophy, focusing on structural rigidity and the seamless integration of five distinct subsystems.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                <div>
+                     <img src="/portfolio/assets/me2110/front_iso_view.jpeg" alt="Final Robot Isometric View" class="rounded-lg border border-slate-200/50 shadow-sm">
+                     <p class="text-xs text-center mt-2 text-slate-500">Robot Configuration (Front View)</p>
+                </div>
+                 <div>
+                     <img src="/portfolio/assets/me2110/back_iso_view.jpeg" alt="Final Robot Back View" class="rounded-lg border border-slate-200/50 shadow-sm">
+                     <p class="text-xs text-center mt-2 text-slate-500">Drivetrain & Electronics Integration</p>
+                </div>
+            </div>
 
             <h2>Engineering Implementation</h2>
-            <h3>Mechatronics & Mechanisms</h3>
-            <p>Our robot was designed as a multi-stage deployment system featuring three primary subsystems:</p>
+            <h3>1. Pneumatic Scissor Lift (Ring Placement)</h3>
+            <p>To reach the 31-inch target height of "Mt. Doom" within the size constraints, we engineered a <strong>six-stage pneumatic scissor lift</strong>. </p>
             <ul>
-                <li><strong>Scissor Lift:</strong> An electromechanical lift mechanism (triggered via <code>digital(4)</code>) designed to extend vertically for high-goal scoring.</li>
-                <li><strong>Legolas Conveyor:</strong> A high-friction belt drive (Motor 2) used to intake and transport game pieces ("rings") into the hopper.</li>
-                <li><strong>Pneumatic Actuation:</strong> Utilized solenoid-driven pistons (mounted on custom 3D-printed brackets) to trigger "Deploy Arrow" and "Release Ring" events at precise timing intervals.</li>
+                <li><strong>Actuation:</strong> Powered by a single pneumatic piston, ensuring a consistent and purely mechanical extension every time.</li>
+                <li><strong>Stability:</strong> Constructed from reinforced beams with bolt joints to minimize lateral sway during the 2-second deployment window.</li>
             </ul>
+            <img src="/portfolio/assets/me2110/ring_scissor_lift.jpeg" alt="Scissor Lift Mechanism" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
-            <h3>Control Logic</h3>
-            <p>I architected the software using a <strong>Time-Sequenced State Machine</strong> in C++ to handle the strict 40-second round limits:</p>
+            <h3>2. Gravity-Fed Wing Deployment (Orc Defense)</h3>
+            <p>We avoided using extra motors for the defensive "wings" by integrating their deployment with the drivetrain.</p>
             <ul>
-                <li><strong>Event Scheduling:</strong> utilized non-blocking <code>millis()</code> timers to sequence actions. Crucial triggers (like the 27.5s end-game move) were hard-coded to ensure we didn't miss the window.</li>
-                <li><strong>Sensor Integration:</strong> Implemented a "Wait-for-Trigger" logic using limit switches (Buttons 3 & 4). The robot would autonomously hold position until physical contact was made with the arena wall, ensuring accurate starting coordinates for the blind-reckoning sequences.</li>
+                <li><strong>Mechanism:</strong> Large MDF wings were hinged to the chassis side. A small extrusion on the wheel hubs "nudged" the wings open as the robot drove forward, allowing gravity to lock them into full extension.</li>
+                <li><strong>Result:</strong> Effectively cleared "Orc" blocks from our zone without consuming electrical power.</li>
             </ul>
+            <img src="/portfolio/assets/me2110/robot_wing.jpeg" alt="Wing Deployment" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h3>3. Solenoid Ramp & Conveyor (Troop & Legolas)</h3>
+            <p>We integrated the troop deployment and rescue systems to save space:</p>
+            <ul>
+                <li><strong>Solenoid Ramp:</strong> A gravity-fed ramp controlled by two linear solenoids released the "Red Arrow" and "Soldiers" at precise timing intervals.</li>
+                <li><strong>Legolas Conveyor:</strong> Positioned directly above the pick-up zone, this belt drive used friction flaps to scoop the "Legolas" ball and deposit it into the soldier ramp for simultaneous deployment.</li>
+            </ul>
+            <img src="/portfolio/assets/me2110/soldier_release_solenoid.jpeg" alt="Solenoid Release Mechanism" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h3>4. Button Platform & Drivetrain</h3>
+            <p>The robot featured a custom <strong>Multi-Height Button Platform</strong> to interface with the varying heights of the battle stations. The drivetrain used a U-shaped 4-wheel configuration with a dedicated rear steering wheel for precise alignment.</p>
 
             <h2>Performance & Results</h2>
+            <p>The system was iteratively tested through two design sprints. In the final competition, the robot demonstrated high reliability:</p>
             <ul>
-                <li><strong>Competition Performance:</strong> Our robot consistently completed the maze run in under 20 seconds.</li>
-                <li><strong>Robustness:</strong> The PID controller successfully rejected disturbances (like bumps from opponent robots) without losing track of the wall.</li>
-                <li><strong>Class Rank:</strong> Preliminary rounds placed our team in the top 10% of the cohort.</li>
+                <li><strong>Consistency:</strong> Successfully scored the Ring on Mt. Doom before any opponent in the final matches.</li>
+                <li><strong>Defense:</strong> The passive wing system consistently cleared the "Orc" zone, securing defensive points.</li>
+                <li><strong>Outcome:</strong> In the final game, the robot was on track to outscore all three opponents (projected 740 points) but faced a disqualification due to a logic error that caused movement after the buzzer.</li>
             </ul>
-             <img src="/assets/me2110/project_poster.jpg" alt="Final Project Poster" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-            
-            <div class="video-container">
-                <h3>Robot Run</h3>
-                <video controls>
-                    <source src="/assets/me2110/robot_run.mov" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+             <div class="video-container" style="background: #1e1e1e; padding: 1rem; border-radius: 8px; text-align: center; color: white;">
+                 <img src="/portfolio/assets/me2110/project_poster.jpg" alt="Design Poster" style="width: 100%; border-radius: 8px; opacity: 0.9;">
+                 <p class="text-xs mt-2 text-slate-400">Competition Project Poster</p>
             </div>
         </div>`,
     },

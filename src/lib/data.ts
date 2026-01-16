@@ -498,35 +498,53 @@ export const projectsData: Record<string, Project> = {
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
                 [Chest Expansion] -> [Strain Gauge] -> [Wheatstone Bridge] -> [NAU7802 24-bit ADC] -> [ESP32 S3] -> [DRV2605 Driver] -> [LRA Haptic Motor]
             </p>
+            <img src="/portfolio/assets/breath_sense/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Engineering Implementation</h2>
+            <h2>Engineering Implementation</h2>
             <h3>Concept & Form Factor Selection</h3>
-            <p>We evaluated 5 sensor modalities (Accelerometer, RF, Acoustic, Pressure, Strain) and multiple form factors. <strong>Strain Gauges</strong> were selected for their high sensitivity to relative respiratory volume compared to accelerometers which suffered from motion artifacts. The <strong>Racerback Vest</strong> design was chosen to:</p>
-            <ul>
-                <li><strong>Isolate Mechanics:</strong> Decouple the sensing band (at the xiphoid process) from the vibration puck (at the manubrium) to prevent feedback loops.</li>
-                <li><strong>Maintain Contact:</strong> Elastic adjustment allows a consistent <strong>~5N holding force</strong> of the vibration puck against the sternum for effective transmission.</li>
-            </ul>
+            <p>We utilized a Morphological Chart to explore combinations of 5 sensor modalities and various wearable form factors. The <strong>Strain Gauge</strong> was selected for its superior sensitivity to relative respiratory volume compared to accelerometers.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                 <img src="/portfolio/assets/breath_sense/design_concepts.png" alt="Morphological Chart" class="rounded-lg border border-slate-200/50">
+                 <img src="/portfolio/assets/breath_sense/design_evaluation.png" alt="Evaluation Matrix" class="rounded-lg border border-slate-200/50">
+            </div>
+            <p>The <strong>Racerback Vest</strong> was chosen to decoupled the sensing band (xiphoid process) from the vibration source (manubrium), ensuring a consistent <strong>~5N holding force</strong>.</p>
 
-            <h3>Electronics & Haptics</h3>
-            <p>To meet the "organic" feel requirement, I transitioned from Eccentric Rotating Mass (ERM) motors to a <strong>Linear Resonant Actuator (LRA)</strong>.</p>
-            <ul>
-                <li><strong>Control:</strong> Used the <strong>TI DRV2605</strong> haptic driver to execute complex waveforms (e.g., "Ramp Up," "Soft Bump") rather than a binary buzz.</li>
-                <li><strong>Signal Chain:</strong> Integrated the <strong>NAU7802</strong> 24-bit ADC to read the Wheatstone bridge changes with micro-volt precision, essential for detecting shallow breathing.</li>
-                <li><strong>Thermal Safety:</strong> FEA analysis confirmed the electronics housing remains below 32&deg;C during operation, well within the 43&deg;C ISO safety standard for skin contact.</li>
-            </ul>
-            <img src="/portfolio/assets/breath_sense/breath_sense.jpg" alt="Final Electronics Package" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <h3>Electronics & Prototyping</h3>
+            <p>We iterated through multiple housing designs to optimize for compact integration and thermal performance. The final circuit utilizes an <strong>ESP32-S3</strong> for processing and a <strong>NAU7802 24-bit ADC</strong> for high-fidelity signal acquisition.</p>
+            <img src="/portfolio/assets/breath_sense/electrical_wiring_diagram.png" alt="Wiring Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            
+            <p><strong>Haptic Evolution:</strong> Early prototypes used ERM motors, but they lacked the "organic" rise and fall needed for breath pacing. We transitioned to a <strong>Linear Resonant Actuator (LRA)</strong> driven by a TI DRV2605, enabling complex waveforms like "Soft Bump" and "Ramp Up".</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/portfolio/assets/breath_sense/electronic_housing_unit_prototying.png" alt="Housing Evolution" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/breath_sense/vibration_puck_prototyping.png" alt="Vibration Puck Prototyping" class="rounded-lg border border-slate-200/50">
+            </div>
 
             <h2>Feasibility & Testing</h2>
-            <h3>Structural FEA</h3>
-            <p>We conducted Static Structural FEA on the 3D-printed housing (Bambu Lab PLA) simulating a 25lbf load at strap interface points. The design yielded a safety factor of 1.5, validated by destructive pull testing which required 32lbf to induce local yielding.</p>
+            <h2>Feasibility & Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <div>
+                    <h4 class="font-bold mb-2">Structural Integrity</h4>
+                    <p class="text-sm">Static FEA simulation (ANSYS) validated the housing against a <strong>25lbf load</strong>, yielding a safety factor of 1.5. Destructive testing confirmed failure only at >32lbf.</p>
+                    <img src="/portfolio/assets/breath_sense/fea_von_mises_stress.png" alt="FEA Stress Analysis" class="rounded-lg mt-2 border border-slate-200/50">
+                </div>
+                <div>
+                    <h4 class="font-bold mb-2">Thermal Safety</h4>
+                    <p class="text-sm">Steady-state thermal analysis ensured the device remains safe for skin contact. The simulation predicted a max surface temp of <strong>32&deg;C</strong>, well below the ISO 43&deg;C limit.</p>
+                    <img src="/portfolio/assets/breath_sense/steday_state_thermal_analysis.png" alt="Thermal Analysis" class="rounded-lg mt-2 border border-slate-200/50">
+                </div>
+            </div>
             
-            <h3>User Validation Results</h3>
-            <p>Clinical trials with n=10 participants demonstrated:</p>
-            <ul>
-                <li><strong>Synchronization:</strong> Average system latency was <strong>150-350ms</strong>, aligning with the target reaction time.</li>
-                <li><strong>Comfort:</strong> Rated 8.4/10 on the comfort scale, with an average setup time of 0.98 minutes.</li>
-                <li><strong>Effectiveness:</strong> 100% of participants could distinguish the vibration cues through clothing.</li>
+            <h2>Final Design & Validation</h2>
+            <p>The final integrated system features a streamlined user interface, adjustable fit, and robust cable management. Clinical trials (n=10) demonstrated:</p>
+            <ul class="list-disc pl-5 mb-4">
+                <li><strong>Synchronization:</strong> Average latency of <strong>150-350ms</strong>, matching human reaction time.</li>
+                <li><strong>Comfort:</strong> Rated <strong>8.4/10</strong> for extended wear (>30 min).</li>
             </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/portfolio/assets/breath_sense/final_product.png" alt="Final Product Rendering" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/breath_sense/final_prototype.png" alt="Physical Prototype" class="rounded-lg border border-slate-200/50">
+            </div>
 
             <h2>Societal Impact</h2>
             <p>Ideally, breathSense offers a non-pharmaceutical intervention for managing anxiety and PTSD symptoms. By strictly adhering to IEC 62368-1 (Consumer Electronics Safety) and ISO 10993 (Biocompatibility), we ensured the device is safe for at-home use, potentially democratizing access to grounding therapy.</p>

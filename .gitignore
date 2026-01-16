@@ -25,3 +25,7 @@ pnpm-debug.log*
 # Env files
 .env*.local
 .env
+
+# Large Assets
+public/assets/ur5/RDKDC Final Project - RR.MOV
+public/assets/ur5/RDKDC Final Project - IK Demo.MOV

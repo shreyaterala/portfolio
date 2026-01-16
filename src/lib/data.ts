@@ -484,7 +484,7 @@ export const projectsData: Record<string, Project> = {
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. While 17.3% of US adults practice meditation, survivors of PTSD face barriers engaging with traditional breath-focused techniques.</p>
-            <p>Driven by Dr. Negar Fani's research at Emory University, <strong>breathSense/strong> utilizes external mechanoreceptor stimulation to anchor the user. Dr. Fani's lab found that vibration synchronized to the exhale significantly improves outcomes in grounding therapy compared to vibration alone.</p>
+            <p>Driven by Dr. Negar Fani's research at Emory University, <strong>breathSense</strong> utilizes external mechanoreceptor stimulation to anchor the user. Dr. Fani's lab found that vibration synchronized to the exhale significantly improves outcomes in grounding therapy compared to vibration alone.</p>
             
             <h2>Project Objectives</h2>
             <ul>

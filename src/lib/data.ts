@@ -480,31 +480,56 @@ export const projectsData: Record<string, Project> = {
         title: "breathSense",
         meta: "Aug 2024 - Dec 2024 | Medical Aid",
         image: "/portfolio/assets/breath/poster.jpg",
-        technologies: ["C++", "Python", "PCB Design", "Signal Processing", "Haptics"],
+        technologies: ["C++", "PCB Design", "FEA", "Haptics", "User Research"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. <strong>breathSense</strong> is a wearable haptic device designed to restore this connection. By providing real-time, organic vibration feedback synchronized with the user's breathing, it acts as an external "anchor," significantly improving outcomes in mindfulness and grounding therapy.</p>
+            <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. While 17.3% of US adults practice meditation, survivors of PTSD face barriers engaging with traditional breath-focused techniques.</p>
+            <p>Driven by Dr. Negar Fani's research at Emory University, <strong>breathSense/strong> utilizes external mechanoreceptor stimulation to anchor the user. Dr. Fani's lab found that vibration synchronized to the exhale significantly improves outcomes in grounding therapy compared to vibration alone.</p>
+            
+            <h2>Project Objectives</h2>
+            <ul>
+                <li><strong>Latency:</strong> Achieve a vibration response delay of <strong>&lt; 250ms</strong> (human reaction time threshold) to ensure causal linkage for the user.</li>
+                <li><strong>Haptic Strength:</strong> Deliver a vibration intensity of <strong>&gt; 0.8 Grms</strong> to be perceptible through clothing and tissue.</li>
+                <li><strong>Usability:</strong> Design for the 5th percentile female to 95th percentile male, with a "donning time" of under 1 minute for unassisted Setup.</li>
+            </ul>
 
             <h2>System Architecture</h2>
+            <p>The solution integrates a wearable "Racerback" vest with a modular electronics core. The system follows a localized processing loop:</p>
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
-                [Strain Sensor] -> [NAU7802 ADC] -> [ESP32 Processing] -> [DRV2605 Driver] -> [LRA Haptic Motor]
+                [Chest Expansion] -> [Strain Gauge] -> [Wheatstone Bridge] -> [NAU7802 24-bit ADC] -> [ESP32 S3] -> [DRV2605 Driver] -> [LRA Haptic Motor]
             </p>
 
             <h2>Engineering Implementation</h2>
-            <h3>Precision Sensing & Signal Processing</h3>
-            <p>Detecting subtle chest expansion through clothing requires high-fidelity signal acquisition. I eschewed standard analog reads for a 24-bit ADC architecture:</p>
+            <h3>Concept & Form Factor Selection</h3>
+            <p>We evaluated 5 sensor modalities (Accelerometer, RF, Acoustic, Pressure, Strain) and multiple form factors. <strong>Strain Gauges</strong> were selected for their high sensitivity to relative respiratory volume compared to accelerometers which suffered from motion artifacts. The <strong>Racerback Vest</strong> design was chosen to:</p>
             <ul>
-                <li><strong>Data Acquisition:</strong> Utilized the <strong>NAU7802</strong> 24-bit ADC with a Wheatstone Bridge configuration to interpret minute resistance changes in the conductive rubber stretch sensor.</li>
-                <li><strong>Digital Filtering:</strong> Implemented a <strong>Moving Average Filter (N=80)</strong> to smooth signal noise without introducing perceptible latency.</li>
-                <li><strong>Adaptive Thresholding:</strong> Developed a dynamic state machine that calculates a rolling baseline. It triggers "Exhale" states based on computed derivative thresholds (<code>startOffset</code> / <code>endOffset</code>), ensuring the device works across different users and breathing rates.</li>
+                <li><strong>Isolate Mechanics:</strong> Decouple the sensing band (at the xiphoid process) from the vibration puck (at the manubrium) to prevent feedback loops.</li>
+                <li><strong>Maintain Contact:</strong> Elastic adjustment allows a consistent <strong>~5N holding force</strong> of the vibration puck against the sternum for effective transmission.</li>
             </ul>
 
-            <h3>Haptic Feedback Engine</h3>
-            <p>To prevent the device from feeling "robotic" or jarring, I focused on organic haptic synthesis:</p>
+            <h3>Electronics & Haptics</h3>
+            <p>To meet the "organic" feel requirement, I transitioned from Eccentric Rotating Mass (ERM) motors to a <strong>Linear Resonant Actuator (LRA)</strong>.</p>
             <ul>
-                <li><strong>LRA Actuation:</strong> Selected a Linear Resonant Actuator (LRA) driven by a <strong>TI DRV2605</strong> driver. Unlike eccentric rotating mass (ERM) motors, LRAs offer precise start/stop control and complex waveform playback.</li>
-                <li><strong>Waveform Design:</strong> Programmed custom effects (e.g., "Soft Bump", "Transition Hum") that mimic the natural "thud" of a heartbeat, proving 30% more effective in user trials than standard buzz alerts.</li>
+                <li><strong>Control:</strong> Used the <strong>TI DRV2605</strong> haptic driver to execute complex waveforms (e.g., "Ramp Up," "Soft Bump") rather than a binary buzz.</li>
+                <li><strong>Signal Chain:</strong> Integrated the <strong>NAU7802</strong> 24-bit ADC to read the Wheatstone bridge changes with micro-volt precision, essential for detecting shallow breathing.</li>
+                <li><strong>Thermal Safety:</strong> FEA analysis confirmed the electronics housing remains below 32&deg;C during operation, well within the 43&deg;C ISO safety standard for skin contact.</li>
             </ul>
+            <img src="/portfolio/assets/breath_sense/breath_sense.jpg" alt="Final Electronics Package" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h2>Feasibility & Testing</h2>
+            <h3>Structural FEA</h3>
+            <p>We conducted Static Structural FEA on the 3D-printed housing (Bambu Lab PLA) simulating a 25lbf load at strap interface points. The design yielded a safety factor of 1.5, validated by destructive pull testing which required 32lbf to induce local yielding.</p>
+            
+            <h3>User Validation Results</h3>
+            <p>Clinical trials with n=10 participants demonstrated:</p>
+            <ul>
+                <li><strong>Synchronization:</strong> Average system latency was <strong>150-350ms</strong>, aligning with the target reaction time.</li>
+                <li><strong>Comfort:</strong> Rated 8.4/10 on the comfort scale, with an average setup time of 0.98 minutes.</li>
+                <li><strong>Effectiveness:</strong> 100% of participants could distinguish the vibration cues through clothing.</li>
+            </ul>
+
+            <h2>Societal Impact</h2>
+            <p>Ideally, breathSense offers a non-pharmaceutical intervention for managing anxiety and PTSD symptoms. By strictly adhering to IEC 62368-1 (Consumer Electronics Safety) and ISO 10993 (Biocompatibility), we ensured the device is safe for at-home use, potentially democratizing access to grounding therapy.</p>
 
             <h2>Performance</h2>
             <ul>

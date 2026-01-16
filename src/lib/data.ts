@@ -820,6 +820,7 @@ export const projectsData: Record<string, Project> = {
         </div>`,
     },
     */
+
     "pid": {
         id: "pid",
         title: "Ad Astra - PID Autonomous Control",

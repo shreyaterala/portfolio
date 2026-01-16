@@ -16,10 +16,10 @@ export const projectsData: Record<string, Project> = {
         technologies: ["Fusion 360", "Arduino", "C++", "Soft Robotics"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>According to the American Alliance of Museums, 7 million visually impaired individuals in the US face a largely inaccessible cultural landscape. This project introduces <strong>VISTA (Visual Information through Sensory Tactile Array)</strong>, a novel tactile display designed to convey both the <em>structure</em> and <em>appearance</em> of art through touch.</p>
+            <p>According to the American Alliance of Museums, 7 million visually impaired individuals in the US face a largely inaccessible cultural landscape. This project introduces <strong>VISTA (Visual Information through Sensory Tactile Array)</strong>, a novel tactile display designed by our team to convey both the <em>structure</em> and <em>appearance</em> of art through touch.</p>
             
             <h2>System Architecture</h2>
-            <p>VISTA utilizes a 7x5 pin array where <strong>Shape</strong> is rendered by actuated pins and <strong>Color</strong> is encoded via variable pin height.</p>
+            <p>The system utilizes a 7x5 pin array where <strong>Shape</strong> is rendered by actuated pins and <strong>Color</strong> is encoded via variable pin height.</p>
             <div class="system-diagram">
                 <div class="diagram-node">
                     <strong>Input Image</strong>
@@ -48,20 +48,20 @@ export const projectsData: Record<string, Project> = {
             <p>The device requires precise independent control of 35 pins. I optimized the mechanical packaging under strict geometric constraints:</p>
             <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design of Pin Array" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             <ul>
-                <li><strong>Cam Design:</strong> Designed logarithmic spiral cams with a 1.5" pitch radius to achieve 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
-                <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, used a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
+                <li><strong>Cam Design:</strong> I designed logarithmic spiral cams with a 1.5" pitch radius to achieve 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
+                <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, I implemented a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
             </ul>
             <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Silicone Overlay Prototype" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h3>Electronics & Logic Pipeline</h3>
-            <p>The control system translates pixel data into physical topography using a custom mapping algorithm:</p>
+            <p>The team developed a control system to translate pixel data into physical topography using a custom mapping algorithm:</p>
             <ul>
-                <li><strong>Color-to-Height Mapping:</strong> Quantized colors into 4 discernable height levels to convey depth:
+                <li><strong>Color-to-Height Mapping:</strong> We quantized colors into 4 discernable height levels to convey depth:
                     <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-sm">
                         Yellow (17.5mm) &gt; Red (9.8mm) &gt; Blue (6.3mm) &gt; White (2.7mm)
                     </div>
                 </li>
-                <li><strong>Distributed Control:</strong> Implemented a master-slave architecture with two Arduino boards managing 35 servo motors (one per pin) to handle the high PWM channel load.</li>
+                <li><strong>Distributed Control:</strong> The team implemented a master-slave architecture with two Arduino boards managing 35 servo motors (one per pin) to handle the high PWM channel load.</li>
             </ul>
              <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics Schematic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 

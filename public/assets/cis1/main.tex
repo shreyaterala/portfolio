@@ -1,0 +1,546 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{caption}
+\usepackage{booktabs}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage} % page number centered at bottom
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\title{CIS I - Programming Assignment 1 Report}
+\author{Shreya Terala \& Yvonne Zhang}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This report will focus on the tasks presented in Assignment 1, including the development of mathematical tools and subroutines for the calibration, registration, and tracking of a stereotactic navigation system using an electromagnetic position tracking device \cite{PA1}. All programs were written in MATLAB for this project and will be used for all subsequent programming assignments.
+
+\section{Mathematical Approach}
+
+\subsection{Terms and Setup}
+This section covers the variables and terminology used in the stereotactic navigation system problem scenario \cite{PA1}. Diagrams were recreated for the team's comprehension.
+\subsubsection{Registration Algorithm}
+The setup includes a calibration object moving in the workspace, an optical tracker and the EM tracker base. The following variables define the stereotactic navigation system system and the workspace. \\
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=11cm]{cis1 pa1 problem 4.png}
+    \caption{Registration System Setup}
+    \label{fig:registration_system}
+\end{figure} \\
+Error v = 0 to 0.3 mm \\ 
+$N_C$ - Calibration object EM markers \\
+$N_A$ - Calibration object optical LED markers \\
+$N_D$ - Optical markers in the EM tracking system \\ \\
+$F_C$ - Frame calibration object coordinate system \\
+$F_A$ - Frame transformation from $F_C$ to frame A (optical tracker) \\
+$F_D$ - Frame transformation from frame A (optical tracker) to frame D (EM tracker base) \\ \\
+$C_i$ - Positions from frame D (EM tracker base) to EM markers on the calibration object \\
+$c_i$ - Known positions relative to $F_C$ for i = 1…$N_C$\\
+$A_j$ - Positions from frame A (optical tracker) to optical LED markers on the calibration object \\
+$a_j$ - Position of optical markers relative to $F_C$ frame on calibration object \\
+$D_j$ - Positions from frame A (optical tracker) to optical markers on EM base markers ($N_D$) \\
+$d_j$ - Positions of optical markers on the EM tracker base relative to frame D \\ \\
+Calibration data sample frame - position of the calibration object in the workspace, optical markers, and EM markers [$D_1$, …, $D_{N_D}$, $A_1$, …, $A_{N_A}$, $C_1$, …, $C_{N_C}$]
+
+\subsubsection{Pivot Calibration Method}
+Two pointer probes are used, one with LED markers and one with electromagnetic (EM) markers with unknown positions and orientations with respect to the EM tracker system. The pivot calibrations of each probe are given using the dimpled posts in the workspace. The following variables define the calibration probe systems.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{cis1 pa1 problem 5_6.png.jpg}
+    \caption{Pivot Calibration System Setup}
+    \label{fig:pivot_calibration}
+\end{figure} \\
+$N_H$ - LED markers unknown with fixed position $h_i$\\
+$N_G$ - EM markers unknown with fixed position $g_i$\\ \\
+The pivot calibration data at each post are given as: \\
+Optical probe calibration: [$D_1$, …, $D_{N_D}$, $H_1$, …, $H_{N_H}$] \\
+EM probe calibration: [$G_1$, …, $G_{N_G}$]
+
+\subsection{Cartesian Math Package}
+\label{Cartesian Math}
+MATLAB's Symbolic Math Toolbox was used as the Cartesian math package for 3D points, rotations, and frame transformations \cite{mathworks_symbolic_linearalgebra}. \\ \\
+Basic mathematical operations for the matrices were used, such as addition, matrix multiplication, and matrix transpose using single quotes ('). These operations were used throughout the assignment. \\ \\
+From Matlab's core numerical linear algebra libraries, the svd function performs a singular value decomposition of matrix H, such that [U,S,V] = svd(H) is used to solve $H = USV^T$ \cite{matlab_svd}. Singular value decomposition is used to solve for the covariance matrix in its matrix-vector product components. This includes the two orthogonal matrix U and V with columns formed by left and right singular vectors of H respectively. S is a diagonal matrix containing the singular values of H \cite{gundersen2018svd}. This decomposition of the covariance will be utilized to determine the rotation matrix.\\ \\
+The lsqr function is used to solve the system of linear equations using the iterative least squares method. It solves the system by approximating $Ax \approx b$ by minimizing the Euclidean norm of the residual of \cite{aruns_method}:
+\begin{equation}
+\label{residual_lsqr}
+x = min_x||b-Ax||_2 
+\end{equation} The least squares algorithm is an adaptation of the conjugate gradient method for rectangular matrices, where $Ax=b$ produces the same residuals as the conjugate gradient for the normal equation $A^TAx=A^Tb$, without forming the explicit $A^TA$ that results in superior numerical stability \cite{mathworks_lsqr}. Note, the lsqr function will use a tolerance of $1e-6$, which is sufficiently stable for our use case \cite{mathworks_lsqr}.
+
+\section{Algorithmic Steps}
+\subsection{Reading Data Files}
+Algorithms were developed to read the provided data files by extracting the locations of the markers and their corresponding locations in each frame. The calibration data for frames D, A and C, is extracted using the function “read\_cal\_data.m". The pivot calibration data for the EM probe with respect to the EM tracker base is extracted using the function “read\_em\_pivot\_data.m". The pivot calibration data for the optical probe with respect to the optical tracker base utilizing data from H and D is extracted using the function “read\_optical\_pivot\_data.m". \\ \\
+The input is the string of the reading filepath. For “read\_em\_pivot\_data.m" and “read\_optical\_pivot\_data.m" functions, the string for empivot and optpivot is called upon to parse the uppercase $X_i$ values. For “read\_cal\_data.m", there are two sets of data: calbody for the lowercase $x_i$ markers and calreadings for the uppercase $X_i$ coordinates.\\ \\
+The output for all files is the parsing of each file's header to use for all functions and algorithms of this project. For $X_i$, it is returned in the form of $N_{markers} \times 3 \times N_{frames}$ for each respective frame $F_X$. Notes that for calibration, $x_i$ sets return $N_{markers} \times 3$ values. \\ \\
+The data reading algorithm first reads the data file using the function readmatrix. The first row of each file is split for “," to parse the number of each marker as according to the “Data file formats" section in the assignment \cite{PA1}. \\ \\
+The number of rows for each frame is partitioned from the heading and each frame's data block is extracted for each marker group in 3D arrays. Each frame's corresponding transformations (D, A, C, G and H) can be individually accessed for the project algorithms.
+
+\subsection{3D Point Set Registration Algorithm}
+\label{Section 3.2}
+A primary function, “point\_cloud\_registration.m", was developed to register the correspondence between the two 3D point sets. This function accepts two sets of corresponding points and returns the aligning transformation matrix using Arun's method \cite{aruns_method}. The output is the rotation matrix and the translation vector that form the frame transformation matrix. \\ \\
+The following will use the lower case $x_i$ for the calibration markers vector and $X_i$ for the positions of the markers. This can correspond to all variables A, C, D, G, and H used in this assignment. Note that a similar algorithmic approach was taken for the “pivot\_calibration.m" function to determine the transformations of each frame [k] of $F_G$. \\ \\
+First, the inputs from the data reading function is allocated to variables $x_i$ and $X_i$ for calibration markers and calibration frames readings respectively. The size of both markers and frames are also stored. Arun's method is used to find the optimal frame transformation in closed form to estimate the frame transformation that best aligns the set of known $x_i$ object points with corresponding 3D points $X_i$ for each frame. For each frame, the following are solved to form the $SE(3)$ frame transformation \cite{aruns_method}:\\
+\begin{equation}
+X_i \approx R x_i + t, \quad R \in SO(3), \quad t \in {R}^3
+\end{equation}
+for $i$ = 1, ..., $N$ in each frame. \\ \\
+Next, the translation is removed for centroid alignment to isolate the rotation from the translation effects of the transformation. The centroids of both point sets are calculated:
+\begin{equation}
+\bar{x}=\frac{1}{N} \sum_{i=1}^N x_i, \quad \bar{X}=\frac{1}{N} \sum_{i=1}^N X_i
+\end{equation} 
+The centroids are subtracted from each data point to obtain the centered coordinates: \\
+\begin{equation}
+x_i^{\prime}=x_i-\bar{x}, \quad X_i^{\prime}=X_i-\bar{X}
+\end{equation} 
+The optimal rotation is determined by minimizing the following equation with translation effects removed \cite{aruns_method}:
+\begin{equation}
+\min _{R \in \operatorname{SO}(3)} \sum_{i=1}^N\left\|X_i^{\prime}-R x_i^{\prime}\right\|^2
+\end{equation} 
+By expanding the squared norm:
+\begin{equation}
+\left\|X_i^{\prime}-R x_i^{\prime}\right\|^2=\left(X_i^{\prime}-R x_i^{\prime}\right)^T\left(X_i^{\prime}-R x_i^{\prime}\right)=\left\|X_i^{\prime}\right\|^2+\left\|R x_i^{\prime}\right\|^2-2\left(X_i^{\prime}\right)^T R x_i^{\prime}
+\end{equation}
+where rotation has no effect inside a norm for $||Rx_i'||^2 = ||x_i'||^2$, and $||X_i'||^2$ and $||x_i'||^2$ are independent of rotation, then:
+\begin{equation}
+\min _R \sum_i\left\|X_i^{\prime}-R x_i^{\prime}\right\|^2 \longleftrightarrow \max _R \sum_i\left(X_i^{\prime}\right)^T R x_i^{\prime}
+\end{equation}
+which identifies the covariance matrix that is defined as,
+\begin{equation}
+H=\sum_{i=1}^N\left(x_i^{\prime}\right)\left(X_i^{\prime}\right)^{\top}=\left(x_i^{\prime}\right)\left(X_i^{\prime \top}\right)
+\label{eq:sum_H}
+\end{equation}
+The covariance matrix H is the correlation between the two centered point sets by encapsulating how the two sets are aligned in orientation. Its singular value decomposition can be found using the svd function for the following equation:
+\begin{equation}
+H=U S V^{\top}
+\label{eq:svd_H}
+\end{equation} 
+The optimal rotation is solved by utilizing the diagonal matrix for the weight of the diagonal entries of the covariance matrix H, therefore the weights of the mapping from $x_i$ to $X_i$. The diagonal is therefore the trace of \eqref{eq:sum_H} and by equating to \eqref{eq:svd_H} \cite{eth_svd}, 
+\begin{equation}
+    tr((X')^TRx') = tr(RH) = tr(RUSV^{\top})=tr(SV^{\top}RU)
+\end{equation}
+Let $V^{\top}RU = M$, where $M$ is an orthogonal matrix for orthogonal $V^{\top}, R$ and $U$, and $tr(SM)$ is maximized if m-components equal to 1. Therefore, $M$ is the identity matrix and the optimal rotation is given by the svd orthogonal matrices:
+\begin{equation}
+M = I = V^{\top}RU \rightarrow V = RU \rightarrow R=V U^{\top}
+\end{equation} 
+Finally, the translation is determined by aligning the centroids such that:
+\begin{equation}
+t=\bar{X}-R \bar{x}
+\end{equation}
+The rotations and translations of each frame is stored in “rotationMatrix\_all" and “translationVector\_all" respectively. The function outputs “rotationMatrix" and “translationVector" for each X dataset for A, C, D, G, and H.
+
+\subsection{Pivot Calibration Algorithm}
+\label{Section 3.3}
+The following steps precede after finding the frame transformation of $F_G[k]$ using the EM tracking data for the EM probe as described in Section \ref{Section 3.2}. \\ \\
+In order to determine the positive relative to the EM tracker base coordinate system to the dimple in the calibration post, some new variables need to be defined for all frame [k] in $F_G$ \cite{PA1}: \\ \\
+$P_{dimple}$ - Fixed pivot point in EM tracker coordinates and is constant for every frame in $F_G$, \\
+$t_G$ - Tool tip location in EM probe coordinates. \\ \\
+Therefore, the following setup of transformation is setup to solve the least squares problem \cite{PA1}:
+\begin{equation}
+    \begin{aligned}
+    P_{dimple} &= F_G\cdot t_G \\
+    P_{dimple} &= R\cdot t_G + t \\
+    R\cdot t_G - I\cdot P_{dimple} &= -t \\
+    [R -I] [t_G; pivot\_point] &= -t
+\end{aligned}
+\end{equation}
+This forms a least square problem in the form of $Ax=b$, \\where $A = [R -I]$, $x=[t_G; pivot\_point]$ and $b=-t$. \\ \\The “pivot\_calibrations.m" function uses the lsqr function to solve $x$, where the bottom 3 values give the coordinates of the pivot point to solve this problem.
+
+\section{Overview of Program Structure}
+\subsection{Computing $C_{expected}$}
+The expected $C_{i}$ location is calculated by transforming the readings of the EM markers on the calibration body in the frame of the calibration body to the EM tracker frame using the following equation.
+\begin{equation}
+    \begin{aligned}
+C_{expected} = F_{D}^{-1} \cdot F_{A} \cdot c_{i}
+\end{aligned}
+\end{equation}
+The transformations associated with $F_{D}$ and $F_{A}$ are computed using the "point\_cloud\_registration" function, as described in \ref{Section 3.2}. \\ \\
+The code associated with calculating $C_{expected}$ is located in "problem\_4d" and the results of running the code are summarized in Section \ref{Section 6}.
+
+\subsection{Computing EM Markers Probe Post Coordinates}
+The post coordinates of the EM marker probe, $P_{dimple} = EM_{post}$, is calculated by using the function “pivot\_calibration". This function implements both the 3D point set registration algorithm to determine $F_G$ as described in Section \ref{Section 3.2} and the pivot calibration algorithm as described in Section \ref{Section 3.3}. \\ \\
+The code associated with computing $EM_{post}$ is located in "problem\_5" and the results of running the code are summarized in Section \ref{Section 6}.
+
+\subsection{Computing Optical Markers Probe Post Coordinates}
+The post coordinates of the optical marker probe, $P_{dimple} = Optical_{post}$, is computed using both the "point\_cloud\_registration" and “pivot\_calibration" functions. To get the optical post coordinates in the EM tracker frame, all the optical data needs to be transformed from the optical tracker frame to the EM one. This transformation $F_{D}$ is calculated using the given marker data $d_{i}$ and the new marker readings $D_{i}$ and then applied to $H_{i}$. The transformed data is then passed into the “pivot\_calibration" function to get the optical post coordinates in the EM tracker frame. \\ \\\
+The code associated with computing $Optical_{post}$ is located in "problem\_5" and the results of running the code are summarized in Section \ref{Section 6}.
+
+\section{Verification of Results}
+Two main unit tests were created for testing and validating the point cloud registration and point set registration algorithms.
+
+\subsection{Point Cloud Registration Unit Tests}
+The unit tests used to verify the functionality of the point cloud registration algorithm described in Section \ref{Section 3.2} is called “registration\_unit\_tests.m", located in the unit tests folder of the program files. \\ \\
+This unit test class evaluates the functionality and accuracy of the point cloud registration function. It does so by defining a ground truth dataset consisting of a set of marker locations in the calibration object frame and applying a random transformation to get the marker locations in the tracker object frame. The unit test generates a synthetic dataset that has multiple frames of markers locations in the tracker object frame, each with their own associated random transformation. \\ \\
+The subclass of “matlab.unittest.TestCase" implements the test class to generate a synthetic, noise-free test dataset. A set of transformation matrices, using roll pitch and yaw for rotations and randomized translation, is stored as the known ground truth values. The test class then creates an initial set of 3D marker coordinates ($x_i$) within the calibration frame and applies the known transformation matrix to produce the corresponding transformed coordinates ($X_i$) in the tracker frame. \\ \\
+The same test case data for $x_i$ and $X_i$ is fed into the "point\_cloud\_registration" function for comparison to the known ground truth transformations. The difference of the the estimated rotations and translations from the "point\_cloud\_registration" to the known test case rotations and translations is calculated and the norm is found using the norm function. Note that using the norm function utilizes the Euclidean norm \cite{matlab_norms}. The unit test will also detect errors in the transformation matrix outside a tolerance of $1\times10^{-6}$. \\ \\
+This unit test class tests that the "point\_cloud\_registration" function returns accurate transformations for both a single frame and multiple frames passed into the function. It also tests for the minimum number of markers required to calculate an accurate transformation between the marker and tracker data. Running this test yielded that a minimum of 3 markers are required to calculate a transformation matrix within the defined accuracy bounds.
+
+\subsection{Pivot Calibration Unit Tests}
+The unit tests used to verify the functionality of the pivot calibration algorithm described in Section \ref{Section 3.3} is called ““pivot\_calibration.m", located in the unit tests folder of the program files. \\ \\
+This unit test class evaluates the functionality and accuracy of the pivot calibration function. It does this by creating a synthetic ground truth dataset that consists of the marker locations in the tracker frame at each pose of the pivot calibration tool. Slight random rotations of the pivot calibration tool are introduced to generate the marker locations for each frame. The corresponding translation is also calculated to move the markers to the tracker frame and ensure that the tool tip is still located at the pivot point. \\ \\
+The test case data for $X_i$ is fed into the "pivot\_calibration" function for comparison to the known ground truth pivot point. The difference between the the estimated pivot to the known pivot point is calculated and the norm is found using the norm function. The norm of this difference has to be less than a tolerance of $1\times10^{-6}$ for the unit test to pass. \\ \\
+After trying a couple variations of procedures for generating the randomized synthetic data, including defining a pivot point in the the tracker frame and building the marker frames around that point or doing the same in the tool frame and rotating the tool tip to various amounts, the pivot point function always converges to a pivot point of 0,0,0. It was concluded that this issue can be due to a couple sources, such as creating the randomized rotations resulting in singularities, as the issue persisted even with using MATLAB's direct solver $x=A\backslash b$. Given more time, a more robust solution to the pivot point calibration function and unit tests would be developed to mediate the hypothesized data issues.
+
+\section{Results of Running Program - Unknown Data}
+\label{Section 6}
+The output files for unknown data h, i, j, and k are summarized in the table below. All data was extracted from output files name "pa1-unknown-x-output-1.txt". \\ \\
+Note that as according to the PA1 document, database h and i featured all three types of noise, including EM distortion, EM noise and OT jiggle \cite{PA1}. The effects will be discussed in Section \ref{Section 7}.
+
+\begin{landscape}
+\pagestyle{fancy}
+\begin{center}
+\begin{longtable} {llllllllllllllll}
+\caption{Results for Unknown Data Sets (h, i, j, k)} \\
+\toprule
+\multicolumn{16}{c}{\textbf{File header for each unknown data set}}\\ \midrule
+                    & \multicolumn{3}{l}{pa1-unknown-h-output-1.txt} &  & \multicolumn{3}{l}{pa1-unknown-i-output-1.txt} &  & \multicolumn{3}{l}{pa1-unknown-j-output-1.txt} &  & \multicolumn{3}{l}{pa1-unknown-k-output-1.txt} \\
+                    & $N_C$        & $N_{frames}$      & output.txt      &  & $N_C$        & $N_{frames}$      & output.txt      &  & $N_C$        & $N_{frames}$      & output.txt      &  & $N_C$        & $N_{frames}$      & output.txt      \\
+                    & 27.00       & 8.00           & h-output        &  & 27.00       & 8.00           & i-output        &  & 27.00       & 8.00           & j-output        &  & 27.00       & 8.00           & k-output        \\
+\midrule
+\multicolumn{16}{c}{\textbf{Estimated post   position ($P_x$, $P_y$, $P_z$)}}\\ \midrule
+EM probe pivot      & 190.59      & 200.21         & 183.47          &  & 210.31      & 192.19         & 197.01          &  & 198.60      & 205.02         & 188.05          &  & 185.90      & 200.30         & 207.37          \\
+Optical probe pivot & 395.81      & 402.09         & 192.61          &  & 399.88      & 408.27         & 194.15          &  & 408.50      & 408.47         & 203.17          &  & 396.66      & 393.62         & 191.14          \\
+\midrule
+\multicolumn{16}{c}{\textbf{Coordinates for   $C_{expected}$ ($C_x$, $C_y$, $C_z$)}}\\ \midrule 
+Frame 1             & 208.41      & 209.14         & 210.36          &  & 208.67      & 208.04         & 209.58          &  & 209.58      & 209.41         & 209.80          &  & 211.13      & 211.35         & 210.20          \\
+Frame 2             & 206.82      & 206.12         & 335.31          &  & 212.33      & 208.71         & 334.52          &  & 206.90      & 211.05         & 334.76          &  & 213.07      & 210.89         & 335.18          \\
+Frame 3             & 205.22      & 203.09         & 460.27          &  & 215.99      & 209.38         & 459.47          &  & 204.21      & 212.69         & 459.72          &  & 215.01      & 210.42         & 460.17          \\
+Frame 4             & 211.53      & 334.07         & 213.43          &  & 210.92      & 333.02         & 208.84          &  & 210.57      & 334.40         & 208.18          &  & 210.49      & 336.35         & 210.68          \\
+Frame 5             & 209.94      & 331.04         & 338.38          &  & 214.58      & 333.69         & 333.79          &  & 207.88      & 336.04         & 333.14          &  & 212.43      & 335.88         & 335.66          \\
+Frame 6             & 208.34      & 328.01         & 463.33          &  & 218.24      & 334.36         & 458.73          &  & 205.20      & 337.67         & 458.11          &  & 214.37      & 335.42         & 460.64          \\
+Frame 7             & 214.65      & 458.99         & 216.49          &  & 213.17      & 457.99         & 208.11          &  & 211.55      & 459.38         & 206.57          &  & 209.85      & 461.35         & 211.15          \\
+Frame 8             & 213.06      & 455.96         & 341.45          &  & 216.83      & 458.66         & 333.05          &  & 208.87      & 461.02         & 331.53          &  & 211.79      & 460.88         & 336.14          \\
+Frame 9             & 211.46      & 452.93         & 466.40          &  & 220.49      & 459.33         & 457.99          &  & 206.19      & 462.66         & 456.49          &  & 213.73      & 460.41         & 461.12          \\
+Frame 10            & 333.36      & 205.98         & 211.88          &  & 333.60      & 205.77         & 205.93          &  & 334.54      & 208.46         & 212.49          &  & 336.11      & 212.00         & 208.26          \\
+Frame 11            & 331.77      & 202.96         & 336.83          &  & 337.25      & 206.44         & 330.88          &  & 331.86      & 210.10         & 337.46          &  & 338.05      & 211.53         & 333.24          \\
+Frame 12            & 330.17      & 199.93         & 461.78          &  & 340.91      & 207.11         & 455.82          &  & 329.18      & 211.73         & 462.42          &  & 340.00      & 211.07         & 458.23          \\
+Frame 13            & 336.48      & 330.91         & 214.94          &  & 335.85      & 330.74         & 205.20          &  & 335.53      & 333.45         & 210.88          &  & 335.47      & 337.00         & 208.73          \\
+Frame 14            & 334.89      & 327.88         & 339.90          &  & 339.51      & 331.41         & 330.14          &  & 332.85      & 335.08         & 335.84          &  & 337.41      & 336.53         & 333.72          \\
+Frame 15            & 333.29      & 324.85         & 464.85          &  & 343.16      & 332.08         & 455.09          &  & 330.17      & 336.72         & 460.80          &  & 339.36      & 336.06         & 458.70          \\
+Frame 16            & 339.60      & 455.83         & 218.01          &  & 338.10      & 455.72         & 204.46          &  & 336.52      & 458.43         & 209.26          &  & 334.83      & 462.00         & 209.21          \\
+Frame 17            & 338.01      & 452.80         & 342.96          &  & 341.76      & 456.39         & 329.40          &  & 333.84      & 460.07         & 334.22          &  & 336.77      & 461.53         & 334.20          \\
+Frame 18            & 336.41      & 449.78         & 467.92          &  & 345.42      & 457.06         & 454.35          &  & 331.16      & 461.71         & 459.18          &  & 338.72      & 461.06         & 459.18          \\
+Frame 19            & 458.31      & 202.83         & 213.39          &  & 458.52      & 203.49         & 202.29          &  & 459.51      & 207.51         & 215.19          &  & 461.09      & 212.65         & 206.32          \\
+Frame 20            & 456.72      & 199.80         & 338.35          &  & 462.18      & 204.16         & 327.23          &  & 456.83      & 209.14         & 340.15          &  & 463.04      & 212.18         & 331.30          \\
+Frame 21            & 455.13      & 196.77         & 463.30          &  & 465.84      & 204.83         & 452.18          &  & 454.15      & 210.78         & 465.11          &  & 464.98      & 211.71         & 456.28          \\
+Frame 22            & 461.43      & 327.75         & 216.46          &  & 460.77      & 328.47         & 201.55          &  & 460.50      & 332.49         & 213.57          &  & 460.45      & 337.65         & 206.79          \\
+Frame 23            & 459.84      & 324.72         & 341.41          &  & 464.43      & 329.14         & 326.50          &  & 457.82      & 334.13         & 338.53          &  & 462.40      & 337.18         & 331.78          \\
+Frame 24            & 458.25      & 321.70         & 466.37          &  & 468.09      & 329.81         & 451.44          &  & 455.14      & 335.77         & 463.49          &  & 464.34      & 336.71         & 456.76          \\
+Frame 25            & 464.55      & 452.67         & 219.53          &  & 463.03      & 453.45         & 200.81          &  & 461.49      & 457.48         & 211.96          &  & 459.81      & 462.64         & 207.27          \\
+Frame 26            & 462.96      & 449.65         & 344.48          &  & 466.68      & 454.12         & 325.76          &  & 458.81      & 459.12         & 336.92          &  & 461.76      & 462.18         & 332.25          \\
+Frame 27            & 461.36      & 446.62         & 469.43          &  & 470.34      & 454.79         & 450.70          &  & 456.13      & 460.75         & 461.88          &  & 463.70      & 461.71         & 457.24          \\
+Frame 28            & 208.96      & 211.96         & 450.09          &  & 211.58      & 211.98         & 450.55          &  & 208.31      & 208.31         & 450.19          &  & 211.79      & 209.52         & 450.39          \\
+Frame 29            & 205.57      & 208.27         & 574.99          &  & 209.93      & 209.53         & 575.51          &  & 211.40      & 210.13         & 575.14          &  & 213.43      & 211.91         & 575.36          \\
+Frame 30            & 202.18      & 204.59         & 699.89          &  & 208.28      & 207.08         & 700.48          &  & 214.49      & 211.94         & 700.09          &  & 215.07      & 214.30         & 700.33          \\
+Frame 31            & 206.69      & 336.89         & 453.71          &  & 214.08      & 336.93         & 453.03          &  & 205.10      & 333.26         & 448.45          &  & 209.39      & 334.48         & 448.04          \\
+Frame 32            & 203.29      & 333.20         & 578.61          &  & 212.43      & 334.48         & 577.99          &  & 208.19      & 335.08         & 573.40          &  & 211.03      & 336.86         & 573.01          \\
+Frame 33            & 199.90      & 329.51         & 703.51          &  & 210.78      & 332.03         & 702.96          &  & 211.28      & 336.89         & 698.35          &  & 212.67      & 339.25         & 697.97          \\
+Frame 34            & 204.41      & 461.81         & 457.34          &  & 216.58      & 461.88         & 455.51          &  & 201.90      & 458.21         & 446.72          &  & 206.99      & 459.43         & 445.68          \\
+Frame 35            & 201.01      & 458.13         & 582.24          &  & 214.93      & 459.43         & 580.47          &  & 204.99      & 460.02         & 571.67          &  & 208.63      & 461.82         & 570.65          \\
+Frame 36            & 197.62      & 454.44         & 707.14          &  & 213.28      & 456.98         & 705.44          &  & 208.08      & 461.84         & 696.61          &  & 210.27      & 464.20         & 695.62          \\
+Frame 37            & 333.90      & 214.14         & 453.55          &  & 336.54      & 209.45         & 452.15          &  & 333.23      & 211.47         & 447.06          &  & 336.76      & 211.89         & 448.71          \\
+Frame 38            & 330.50      & 210.45         & 578.45          &  & 334.89      & 207.00         & 577.11          &  & 336.32      & 213.29         & 572.00          &  & 338.39      & 214.28         & 573.68          \\
+Frame 39            & 327.11      & 206.76         & 703.35          &  & 333.24      & 204.55         & 702.08          &  & 339.41      & 215.11         & 696.95          &  & 340.03      & 216.66         & 698.64          \\
+Frame 40            & 331.62      & 339.06         & 457.17          &  & 339.04      & 334.40         & 454.63          &  & 330.03      & 336.42         & 445.32          &  & 334.36      & 336.84         & 446.35          \\
+Frame 41            & 328.22      & 335.38         & 582.07          &  & 337.39      & 331.95         & 579.59          &  & 333.12      & 338.24         & 570.27          &  & 335.99      & 339.23         & 571.32          \\
+Frame 42            & 324.83      & 331.69         & 706.97          &  & 335.74      & 329.50         & 704.56          &  & 336.20      & 340.05         & 695.22          &  & 337.63      & 341.62         & 696.29          \\
+Frame 43            & 329.34      & 463.99         & 460.80          &  & 341.54      & 459.35         & 457.11          &  & 326.82      & 461.37         & 443.58          &  & 331.96      & 461.80         & 444.00          \\
+Frame 44            & 325.95      & 460.30         & 585.70          &  & 339.89      & 456.90         & 582.07          &  & 329.91      & 463.18         & 568.53          &  & 333.59      & 464.19         & 568.97          \\
+Frame 45            & 322.55      & 456.62         & 710.60          &  & 338.24      & 454.45         & 707.04          &  & 333.00      & 465.00         & 693.48          &  & 335.23      & 466.57         & 693.93          \\
+Frame 46            & 458.83      & 216.32         & 457.01          &  & 461.51      & 206.92         & 453.75          &  & 458.15      & 214.64         & 443.92          &  & 461.72      & 214.26         & 447.03          \\
+Frame 47            & 455.44      & 212.63         & 581.91          &  & 459.86      & 204.47         & 578.71          &  & 461.24      & 216.45         & 568.87          &  & 463.36      & 216.65         & 571.99          \\
+Frame 48            & 452.04      & 208.94         & 706.81          &  & 458.21      & 202.02         & 703.68          &  & 464.33      & 218.27         & 693.82          &  & 465.00      & 219.03         & 696.96          \\
+Frame 49            & 456.55      & 341.24         & 460.63          &  & 464.01      & 331.87         & 456.23          &  & 454.95      & 339.58         & 442.18          &  & 459.32      & 339.21         & 444.67          \\
+Frame 50            & 453.16      & 337.55         & 585.53          &  & 462.36      & 329.42         & 581.19          &  & 458.04      & 341.40         & 567.13          &  & 460.96      & 341.60         & 569.64          \\
+Frame 51            & 449.76      & 333.87         & 710.43          &  & 460.71      & 326.97         & 706.16          &  & 461.13      & 343.22         & 692.08          &  & 462.60      & 343.99         & 694.60          \\
+Frame 52            & 454.27      & 466.17         & 464.26          &  & 466.50      & 456.82         & 458.71          &  & 451.74      & 464.53         & 440.45          &  & 456.92      & 464.17         & 442.32          \\
+Frame 53            & 450.88      & 462.48         & 589.16          &  & 464.86      & 454.37         & 583.67          &  & 454.83      & 466.35         & 565.40          &  & 458.56      & 466.55         & 567.28          \\
+Frame 54            & 447.49      & 458.79         & 714.06          &  & 463.21      & 451.92         & 708.64          &  & 457.92      & 468.16         & 690.34          &  & 460.20      & 468.94         & 692.25          \\
+Frame 55            & 209.66      & 451.44         & 210.39          &  & 208.72      & 450.10         & 208.61          &  & 209.30      & 448.73         & 208.96          &  & 210.63      & 451.77         & 209.23          \\
+Frame 56            & 210.12      & 451.84         & 335.39          &  & 207.88      & 448.50         & 333.60          &  & 210.97      & 449.63         & 333.95          &  & 212.51      & 455.48         & 334.16          \\
+Frame 57            & 210.58      & 452.25         & 460.39          &  & 207.05      & 446.90         & 458.58          &  & 212.64      & 450.53         & 458.93          &  & 214.38      & 459.20         & 459.09          \\
+Frame 58            & 207.12      & 576.41         & 210.00          &  & 210.20      & 575.09         & 210.22          &  & 207.31      & 573.71         & 208.09          &  & 211.32      & 576.72         & 205.50          \\
+Frame 59            & 207.58      & 576.82         & 335.00          &  & 209.36      & 573.48         & 335.21          &  & 208.98      & 574.61         & 333.07          &  & 213.19      & 580.43         & 330.43          \\
+Frame 60            & 208.04      & 577.22         & 460.00          &  & 208.52      & 571.88         & 460.20          &  & 210.65      & 575.51         & 458.06          &  & 215.07      & 584.14         & 455.37          \\
+Frame 61            & 204.57      & 701.39         & 209.61          &  & 211.67      & 700.07         & 211.83          &  & 205.32      & 698.69         & 207.22          &  & 212.00      & 701.66         & 201.78          \\
+Frame 62            & 205.03      & 701.79         & 334.60          &  & 210.83      & 698.46         & 336.82          &  & 206.99      & 699.59         & 332.20          &  & 213.88      & 705.37         & 326.71          \\
+Frame 63            & 205.50      & 702.20         & 459.60          &  & 209.99      & 696.86         & 461.81          &  & 208.66      & 700.49         & 457.19          &  & 215.75      & 709.08         & 451.64          \\
+Frame 64            & 334.64      & 453.98         & 209.93          &  & 333.71      & 448.62         & 209.43          &  & 334.27      & 450.71         & 207.28          &  & 335.61      & 451.03         & 207.37          \\
+Frame 65            & 335.10      & 454.39         & 334.92          &  & 332.87      & 447.02         & 334.42          &  & 335.94      & 451.61         & 332.26          &  & 337.49      & 454.74         & 332.30          \\
+Frame 66            & 335.56      & 454.79         & 459.92          &  & 332.03      & 445.41         & 459.40          &  & 337.61      & 452.50         & 457.25          &  & 339.37      & 458.45         & 457.23          \\
+Frame 67            & 332.09      & 578.96         & 209.53          &  & 335.18      & 573.60         & 211.04          &  & 332.28      & 575.69         & 206.40          &  & 336.30      & 575.97         & 203.65          \\
+Frame 68            & 332.55      & 579.36         & 334.53          &  & 334.35      & 572.00         & 336.03          &  & 333.95      & 576.59         & 331.39          &  & 338.18      & 579.69         & 328.58          \\
+Frame 69            & 333.01      & 579.76         & 459.53          &  & 333.51      & 570.40         & 461.02          &  & 335.62      & 577.49         & 456.38          &  & 340.05      & 583.40         & 453.51          \\
+Frame 70            & 329.55      & 703.93         & 209.14          &  & 336.66      & 698.58         & 212.65          &  & 330.29      & 700.67         & 205.53          &  & 336.99      & 700.92         & 199.93          \\
+Frame 71            & 330.01      & 704.33         & 334.14          &  & 335.82      & 696.98         & 337.64          &  & 331.96      & 701.57         & 330.52          &  & 338.86      & 704.63         & 324.86          \\
+Frame 72            & 330.47      & 704.74         & 459.13          &  & 334.98      & 695.38         & 462.63          &  & 333.63      & 702.47         & 455.50          &  & 340.74      & 708.34         & 449.79          \\
+Frame 73            & 459.61      & 456.53         & 209.46          &  & 458.70      & 447.14         & 210.25          &  & 459.24      & 452.69         & 205.59          &  & 460.60      & 450.29         & 205.52          \\
+Frame 74            & 460.07      & 456.93         & 334.45          &  & 457.86      & 445.53         & 335.24          &  & 460.91      & 453.58         & 330.58          &  & 462.47      & 454.00         & 330.45          \\
+Frame 75            & 460.53      & 457.33         & 459.45          &  & 457.02      & 443.93         & 460.22          &  & 462.58      & 454.48         & 455.56          &  & 464.35      & 457.71         & 455.38          \\
+Frame 76            & 457.06      & 581.50         & 209.06          &  & 460.17      & 572.12         & 211.86          &  & 457.25      & 577.67         & 204.72          &  & 461.28      & 575.23         & 201.80          \\
+Frame 77            & 457.53      & 581.90         & 334.06          &  & 459.33      & 570.51         & 336.85          &  & 458.92      & 578.57         & 329.71          &  & 463.16      & 578.94         & 326.73          \\
+Frame 78            & 457.99      & 582.31         & 459.06          &  & 458.50      & 568.91         & 461.84          &  & 460.59      & 579.46         & 454.69          &  & 465.04      & 582.66         & 451.66          \\
+Frame 79            & 454.52      & 706.47         & 208.67          &  & 461.65      & 697.10         & 213.47          &  & 455.26      & 702.65         & 203.85          &  & 461.97      & 700.18         & 198.07          \\
+Frame 80            & 454.98      & 706.88         & 333.67          &  & 460.81      & 695.50         & 338.46          &  & 456.93      & 703.55         & 328.83          &  & 463.85      & 703.89         & 323.00          \\
+Frame 81            & 455.44      & 707.28         & 458.66          &  & 459.97      & 693.89         & 463.45          &  & 458.60      & 704.44         & 453.82          &  & 465.72      & 707.60         & 447.93          \\
+Frame 82            & 208.92      & 449.63         & 448.10          &  & 209.29      & 450.56         & 451.50          &  & 211.55      & 449.95         & 450.22          &  & 210.31      & 451.27         & 448.39          \\
+Frame 83            & 206.06      & 450.10         & 573.07          &  & 209.00      & 449.31         & 576.49          &  & 213.86      & 453.45         & 575.15          &  & 207.10      & 449.13         & 573.33          \\
+Frame 84            & 203.20      & 450.56         & 698.03          &  & 208.71      & 448.05         & 701.49          &  & 216.16      & 456.94         & 700.08          &  & 203.90      & 446.99         & 698.27          \\
+Frame 85            & 209.50      & 574.63         & 447.65          &  & 211.39      & 575.54         & 452.76          &  & 209.17      & 574.88         & 446.77          &  & 208.71      & 576.24         & 450.48          \\
+Frame 86            & 206.64      & 575.09         & 572.61          &  & 211.09      & 574.28         & 577.75          &  & 211.47      & 578.38         & 571.70          &  & 205.51      & 574.10         & 575.42          \\
+Frame 87            & 203.79      & 575.56         & 697.58          &  & 210.80      & 573.03         & 702.74          &  & 213.78      & 581.87         & 696.63          &  & 202.30      & 571.96         & 700.36          \\
+Frame 88            & 210.09      & 699.62         & 447.19          &  & 213.48      & 700.51         & 454.02          &  & 206.79      & 699.81         & 443.32          &  & 207.12      & 701.21         & 452.58          \\
+Frame 89            & 207.23      & 700.09         & 572.16          &  & 213.19      & 699.26         & 579.01          &  & 209.09      & 703.31         & 568.25          &  & 203.91      & 699.07         & 577.52          \\
+Frame 90            & 204.37      & 700.56         & 697.12          &  & 212.90      & 698.01         & 704.00          &  & 211.39      & 706.80         & 693.18          &  & 200.70      & 696.94         & 702.46          \\
+Frame 91            & 333.88      & 449.05         & 450.96          &  & 334.27      & 448.46         & 451.77          &  & 336.51      & 452.27         & 447.85          &  & 335.26      & 452.81         & 451.62          \\
+Frame 92            & 331.03      & 449.52         & 575.93          &  & 333.98      & 447.21         & 576.76          &  & 338.81      & 455.77         & 572.78          &  & 332.05      & 450.67         & 576.56          \\
+Frame 93            & 328.17      & 449.99         & 700.89          &  & 333.69      & 445.96         & 701.76          &  & 341.12      & 459.26         & 697.71          &  & 328.85      & 448.53         & 701.50          \\
+Frame 94            & 334.47      & 574.05         & 450.51          &  & 336.37      & 573.44         & 453.03          &  & 334.13      & 577.20         & 444.40          &  & 333.66      & 577.78         & 453.72          \\
+Frame 95            & 331.61      & 574.52         & 575.47          &  & 336.08      & 572.19         & 578.02          &  & 336.43      & 580.70         & 569.33          &  & 330.46      & 575.64         & 578.66          \\
+Frame 96            & 328.75      & 574.99         & 700.44          &  & 335.78      & 570.93         & 703.01          &  & 338.73      & 584.19         & 694.26          &  & 327.25      & 573.51         & 703.60          \\
+Frame 97            & 335.05      & 699.05         & 450.05          &  & 338.46      & 698.42         & 454.29          &  & 331.74      & 702.13         & 440.95          &  & 332.06      & 702.76         & 455.81          \\
+Frame 98            & 332.20      & 699.52         & 575.02          &  & 338.17      & 697.16         & 579.28          &  & 334.04      & 705.62         & 565.88          &  & 328.86      & 700.62         & 580.76          \\
+Frame 99            & 329.34      & 699.98         & 699.99          &  & 337.88      & 695.91         & 704.27          &  & 336.35      & 709.12         & 690.81          &  & 325.65      & 698.48         & 705.70          \\
+Frame 100           & 458.85      & 448.48         & 453.82          &  & 459.26      & 446.37         & 452.04          &  & 461.47      & 454.59         & 445.48          &  & 460.21      & 454.35         & 454.85          \\
+Frame 101           & 455.99      & 448.95         & 578.79          &  & 458.96      & 445.11         & 577.03          &  & 463.77      & 458.08         & 570.41          &  & 457.00      & 452.22         & 579.79          \\
+Frame 102           & 453.13      & 449.41         & 703.75          &  & 458.67      & 443.86         & 702.03          &  & 466.07      & 461.58         & 695.34          &  & 453.79      & 450.08         & 704.73          \\
+Frame 103           & 459.44      & 573.48         & 453.37          &  & 461.35      & 571.34         & 453.30          &  & 459.08      & 579.52         & 442.03          &  & 458.61      & 579.33         & 456.95          \\
+Frame 104           & 456.58      & 573.94         & 578.33          &  & 461.06      & 570.09         & 578.29          &  & 461.38      & 583.01         & 566.96          &  & 455.40      & 577.19         & 581.89          \\
+Frame 105           & 453.72      & 574.41         & 703.30          &  & 460.77      & 568.84         & 703.29          &  & 463.69      & 586.51         & 691.89          &  & 452.20      & 575.05         & 706.83          \\
+Frame 106           & 460.02      & 698.47         & 452.91          &  & 463.44      & 696.32         & 454.56          &  & 456.70      & 704.45         & 438.58          &  & 457.01      & 704.30         & 459.05          \\
+Frame 107           & 457.16      & 698.94         & 577.88          &  & 463.15      & 695.07         & 579.55          &  & 459.00      & 707.94         & 563.51          &  & 453.81      & 702.16         & 583.99          \\
+Frame 108           & 454.30      & 699.41         & 702.85          &  & 462.86      & 693.81         & 704.54          &  & 461.30      & 711.44         & 688.44          &  & 450.60      & 700.02         & 708.93          \\
+Frame 109           & 451.11      & 208.22         & 210.74          &  & 450.70      & 211.81         & 211.34          &  & 451.11      & 209.58         & 211.74          &  & 450.96      & 209.37         & 211.65          \\
+Frame 110           & 451.35      & 211.22         & 335.70          &  & 447.86      & 210.35         & 336.30          &  & 454.70      & 212.45         & 336.65          &  & 450.15      & 209.60         & 336.64          \\
+Frame 111           & 451.60      & 214.23         & 460.67          &  & 445.02      & 208.88         & 461.26          &  & 458.29      & 215.33         & 461.57          &  & 449.33      & 209.82         & 461.64          \\
+Frame 112           & 452.62      & 333.17         & 207.73          &  & 453.68      & 336.77         & 212.87          &  & 450.31      & 334.55         & 208.89          &  & 447.72      & 334.33         & 211.40          \\
+Frame 113           & 452.87      & 336.18         & 332.69          &  & 450.84      & 335.30         & 337.83          &  & 453.90      & 337.42         & 333.80          &  & 446.91      & 334.56         & 336.40          \\
+Frame 114           & 453.12      & 339.18         & 457.66          &  & 448.00      & 333.84         & 462.79          &  & 457.49      & 340.29         & 458.72          &  & 446.09      & 334.78         & 461.39          \\
+Frame 115           & 454.14      & 458.13         & 204.72          &  & 456.66      & 461.72         & 214.41          &  & 449.51      & 459.51         & 206.03          &  & 444.48      & 459.29         & 211.15          \\
+Frame 116           & 454.39      & 461.13         & 329.69          &  & 453.82      & 460.26         & 339.37          &  & 453.10      & 462.38         & 330.95          &  & 443.67      & 459.51         & 336.15          \\
+Frame 117           & 454.64      & 464.14         & 454.65          &  & 450.98      & 458.79         & 464.33          &  & 456.68      & 465.26         & 455.87          &  & 442.85      & 459.74         & 461.15          \\
+Frame 118           & 576.10      & 206.69         & 210.53          &  & 575.63      & 208.80         & 214.15          &  & 576.06      & 210.30         & 208.13          &  & 575.91      & 212.62         & 212.45          \\
+Frame 119           & 576.34      & 209.70         & 335.49          &  & 572.79      & 207.33         & 339.10          &  & 579.65      & 213.17         & 333.05          &  & 575.10      & 212.84         & 337.45          \\
+Frame 120           & 576.59      & 212.71         & 460.46          &  & 569.95      & 205.87         & 464.06          &  & 583.23      & 216.05         & 457.96          &  & 574.29      & 213.07         & 462.45          \\
+Frame 121           & 577.61      & 331.65         & 207.52          &  & 578.61      & 333.75         & 215.68          &  & 575.26      & 335.26         & 205.28          &  & 572.68      & 337.57         & 212.21          \\
+Frame 122           & 577.86      & 334.65         & 332.48          &  & 575.77      & 332.29         & 340.64          &  & 578.85      & 338.14         & 330.20          &  & 571.86      & 337.80         & 337.20          \\
+Frame 123           & 578.11      & 337.66         & 457.45          &  & 572.93      & 330.82         & 465.60          &  & 582.43      & 341.01         & 455.11          &  & 571.05      & 338.02         & 462.20          \\
+Frame 124           & 579.13      & 456.60         & 204.51          &  & 581.59      & 458.71         & 217.21          &  & 574.46      & 460.23         & 202.43          &  & 569.44      & 462.53         & 211.96          \\
+Frame 125           & 579.38      & 459.61         & 329.48          &  & 578.75      & 457.24         & 342.17          &  & 578.04      & 463.10         & 327.35          &  & 568.62      & 462.76         & 336.96          \\
+Frame 126           & 579.63      & 462.61         & 454.44          &  & 575.91      & 455.78         & 467.13          &  & 581.63      & 465.98         & 452.26          &  & 567.81      & 462.98         & 461.95          \\
+Frame 127           & 701.09      & 205.17         & 210.32          &  & 700.56      & 205.78         & 216.95          &  & 701.01      & 211.02         & 204.53          &  & 700.87      & 215.86         & 213.26          \\
+Frame 128           & 701.33      & 208.18         & 335.28          &  & 697.72      & 204.32         & 341.91          &  & 704.59      & 213.89         & 329.45          &  & 700.06      & 216.08         & 338.26          \\
+Frame 129           & 701.58      & 211.18         & 460.25          &  & 694.88      & 202.85         & 466.87          &  & 708.18      & 216.76         & 454.36          &  & 699.24      & 216.31         & 463.25          \\
+Frame 130           & 702.61      & 330.12         & 207.31          &  & 703.54      & 330.74         & 218.48          &  & 700.20      & 335.98         & 201.68          &  & 697.63      & 340.81         & 213.01          \\
+Frame 131           & 702.85      & 333.13         & 332.28          &  & 700.70      & 329.27         & 343.44          &  & 703.79      & 338.86         & 326.59          &  & 696.82      & 341.04         & 338.01          \\
+Frame 132           & 703.10      & 336.14         & 457.24          &  & 697.86      & 327.81         & 468.40          &  & 707.38      & 341.73         & 451.51          &  & 696.00      & 341.27         & 463.01          \\
+Frame 133           & 704.12      & 455.08         & 204.30          &  & 706.52      & 455.69         & 220.02          &  & 699.40      & 460.95         & 198.83          &  & 694.39      & 465.77         & 212.77          \\
+Frame 134           & 704.37      & 458.08         & 329.27          &  & 703.68      & 454.23         & 344.98          &  & 702.99      & 463.82         & 323.74          &  & 693.58      & 466.00         & 337.76          \\
+Frame 135           & 704.62      & 461.09         & 454.23          &  & 700.84      & 452.76         & 469.94          &  & 706.58      & 466.69         & 448.66          &  & 692.77      & 466.22         & 462.76          \\
+Frame 136           & 450.23      & 208.18         & 450.60          &  & 449.51      & 209.92         & 448.53          &  & 450.74      & 211.04         & 451.65          &  & 448.21      & 209.08         & 450.44          \\
+Frame 137           & 447.24      & 207.06         & 575.56          &  & 451.57      & 206.65         & 573.47          &  & 450.08      & 210.87         & 576.65          &  & 450.81      & 205.54         & 575.36          \\
+Frame 138           & 444.25      & 205.93         & 700.51          &  & 453.63      & 203.37         & 698.41          &  & 449.42      & 210.70         & 701.65          &  & 453.41      & 202.00         & 700.28          \\
+Frame 139           & 452.18      & 333.16         & 451.77          &  & 452.81      & 334.84         & 451.75          &  & 448.42      & 336.02         & 451.81          &  & 444.53      & 333.97         & 454.05          \\
+Frame 140           & 449.19      & 332.04         & 576.73          &  & 454.87      & 331.56         & 576.69          &  & 447.76      & 335.85         & 576.81          &  & 447.13      & 330.43         & 578.98          \\
+Frame 141           & 446.20      & 330.91         & 701.69          &  & 456.92      & 328.29         & 701.63          &  & 447.10      & 335.68         & 701.81          &  & 449.73      & 326.89         & 703.90          \\
+Frame 142           & 454.14      & 458.14         & 452.94          &  & 456.11      & 459.75         & 454.97          &  & 446.09      & 461.00         & 451.97          &  & 440.84      & 458.86         & 457.67          \\
+Frame 143           & 451.15      & 457.02         & 577.90          &  & 458.17      & 456.48         & 579.91          &  & 445.43      & 460.83         & 576.97          &  & 443.44      & 455.33         & 582.59          \\
+Frame 144           & 448.16      & 455.89         & 702.86          &  & 460.22      & 453.20         & 704.85          &  & 444.77      & 460.66         & 701.96          &  & 446.04      & 451.79         & 707.51          \\
+Frame 145           & 575.18      & 206.20         & 453.57          &  & 574.45      & 206.68         & 446.39          &  & 575.72      & 213.37         & 452.31          &  & 573.13      & 212.84         & 447.94          \\
+Frame 146           & 572.19      & 205.08         & 578.53          &  & 576.51      & 203.40         & 571.33          &  & 575.06      & 213.20         & 577.31          &  & 575.73      & 209.30         & 572.87          \\
+Frame 147           & 569.20      & 203.95         & 703.49          &  & 578.57      & 200.13         & 696.27          &  & 574.40      & 213.03         & 702.31          &  & 578.33      & 205.76         & 697.79          \\
+Frame 148           & 577.13      & 331.18         & 454.74          &  & 577.75      & 331.59         & 449.61          &  & 573.39      & 338.35         & 452.47          &  & 569.44      & 337.73         & 451.56          \\
+Frame 149           & 574.14      & 330.06         & 579.70          &  & 579.81      & 328.32         & 574.55          &  & 572.73      & 338.18         & 577.47          &  & 572.04      & 334.19         & 576.48          \\
+Frame 150           & 571.15      & 328.93         & 704.66          &  & 581.86      & 325.04         & 699.49          &  & 572.08      & 338.00         & 702.47          &  & 574.65      & 330.65         & 701.40          \\
+Frame 151           & 579.09      & 456.16         & 455.91          &  & 581.05      & 456.51         & 452.83          &  & 571.07      & 463.32         & 452.63          &  & 565.76      & 462.62         & 455.17          \\
+Frame 152           & 576.10      & 455.04         & 580.87          &  & 583.11      & 453.23         & 577.77          &  & 570.41      & 463.15         & 577.63          &  & 568.36      & 459.09         & 580.10          \\
+Frame 153           & 573.11      & 453.91         & 705.83          &  & 585.16      & 449.96         & 702.71          &  & 569.75      & 462.98         & 702.63          &  & 570.96      & 455.55         & 705.02          \\
+Frame 154           & 700.13      & 204.22         & 456.54          &  & 699.39      & 203.43         & 444.25          &  & 700.69      & 215.69         & 452.97          &  & 698.05      & 216.60         & 445.45          \\
+Frame 155           & 697.14      & 203.10         & 581.50          &  & 701.45      & 200.16         & 569.19          &  & 700.04      & 215.52         & 577.97          &  & 700.65      & 213.06         & 570.37          \\
+Frame 156           & 694.15      & 201.97         & 706.46          &  & 703.50      & 196.88         & 694.13          &  & 699.38      & 215.35         & 702.97          &  & 703.25      & 209.52         & 695.29          \\
+Frame 157           & 702.08      & 329.20         & 457.71          &  & 702.69      & 328.35         & 447.47          &  & 698.37      & 340.67         & 453.13          &  & 694.36      & 341.49         & 449.06          \\
+Frame 158           & 699.09      & 328.07         & 582.67          &  & 704.75      & 325.07         & 572.41          &  & 697.71      & 340.50         & 578.13          &  & 696.96      & 337.95         & 573.99          \\
+Frame 159           & 696.10      & 326.95         & 707.63          &  & 706.80      & 321.80         & 697.35          &  & 697.05      & 340.33         & 703.13          &  & 699.56      & 334.41         & 698.91          \\
+Frame 160           & 704.04      & 454.18         & 458.88          &  & 705.99      & 453.26         & 450.69          &  & 696.04      & 465.65         & 453.29          &  & 690.68      & 466.38         & 452.68          \\
+Frame 161           & 701.05      & 453.05         & 583.84          &  & 708.05      & 449.99         & 575.63          &  & 695.38      & 465.48         & 578.29          &  & 693.28      & 462.85         & 577.60          \\
+Frame 162           & 698.06      & 451.93         & 708.80          &  & 710.10      & 446.71         & 700.57          &  & 694.73      & 465.31         & 703.29          &  & 695.88      & 459.31         & 702.52          \\
+Frame 163           & 450.49      & 448.57         & 210.24          &  & 449.47      & 448.44         & 211.60          &  & 448.66      & 449.27         & 208.25          &  & 450.76      & 451.82         & 211.49          \\
+Frame 164           & 452.39      & 449.52         & 335.22          &  & 448.86      & 450.05         & 336.59          &  & 451.61      & 451.54         & 333.19          &  & 449.32      & 449.59         & 336.46          \\
+Frame 165           & 454.29      & 450.46         & 460.20          &  & 448.26      & 451.65         & 461.58          &  & 454.57      & 453.81         & 458.14          &  & 447.88      & 447.36         & 461.44          \\
+Frame 166           & 453.96      & 573.52         & 209.24          &  & 451.71      & 573.41         & 210.02          &  & 447.35      & 574.24         & 206.01          &  & 452.59      & 576.79         & 213.74          \\
+Frame 167           & 455.86      & 574.46         & 334.22          &  & 451.10      & 575.02         & 335.00          &  & 450.30      & 576.51         & 330.95          &  & 451.15      & 574.56         & 338.72          \\
+Frame 168           & 457.76      & 575.41         & 459.21          &  & 450.49      & 576.62         & 459.99          &  & 453.26      & 578.78         & 455.90          &  & 449.71      & 572.33         & 463.69          \\
+Frame 169           & 457.43      & 698.47         & 208.24          &  & 453.94      & 698.38         & 208.43          &  & 446.04      & 699.21         & 203.77          &  & 454.41      & 701.75         & 216.00          \\
+Frame 170           & 459.33      & 699.41         & 333.23          &  & 453.34      & 699.99         & 333.41          &  & 448.99      & 701.48         & 328.71          &  & 452.98      & 699.52         & 340.97          \\
+Frame 171           & 461.23      & 700.36         & 458.21          &  & 452.73      & 701.59         & 458.40          &  & 451.95      & 703.75         & 453.66          &  & 451.54      & 697.29         & 465.94          \\
+Frame 172           & 575.42      & 445.08         & 208.37          &  & 574.45      & 446.22         & 212.24          &  & 573.62      & 450.52         & 205.27          &  & 575.74      & 449.97         & 212.90          \\
+Frame 173           & 577.32      & 446.03         & 333.35          &  & 573.84      & 447.82         & 337.23          &  & 576.57      & 452.79         & 330.21          &  & 574.30      & 447.74         & 337.87          \\
+Frame 174           & 579.22      & 446.98         & 458.33          &  & 573.23      & 449.42         & 462.22          &  & 579.53      & 455.06         & 455.16          &  & 572.86      & 445.51         & 462.84          \\
+Frame 175           & 578.89      & 570.03         & 207.37          &  & 576.69      & 571.19         & 210.65          &  & 572.31      & 575.50         & 203.03          &  & 577.57      & 574.93         & 215.15          \\
+Frame 176           & 580.80      & 570.98         & 332.35          &  & 576.08      & 572.79         & 335.64          &  & 575.26      & 577.77         & 327.98          &  & 576.13      & 572.70         & 340.12          \\
+Frame 177           & 582.70      & 571.92         & 457.33          &  & 575.47      & 574.39         & 460.63          &  & 578.22      & 580.04         & 452.92          &  & 574.69      & 570.47         & 465.09          \\
+Frame 178           & 582.37      & 694.98         & 206.37          &  & 578.92      & 696.16         & 209.06          &  & 571.00      & 700.47         & 200.79          &  & 579.39      & 699.90         & 217.40          \\
+Frame 179           & 584.27      & 695.93         & 331.35          &  & 578.31      & 697.76         & 334.05          &  & 573.95      & 702.74         & 325.74          &  & 577.95      & 697.67         & 342.37          \\
+Frame 180           & 586.17      & 696.87         & 456.33          &  & 577.71      & 699.36         & 459.04          &  & 576.91      & 705.01         & 450.68          &  & 576.52      & 695.44         & 467.34          \\
+Frame 181           & 700.36      & 441.60         & 206.49          &  & 699.43      & 443.99         & 212.88          &  & 698.58      & 451.78         & 202.29          &  & 700.72      & 448.11         & 214.30          \\
+Frame 182           & 702.26      & 442.54         & 331.48          &  & 698.82      & 445.59         & 337.87          &  & 701.53      & 454.05         & 327.24          &  & 699.28      & 445.88         & 339.28          \\
+Frame 183           & 704.16      & 443.49         & 456.46          &  & 698.21      & 447.19         & 462.85          &  & 704.49      & 456.32         & 452.18          &  & 697.84      & 443.65         & 464.25          \\
+Frame 184           & 703.83      & 566.55         & 205.50          &  & 701.66      & 568.96         & 211.29          &  & 697.27      & 576.75         & 200.05          &  & 702.54      & 573.08         & 216.55          \\
+Frame 185           & 705.73      & 567.49         & 330.48          &  & 701.06      & 570.56         & 336.28          &  & 700.22      & 579.02         & 325.00          &  & 701.11      & 570.85         & 341.53          \\
+Frame 186           & 707.63      & 568.44         & 455.46          &  & 700.45      & 572.16         & 461.26          &  & 703.18      & 581.29         & 449.94          &  & 699.67      & 568.62         & 466.50          \\
+Frame 187           & 707.30      & 691.49         & 204.50          &  & 703.90      & 693.93         & 209.70          &  & 695.96      & 701.73         & 197.81          &  & 704.37      & 698.05         & 218.81          \\
+Frame 188           & 709.20      & 692.44         & 329.48          &  & 703.29      & 695.53         & 334.69          &  & 698.91      & 704.00         & 322.76          &  & 702.93      & 695.82         & 343.78          \\
+Frame 189           & 711.10      & 693.39         & 454.46          &  & 702.69      & 697.13         & 459.67          &  & 701.86      & 706.27         & 447.70          &  & 701.49      & 693.59         & 468.75          \\
+Frame 190           & 448.12      & 451.60         & 448.04          &  & 448.63      & 450.57         & 449.56          &  & 449.52      & 449.21         & 449.18          &  & 448.09      & 450.21         & 452.00          \\
+Frame 191           & 448.27      & 450.52         & 573.04          &  & 449.40      & 452.67         & 574.54          &  & 452.98      & 450.73         & 574.12          &  & 449.44      & 453.78         & 576.94          \\
+Frame 192           & 448.41      & 449.43         & 698.03          &  & 450.16      & 454.76         & 699.52          &  & 456.45      & 452.25         & 699.07          &  & 450.80      & 457.35         & 701.88          \\
+Frame 193           & 446.09      & 576.58         & 449.13          &  & 449.00      & 575.56         & 447.47          &  & 447.24      & 574.18         & 447.73          &  & 444.87      & 575.12         & 448.46          \\
+Frame 194           & 446.23      & 575.50         & 574.13          &  & 449.77      & 577.65         & 572.45          &  & 450.71      & 575.70         & 572.67          &  & 446.22      & 578.69         & 573.41          \\
+Frame 195           & 446.38      & 574.41         & 699.12          &  & 450.53      & 579.74         & 697.43          &  & 454.17      & 577.22         & 697.61          &  & 447.57      & 582.26         & 698.35          \\
+Frame 196           & 444.05      & 701.56         & 450.22          &  & 449.38      & 700.54         & 445.37          &  & 444.97      & 699.16         & 446.27          &  & 441.65      & 700.03         & 444.93          \\
+Frame 197           & 444.20      & 700.47         & 575.22          &  & 450.14      & 702.63         & 570.35          &  & 448.43      & 700.67         & 571.21          &  & 443.00      & 703.60         & 569.87          \\
+Frame 198           & 444.34      & 699.39         & 700.21          &  & 450.91      & 704.72         & 695.33          &  & 451.90      & 702.19         & 696.16          &  & 444.35      & 707.17         & 694.82          \\
+Frame 199           & 573.11      & 453.64         & 447.92          &  & 573.63      & 450.19         & 448.81          &  & 574.45      & 451.45         & 445.69          &  & 573.04      & 453.39         & 450.55          \\
+Frame 200           & 573.25      & 452.55         & 572.91          &  & 574.39      & 452.28         & 573.79          &  & 577.92      & 452.97         & 570.63          &  & 574.39      & 456.96         & 575.50          \\
+Frame 201           & 573.40      & 451.47         & 697.91          &  & 575.16      & 454.38         & 698.77          &  & 581.38      & 454.48         & 695.57          &  & 575.75      & 460.53         & 700.44          \\
+Frame 202           & 571.07      & 578.62         & 449.01          &  & 574.00      & 575.17         & 446.71          &  & 572.17      & 576.42         & 444.23          &  & 569.82      & 578.30         & 447.02          \\
+Frame 203           & 571.22      & 577.53         & 574.00          &  & 574.77      & 577.26         & 571.69          &  & 575.64      & 577.94         & 569.18          &  & 571.17      & 581.87         & 571.96          \\
+Frame 204           & 571.36      & 576.44         & 699.00          &  & 575.53      & 579.36         & 696.67          &  & 579.11      & 579.45         & 694.12          &  & 572.53      & 585.44         & 696.91          \\
+Frame 205           & 569.04      & 703.60         & 450.10          &  & 574.37      & 700.15         & 444.61          &  & 569.90      & 701.39         & 442.78          &  & 566.60      & 703.21         & 443.49          \\
+Frame 206           & 569.18      & 702.51         & 575.09          &  & 575.14      & 702.25         & 569.59          &  & 573.36      & 702.91         & 567.72          &  & 567.95      & 706.78         & 568.43          \\
+Frame 207           & 569.32      & 701.42         & 700.09          &  & 575.90      & 704.34         & 694.57          &  & 576.83      & 704.42         & 692.66          &  & 569.30      & 710.35         & 693.37          \\
+Frame 208           & 698.09      & 455.68         & 447.79          &  & 698.63      & 449.80         & 448.05          &  & 699.38      & 453.68         & 442.20          &  & 697.99      & 456.58         & 449.11          \\
+Frame 209           & 698.24      & 454.59         & 572.78          &  & 699.39      & 451.90         & 573.03          &  & 702.85      & 455.20         & 567.14          &  & 699.35      & 460.14         & 574.05          \\
+Frame 210           & 698.38      & 453.50         & 697.78          &  & 700.16      & 453.99         & 698.01          &  & 706.31      & 456.72         & 692.08          &  & 700.70      & 463.71         & 698.99          \\
+Frame 211           & 696.05      & 580.66         & 448.88          &  & 699.00      & 574.79         & 445.95          &  & 697.11      & 578.65         & 440.74          &  & 694.77      & 581.48         & 445.58          \\
+Frame 212           & 696.20      & 579.57         & 573.87          &  & 699.76      & 576.88         & 570.93          &  & 700.57      & 580.17         & 565.68          &  & 696.12      & 585.05         & 570.52          \\
+Frame 213           & 696.34      & 578.48         & 698.87          &  & 700.53      & 578.97         & 695.91          &  & 704.04      & 581.69         & 690.63          &  & 697.48      & 588.62         & 695.46          \\
+Frame 214           & 694.02      & 705.64         & 449.97          &  & 699.37      & 699.77         & 443.86          &  & 694.83      & 703.62         & 439.29          &  & 691.55      & 706.39         & 442.05          \\
+Frame 215           & 694.16      & 704.55         & 574.96          &  & 700.14      & 701.86         & 568.84          &  & 698.30      & 705.14         & 564.23          &  & 692.90      & 709.96         & 566.99          \\
+Frame 216           & 694.31      & 703.46         & 699.96          &  & 700.90      & 703.95         & 693.82          &  & 701.76      & 706.66         & 689.17          &  & 694.26      & 713.53         & 691.93         \\
+\bottomrule
+\end{longtable}
+\end{center}
+\end{landscape}
+
+\section{Error Analysis}
+\label{Section 7}
+Auxiliary data files are created for each debug dataset as part of the output folder, named "pa1-debug-x-auxiliary1.txt" for x files a to g and "pa1-unknown-x-auxiliary1.txt" for x files h to k. The function "create\_auxiliary\_file.m", located in the error analysis folder, compares the calculated EM pivot post coordinates, optical pivot post coordinates, and $C_{expected}$ values to the actual dataset values. The output file is formatted similarly to the ones provided in the program template.
+\subsection{Debug Data for Specified Noise}
+This section will focus on debug files b, c and d. As summarized in the PA1 document, dataset b has EM noise, database c has EM distortion, and database d has OT jiggle. These datasets will allow isolated analysis of the effects of each type of error.\\ \\
+EM Noise represents random fluctuations present along each individual measurement along each coordinate axis. EM distortion refers to a systematic error that varies with position relative to the EM tracking device. The OT jiggle corresponds to small physical movements or vibrations of the optical tracking base unit that occur between successive data frames. The table below summarizes the differences due to different types of error.
+
+\begin{table}[H]
+\caption{Summary of database b, c and d error effects on $C_{expected}$}
+\label{Table 2}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Dataset} & \textbf{Mean Difference} & \textbf{Mean Difference Norm} & \textbf{Max Difference Norm} \\
+\midrule
+A - None & 0, 0, 0 & 0 & 0.01 \\
+B - EM Noise & -0.02, 0.00, 0.03 & 0.46 & 0.79 \\
+C - EM Distortion & 1.03, 0.75, -0.44 & 3.51 & 7.09 \\
+D - OT Jiggle & 0.00, 0.00, 0.00 & 0.01 & 0.03 \\
+E - EM Noise + OT Jiggle & 1.01, -0.72, 1.09 & 6.49 & 16.44 \\
+F - All & 0.94, 1.05, 1.09 & 6.66 & 17.47 \\
+G - All & -0.74, -0.35, -1.86 & 6.55 & 21.32 \\
+H - Unknown & 0.78, -2.26, -3.09 & 19.98 & 38.53 \\
+I - Unknown & 1.29, 1.14, -1.68 & 6.64 & 14.2 \\
+J - Unknown & 0.53, -0.41, 0.84 & 4.38 & 10.82 \\
+K - Unknown & -0.92, 0.87, -0.77 & 5.93 & 15.00 \\
+\bottomrule
+\end{tabular}
+\end{table} \noindent
+The auxiliary file creation function has three main metrics to compare the actual marker positions ($C_{actual}$) measured by the EM tracking system with the expected marker positions ($C_{expected}$) that were calculated based on calibration data. The difference between the two sets is as follows:
+\begin{equation}
+    C_{error} = C_{actual} - C_{expected}
+\end{equation}
+for coordinates in X, Y and Z for each frame. \\ \\
+The mean difference is the average signed offset between the measured and expected positions along each coordinate axis (X, Y, Z) such that:
+\begin{equation}
+    \text{Mean Difference} = \frac{1}{N}  \sum_{i=1}^N C_{error,i}  
+\end{equation}
+This value represents the average offset between coordinate datasets and indicating bias in the EM measurements along any axis. It is noted that the EM distortion in dataset c has the largest deviations in all three coordinate axes. EM noise in dataset b has little deviations in the X and Z axes, while OT jiggle in dataset d has no deviations due to associations with the optical tracking base only.\\ \\
+The mean difference norm finds the Euclidean norm of the position error of each point:
+\begin{align*}
+    \left| C_{error,i} \right| &= \sqrt{(\Delta x)^2 +(\Delta y)^2 +(\Delta z)^2}\\
+    \text{Mean Difference Norm} &= \frac{1}{N} \sum_{i=1}^N \left| C_{error,i} \right|
+\end{align*} 
+The single scalar value of this norm represents the average magnitude of positional error across all markers and frames, regardless of direction. This measurement provides the overall accuracy of the EM tracking system, with smaller values indicating more precise tracking. Similarly to the mean difference, the EM distortion has the largest deviation at $3.51$. The impact of EM noise on the dataset b still shows significant deviation at $0.46$. Both errors need to be corrected for a more effective system. Note again that there is very little deviation in the dataset d due to association with the optical system. \\ \\
+The max difference norm is the maximum Euclidean norm of the errors to indicate the worse-case deviation of the measured and expected positions. It can flag occasional outliers or system instability of marker readings with significant tracking error.
+\begin{equation}
+    \text{Max Difference Norm} = \max_i \left| C_{error,i} \right|
+\end{equation}
+The maximum continues to be significant deviation in dataset c at $7.09$ from the EM distortion error. \\ \\
+By analyzing datasets b, c and d, the team is able to isolate and analyze each type of error and its effects on deviating the expected and actual values of C. Especially the EM distortion on dataset c created significant deviations as visualized below. \\ 
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=16cm]{pa1-debug-c-2D_error_visual.png}
+    \caption{Normalized Error by Marker and Frame for Dataset C}
+    \label{fig:error_visual}
+\end{figure}
+\\
+Table \ref{Table 2} summarizes errors in all dataset files and how the combination of errors drastically fluctuate the data. There is even more accumulated error that must be corrected, which will be discussed in Section \ref{Future Work}.
+
+\subsection{Convergence in lsqr}
+Refer to Section \ref{Cartesian Math} for the mathematical background of the lsqr function. The lsqr function provides an estimate of the relative residual during the iterative process to converge to a solution, which minimizes the Euclidean norm of the residual in equation \ref{residual_lsqr}. \\ \\
+However, in practice, the final relative residual can deviate from the specified tolerance, as observed in the datasets tabulated below. To verify that these deviations are inherent to the system's datasets, tests were conducted by using MATLAB's direct solver $x = A\backslash b$, which produced the same residuals as the lsqr function. Therefore, with increasingly large deviations and errors in the datasets, the convergence of the least squares solution is fundamentally limited by the structure and condition of the system rather than the iterative solver. \\ \\
+The next section will discuss briefly the future work for mediating these distortions and improving the resultant least squares solutions.
+
+\begin{table}[H]
+\centering
+\caption{Summary of Relative Residual of EM and Optical Post Pivot Coordinates}
+\begin{tabular}{ccc}
+\toprule
+        & \multicolumn{2}{c}{\textbf{Relative Residual}} \\
+\midrule
+Dataset & EM Post Pivot & Optical Post Pivot  \\
+\midrule
+a       & 8.50E-06          & 6.70E-06           \\
+b       & 9.10E-06          & 6.80E-06           \\
+c       & 1.50E-03          & 3.60E-06           \\
+d       & 1.00E-05          & 8.30E-06           \\
+e       & 8.90E-03          & 1.10E-05           \\
+f       & 4.90E-03          & 8.30E-06           \\
+g       & 7.80E-03          & 9.60E-06           \\
+h       & 8.00E-03          & 1.30E-05           \\
+i       & 6.30E-03          & 9.60E-06           \\
+j       & 4.50E-03          & 3.30E-06           \\
+k       & 4.00E-03          & 1.10E-05           \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Future Work}
+\label{Future Work}
+In the next assignment, the team will implement 3D calibration techniques for distortion on datasets $X_i$, prior to implementing point cloud registration and finding the transformation matrices. The raw data will be scaled to box to created a scaled correction function in unit cubes. The 5th Bernstein polynomial will scale the normalized data by the tensor of calibration coefficients to provide the corrected data for $X_i$.
+
+\section{Work Distribution}
+The distribution of the work was shared between both team members. Shreya and Yvonne worked together on the mathematical approach and understanding the setup as described in Figures \ref{fig:registration_system} and \ref{fig:pivot_calibration}. \\ \\
+Shreya focused on functions used to read data files, the point cloud registration function, unit testing files, and error analysis files. Yvonne focused on the point set registration algorithm, pivot calibration algorithm, and translating the team's work into the report.
+
+\newpage
+\bibliographystyle{ieeetr}
+\bibliography{reference.bib}
+
+\end{document}

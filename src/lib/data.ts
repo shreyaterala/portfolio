@@ -645,10 +645,56 @@ export const projectsData: Record<string, Project> = {
 
             <h2>Performance & Results</h2>
             <h3 class="text-lg font-bold mt-4">Error Analysis & Robustness</h3>
-            <p>We validated the system against three noise models: <strong>EM Noise</strong>, <strong>EM Distortion</strong>, and <strong>Optical Tracker Jiggle</strong>.</p>
-             <ul class="list-disc pl-5 my-2">
-                <li><strong>EM Distortion:</strong> Posed the biggest challenge, introducing mean errors of $>3.5$mm. The Bernstein correction successfully reduced this to sub-millimeter levels.</li>
+            <p>We validated the system against three noise models to quantify registration error. The <strong>Bernstein Polynomial</strong> correction was critical in mitigating the >3mm error introduced by EM field distortion.</p>
+            
+            <div class="overflow-x-auto my-6">
+                <table class="w-full text-sm text-left text-slate-600 border border-slate-200 rounded-lg overflow-hidden">
+                    <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-3 font-bold">Noise Condition</th>
+                            <th class="px-6 py-3">Mean Diff Norm (mm)</th>
+                            <th class="px-6 py-3">Max Diff Norm (mm)</th>
+                            <th class="px-6 py-3">Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-ink">Baseline (None)</td>
+                            <td class="px-6 py-4">0.00</td>
+                            <td class="px-6 py-4">0.01</td>
+                            <td class="px-6 py-4 text-green-600">Ideal</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-ink">Optical Tracker Jiggle</td>
+                            <td class="px-6 py-4">0.01</td>
+                            <td class="px-6 py-4">0.03</td>
+                            <td class="px-6 py-4 text-green-600">Negligible</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-ink">EM Noise</td>
+                            <td class="px-6 py-4">0.46</td>
+                            <td class="px-6 py-4">0.79</td>
+                            <td class="px-6 py-4 text-yellow-600">Minor</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-ink">EM Distortion</td>
+                            <td class="px-6 py-4 font-bold text-red-600">3.51</td>
+                            <td class="px-6 py-4 text-red-600">7.09</td>
+                            <td class="px-6 py-4 text-red-600">Critical (Requires Correction)</td>
+                        </tr>
+                         <tr class="bg-indigo-50/50 hover:bg-indigo-50">
+                            <td class="px-6 py-4 font-medium text-indigo-700">With Correction</td>
+                            <td class="px-6 py-4 text-indigo-700">&lt; 0.50</td>
+                            <td class="px-6 py-4 text-indigo-700">~ 1.10</td>
+                            <td class="px-6 py-4 text-indigo-700">Clinical Standard Met</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="list-disc pl-5 my-2">
                 <li><strong>Registration Accuracy:</strong> The unit tests confirmed rotation and translation recovery errors $< 1 \\times 10^{-6}$.</li>
+                <li><strong>Search Efficiency:</strong> Covariance Trees reduced point-to-mesh query times from linear $O(N)$ to logarithmic $O(\\log N)$.</li>
             </ul>
             <img src="/portfolio/assets/cis1/pa1-debug-c-2D_error_visual.png" alt="Error Analysis Visual" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
         </div>`,
@@ -785,45 +831,86 @@ export const projectsData: Record<string, Project> = {
             <p>In high-stakes VEX Robotics competition, consistency is king. For the "Change Up" season, Team 8823A "Ad Astra" needed an autonomous routine that could reliably score points in the 15-second autonomous period. Standard time-based movements were too inaccurate, so we developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
 
             <h2>System Architecture</h2>
-            <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
-                [Target State] -> [PID Controller] -> [Slew Rate Limiter] -> [Motor Comp] -> [VEX V5 Motors]
-            </p>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>Target State</strong>
+                    <span>Distance / Heading</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">Error</span>
+                    <div class="arrow-line"></div>
+                </div>
+                 <div class="diagram-node">
+                    <strong>Adaptive PID</strong>
+                    <span>Gain Scheduling</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">Power</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Slew Rate</strong>
+                    <span>Ramp Limits</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">Voltage</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>V5 Motors</strong>
+                    <span>Actuation</span>
+                </div>
+            </div>
 
             <h2>Engineering Implementation</h2>
             <h3>Adaptive PID Controller</h3>
             <p>One set of constants doesn't fit all movements. Short, precise adjustments need different gain values than long cross-field sprints. I implemented an <strong>Adaptive PID system</strong> that dynamically switches gain scheduling based on the target distance:</p>
             <ul>
-                <li><strong>Gain Scheduling:</strong> The system checks the target distance against defined ranges (e.g., 0-11 inches vs. 48+ inches) and loads the optimal <code>kP</code>, <code>kD</code>, and <code>kI</code> values from a lookup table.</li>
-                <li><strong>Struct-Based Configuration:</strong> <code>movepidValues</code> structure stores these tuned constants, allowing for rapid iteration and tuning in the pit.</li>
+                <li><strong>Gain Scheduling:</strong> The system checks the target distance against defined ranges (e.g., <code>0-11</code>, <code>11-24</code>, <code>24-48</code> inches) and loads the optimal <code>kP</code>, <code>kD</code>, and <code>kI</code> values from a lookup table.</li>
+                <li><strong>Struct-Based Configuration:</strong> A custom <code>PIDValue</code> struct stores these tuned constants, along with <code>motorPowerThresholds</code> to prevent stalling.</li>
             </ul>
+            <div class="bg-slate-100 p-4 rounded-lg my-4 font-mono text-sm">
+                const PIDValue movepidValues[] = { <br>
+                &nbsp;&nbsp;{0, 11, 0.1155, 0.045, 0.0325, ...}, // Precise Short Range <br>
+                &nbsp;&nbsp;{24, 48, 0.1155, 0.045, 0.010, ...}, // Mid Range <br>
+                };
+            </div>
 
             <h3>Inertial Sensor Fusion</h3>
-            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, we implemented a <strong>multi-sensor fusion algorithm</strong>:</p>
+            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, we implemented a <strong>Triple-Redundant Sensor Fusion algorithm</strong>:</p>
             <ul>
-                <li><strong>Triple Redundancy:</strong> We mounted three separate V5 Inertial Sensors on the chassis.</li>
-                <li><strong>Voter Algorithm:</strong> The code continuously calculates the average heading of all three sensors. It also computes the standard deviation. If one sensor deviates significantly (> 1%) from the consensus of the other two, it is flagged as an outlier and dynamically excluded from the calculation, ensuring the robot drives straight even if a sensor fails mid-match.</li>
+                <li><strong>Hardware Redundancy:</strong> We mounted three separate V5 Inertial Sensors (A, B, C) on the chassis.</li>
+                <li><strong>Voter Algorithm:</strong> The code continuously calculates the mean and standard deviation of all three sensors. If any single sensor deviates significantly from the consensus (by > 1 standard deviation), it is dynamically excluded, and the heading is derived from the remaining two.</li>
             </ul>
              <pre style="background: #1e1e1e; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #d4d4d4;">
-// Outlier Rejection Logic
-avgAll = (Inertial.rotation() + InertialB.rotation() + InertialC.rotation()) / 3;
-standardDev = sqrt((1/3) * (pow(Inertial.rotation() - avgAll, 2) + ...));
+// Outlier Rejection Logic (Turns.cpp)
+avgAll = (InertialA + InertialB + InertialC) / 3;
+standardDev = sqrt((1/3) * (pow(InertialA - avgAll, 2) + ...));
 
-if (fabs(Inertial.rotation()) > fabs(standardDev + avgAll)) {
-  currentDeg = avgBC; // Exclude Sensor A
+if (fabs(InertialA) > fabs(standardDev + avgAll)) {
+  currentDeg = avgBC; // Exclude Sensor A if it's an outlier
+} else {
+  currentDeg = avgAll;
 }
             </pre>
 
-            <h3>Motion Profiling</h3>
-            <p>To prevent wheel slip and reduce mechanical stress, we implemented a custom slew rate limiter (acceleration control):</p>
+            <h3>Motion Profiling (Slew Rate)</h3>
+            <p>To prevent wheel slip and reduce mechanical stress on the drivetrain, we implemented a <strong>Lookup-Table Based Slew Rate Limiter</strong>:</p>
             <ul>
-                <li><strong>Slew Rate Limiting:</strong> Instead of jumping instantly to full power, the <code>speedChange</code> array dictates a smooth ramp-up curve (e.g., 1, 1.5, 2... 81 speed units). This prevents the robot from "doing a wheelie" or losing traction on the anti-static tiles.</li>
+                <li><strong>Acceleration Curves:</strong> Instead of calculating acceleration in real-time, the system references a pre-computed array <code>speedChange[] = {1, 1.5, 2... 81}</code>.</li>
+                <li><strong>Traction Control:</strong> This ensures the voltage applied to the motors ramps up according to a curve optimized for the robot's mass and wheel friction, preventing "burnouts" on the anti-static foam tiles.</li>
             </ul>
 
-            <h2>Performance</h2>
+            <h2>Autonomous Skills Strategy</h2>
+            <p>For the "Change Up" Skills Challenge, the robot had to autonomously score balls in 9 goals distributed across the arena. I architected a robust <code>skillsBackLeftRoom</code> routine:</p>
             <ul>
-                <li><strong>Accuracy:</strong> The fusion algorithm reduced heading error to &lt; 1 degree over a 1-minute run.</li>
-                <li><strong>Reliability:</strong> The adaptive PID allowed the robot to settle at target positions within 200ms, significantly faster than a generic PID loop.</li>
+                <li><strong>State Machine Logic:</strong> The routine is broken down into discrete "Goal" states. Each state consists of a sequence: <code>Move -> Turn -> Intake -> Score</code>.</li>
+                <li><strong>Jig-Based Calibration:</strong> The routine relies on a precise starting "Jig" placement (Top/Left slots) to minimize initial angular error.</li>
+                <li><strong>Performance:</strong> The routine successfully navigates to all 9 goals, using <code>Turn(degrees, direction)</code> commands with <code>timeout</code> failsafes to ensure the robot never gets stuck in an infinite loop if a sensor fails.</li>
             </ul>
+             <div class="video-container" style="background: #000; padding: 1rem; border-radius: 8px; text-align: center; color: white;">
+                [Video Placeholder: Skills Run]
+            </div>
         </div>`,
     },
 };

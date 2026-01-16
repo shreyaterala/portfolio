@@ -1,6 +1,9 @@
 import { Project } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import parse, { DOMNode, domToReact } from "html-react-parser";
+import "katex/dist/katex.min.css";
+import Latex from "react-latex-next";
 
 interface ProjectPageProps {
     params: {
@@ -35,6 +38,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
     // Parse meta string (e.g. "Oct 2025 - Dec 2025 | Algorithm Design")
     const [dateRange, role] = project.meta.split("|").map((s) => s.trim());
+
+    const parseOptions = {
+        replace: (domNode: DOMNode) => {
+            if (domNode.type === 'text') {
+                // If text contains LaTeX delimiters, render with Latex component
+                if (domNode.data && (domNode.data.includes('$') || domNode.data.includes('\\'))) {
+                    return <Latex>{domNode.data}</Latex>;
+                }
+            }
+        }
+    };
 
     return (
         <div className="min-h-screen bg-paper pb-24">
@@ -84,12 +98,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                 {/* Main Content Area */}
                 <div className="flex flex-col gap-12">
-                    {/* If we wanted the main image at the top, we could put it here, 
-                 but standard practice in this theme is letting the flow dictate it. 
-                 However, many projects have it in the content already. */}
-
                     <article className="prose-ink">
-                        <div dangerouslySetInnerHTML={{ __html: project.content }} />
+                        {/* Using html-react-parser to render HTML string while enabling React components (Latex) */}
+                        {parse(project.content, parseOptions)}
                     </article>
                 </div>
             </div>

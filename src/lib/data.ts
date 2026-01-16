@@ -144,7 +144,7 @@ export const projectsData: Record<string, Project> = {
 
             <h2>System Architecture</h2>
             <p>The system is built around an <strong>ESP32 microcontroller</strong> powered by a LiPo battery. It aggregates data from three distinct sensor modalities before wirelessly transmitting it to a laptop-based clinician dashboard.</p>
-            <img src="/assets/compression_sock/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <img src="/portfolio/assets/compression_sock/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             
             <h2>Engineering Implementation</h2>
             <h3>Sensing Principle: Conductive Fabric</h3>
@@ -153,7 +153,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Circuit Topology:</strong> The conductive fabric acts as the variable resistor ($R_{fabric}$) in series with a known reference resistor. By measuring the voltage drop, we calculate the instantaneous resistance.</li>
                 <li><strong>Signal Conditioning:</strong> To mitigate noise, the firmware takes the mean of <strong>20 ADC readings</strong> over a 1-second interval before calculating the resistance.</li>
             </ul>
-             <img src="/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+             <img src="/portfolio/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h3>Electronics & Packaging</h3>
             <p>A key design constraint was maintaining the "soft" feel of the textile while housing rigid components.</p>
@@ -162,16 +162,16 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Safety:</strong> The system operates on low-voltage battery power with proper electrical isolation to ensure user safety during prolonged skin contact.</li>
             </ul>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50">
-                <img src="/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50">
             </div>
 
             <h2>Testing & Validation</h2>
             <h3>Simulated Limb Trials</h3>
             <p>We validated the device using an <strong>Inflatable Air Bladder</strong> to mimic the swelling and shrinking of a residual limb. This allowed us to controllably vary the circumference by < 0.5cm increments while recording sensor outputs.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50">
-                <img src="/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50">
             </div>
 
             <h3>Material Selection Study</h3>
@@ -180,7 +180,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Candidates:</strong> Sheet Texture vs. Cloth Texture with varying resistivities (55&Omega;, 77&Omega;, 46&Omega;).</li>
                 <li><strong>Result:</strong> The <strong>77&Omega; Sheet Texture</strong> fabric demonstrated the highest linearity and dynamic range under stretch, making it suitable for detecting subtle limb volume changes.</li>
             </ul>
-             <img src="/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+             <img src="/portfolio/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Performance & Results</h2>
             <ul>

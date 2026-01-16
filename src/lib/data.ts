@@ -960,7 +960,7 @@ if (fabs(InertialA) > fabs(standardDev + avgAll)) {
                     <source src="/portfolio/assets/pid/skills_run.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                  </video>
-                 <p class="text-sm text-gray-400 mt-2 text-center py-2">Autonomous Skills Run (126 Points)</p>
+                 <p class="text-sm text-gray-400 mt-2 text-center py-2">Autonomous Skills Run - 126 Points</p>
             </div>
         </div>`,
     },

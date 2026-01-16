@@ -10,71 +10,68 @@
 export const projectsData: Record<string, Project> = {
     "haptic": {
         id: "haptic",
-        title: "Haptic Museum Display",
+        title: "VISTA - Haptic Museum Display",
         meta: "Oct 2025 - Dec 2025 | Mechanical Design & Implementation",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
-        technologies: ["Fusion 360", "Arduino", "C++"],
+        technologies: ["Fusion 360", "Arduino", "C++", "Soft Robotics"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>Museums often rely heavily on visual engagement, leaving the <strong>285 million visually impaired individuals globally</strong> with a limited experience. While audio guides exist, they lack the spatial and textural connection to artwork. This project, undertaken as a capstone design challenge, aimed to bridge this gap by creating a dynamic, tactile interface that translates digital images into physical topography.</p>
+            <p>According to the American Alliance of Museums, 7 million visually impaired individuals in the US face a largely inaccessible cultural landscape. This project introduces <strong>VISTA (Visual Information through Sensory Tactile Array)</strong>, a novel tactile display designed to convey both the <em>structure</em> and <em>appearance</em> of art through touch.</p>
             
-            <h2>Project Objectives</h2>
-            <ul>
-                <li><strong>Tactile Resolution:</strong> Create a refreshable display with sufficient density to convey recognizable shapes (target: 7x5 grid).</li>
-                <li><strong>Multi-Modal Feedback:</strong> Combine height variation (color depth) with pattern recognition (shape).</li>
-                <li><strong>Scalability:</strong> Design a modular actuation mechanism that allows for future expansion.</li>
-            </ul>
-
             <h2>System Architecture</h2>
+            <p>VISTA utilizes a 7x5 pin array where <strong>Shape</strong> is rendered by actuated pins and <strong>Color</strong> is encoded via variable pin height.</p>
             <div class="system-diagram">
                 <div class="diagram-node">
-                    <strong>Image Processing</strong>
+                    <strong>Input Image</strong>
                     <span>Processing / Python</span>
                 </div>
                 <div class="diagram-arrow">
-                    <span class="arrow-label">Pixel Data</span>
+                    <span class="arrow-label">Downsample (7x5)</span>
                     <div class="arrow-line"></div>
                 </div>
                 <div class="diagram-node">
-                    <strong>Control Logic</strong>
-                    <span>Arduino Mega Network</span>
+                    <strong>Mapping Logic</strong>
+                    <span>Color &rarr; Height &rarr; Angle</span>
                 </div>
                  <div class="diagram-arrow">
-                    <span class="arrow-label">PWM Signals</span>
+                    <span class="arrow-label">Servo Cmds</span>
                     <div class="arrow-line"></div>
                 </div>
                 <div class="diagram-node">
                     <strong>Physical Array</strong>
-                    <span>35x Servo-Cam Actuators</span>
+                    <span>35x Cam Actuators</span>
                 </div>
             </div>
             
             <h2>Engineering Implementation</h2>
-            <h3>Mechanical Actuation</h3>
-            <p>The core challenge was fitting 35 independent actuators into a compact footprint. I developed a custom <strong>cam-follower mechanism</strong>:</p>
+            <h3>Mechanical Actuation & Constraints</h3>
+            <p>The device requires precise independent control of 35 pins. I optimized the mechanical packaging under strict geometric constraints:</p>
             <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design of Pin Array" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             <ul>
-                <li><strong>Cam Profile:</strong> Designed a logarithmic spiral cam profile to convert 180&deg; of servo rotation into 20mm of linear vertical pin travel.</li>
-                <li><strong>Tolerance Analysis:</strong> Conducted tolerance stack-up analysis to ensure pin stability, achieving a clearance fit of 0.2mm to prevent binding while minimizing wobble.</li>
-                <li><strong>Modular Design:</strong> Created a "puzzle-fit" chassis where individual 3D-printed cell modules interlock, allowing for rapid replacement of faulty actuators.</li>
-            </ul>
-             <img src="/portfolio/assets/haptic_museum/IMG_1573.jpeg" alt="Device Assembly" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-
-            <h3>Electronics & Control</h3>
-            <p>Driving 35 servos simultaneously presents significant power and signal challenges:</p>
-            <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics Schematic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-            <ul>
-                <li><strong>Distributed Computing:</strong> Utilized a master-slave architecture with multiple Arduino boards to overcome the PWM channel limits (typically 12 per board) and I2C address conflicts.</li>
-                <li><strong>Power Management:</strong> Implemented a staggered activation sequence (50ms delay per row) to prevent startup current spikes from tripping the 20A power supply.</li>
-            </ul>
-
-            <h2>Performance & Results</h2>
-            <ul>
-                <li><strong>User Validation:</strong> In blind tests, users successfully identified simple geometric shapes with <strong>85% accuracy</strong> and relative color depth (height) with <strong>70% accuracy</strong>.</li>
-                <li><strong>Reliability:</strong> The system demonstrated endurance of over 1,000 continuous cycles without mechanical failure or thermal shutdown.</li>
-                <li><strong>Haptic Feedback:</strong> The silicone overlay (Shore 20A hardness) successfully smoothed the discreet pin heads into a continuous surface, enhancing the tactile experience.</li>
+                <li><strong>Cam Design:</strong> Designed logarithmic spiral cams with a 1.5" pitch radius to achieve 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
+                <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, used a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
             </ul>
             <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Silicone Overlay Prototype" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h3>Electronics & Logic Pipeline</h3>
+            <p>The control system translates pixel data into physical topography using a custom mapping algorithm:</p>
+            <ul>
+                <li><strong>Color-to-Height Mapping:</strong> Quantized colors into 4 discernable height levels to convey depth:
+                    <div class="bg-slate-100 p-4 rounded-lg my-2 font-mono text-sm">
+                        Yellow (17.5mm) &gt; Red (9.8mm) &gt; Blue (6.3mm) &gt; White (2.7mm)
+                    </div>
+                </li>
+                <li><strong>Distributed Control:</strong> Implemented a master-slave architecture with two Arduino boards managing 35 servo motors (one per pin) to handle the high PWM channel load.</li>
+            </ul>
+             <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics Schematic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+
+            <h2>Performance & Results</h2>
+            <p>We validated the device using a "Flag Identification" study (Japan, Sweden, Denmark) to test shape vs. color recognition:</p>
+            <ul>
+                <li><strong>Shape Recognition:</strong> 100% of participants successfully distinguished flags with differing geometries (e.g., Japan vs. Sweden).</li>
+                <li><strong>Color Distinguishability:</strong> While pure color differentiation (Sweden vs. Denmark) proved challenging (35% error rate initially), the addition of a tactile legend allowed users to accurately map height to color.</li>
+                <li><strong>Reliability:</strong> The cam-follower mechanism endured >1,000 actuation cycles, validating the mechanical robustness of the 3D-printed chassis.</li>
+            </ul>
 
             <h2>Demos</h2>
              <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">

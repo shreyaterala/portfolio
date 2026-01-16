@@ -514,13 +514,13 @@ export const projectsData: Record<string, Project> = {
             <p>We iterated through multiple housing designs to optimize for compact integration and thermal performance. The final circuit utilizes an <strong>ESP32-S3</strong> for processing and a <strong>NAU7802 24-bit ADC</strong> for high-fidelity signal acquisition.</p>
             <img src="/portfolio/assets/breath_sense/electrical_wiring_diagram.png" alt="Wiring Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             
-            <p><strong>Haptic Evolution:</strong> Early prototypes used ERM motors, but they lacked the "organic" rise and fall needed for breath pacing. We transitioned to a <strong>Linear Resonant Actuator (LRA)</strong> driven by a TI DRV2605, enabling complex waveforms like "Soft Bump" and "Ramp Up".</p>
+            <p><strong>Haptic Evolution:</strong> Early prototypes used ERM motors, but they lacked the "organic" rise and fall needed for breath pacing. The team transitioned to a <strong>Linear Resonant Actuator (LRA)</strong> driven by a TI DRV2605, enabling complex waveforms like "Soft Bump" and "Ramp Up".</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 <img src="/portfolio/assets/breath_sense/electronic_housing_unit_prototying.png" alt="Housing Evolution" class="rounded-lg border border-slate-200/50">
                 <img src="/portfolio/assets/breath_sense/vibration_puck_prototyping.png" alt="Vibration Puck Prototyping" class="rounded-lg border border-slate-200/50">
             </div>
 
-            <h2>Feasibility & Testing</h2>
+
             <h2>Feasibility & Analysis</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 <div>
@@ -547,7 +547,7 @@ export const projectsData: Record<string, Project> = {
             </div>
 
             <h2>Societal Impact</h2>
-            <p>Ideally, breathSense offers a non-pharmaceutical intervention for managing anxiety and PTSD symptoms. By strictly adhering to IEC 62368-1 (Consumer Electronics Safety) and ISO 10993 (Biocompatibility), we ensured the device is safe for at-home use, potentially democratizing access to grounding therapy.</p>
+            <p>Ideally, breathSense offers a non-pharmaceutical intervention for managing anxiety and PTSD symptoms. By strictly adhering to IEC 62368-1 (Consumer Electronics Safety) and ISO 10993 (Biocompatibility), the team ensured the device is safe for at-home use, potentially democratizing access to grounding therapy.</p>
 
             <h2>Performance</h2>
             <ul>

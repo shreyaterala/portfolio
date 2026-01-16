@@ -126,41 +126,67 @@ export const projectsData: Record<string, Project> = {
     },
     "sock": {
         id: "sock",
-        title: "Amputee Residual Limb Monitoring Sock",
-        meta: "Oct 2024 - Nov 2024 | Mechanical Design & Software Implementation",
+        title: "Smart Shrinker Compression Sleeve",
+        meta: "Aug 2024 - Dec 2024 | Medical Device Design",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
-        technologies: ["Wearable Tech", "Soft Robotics", "Sensors"],
+        technologies: ["Wearable Tech", "ESP32", "Signal Processing", "Bluetooth"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>For amputees, the residual limb is a dynamic and sensitive environment. Fluctuations in volume and temperature can lead to improper prosthetic fit, causing skin breakdown and infection. This project, the "Smart Shrinker," was designed to provide clinicians with continuous, quantitative data on the limb's health, replacing subjective patient reporting.</p>
-            
+            <p>Over 500,000 Americans experience limb loss annually. Post-amputation care is critical, as fluctuations in residual limb volume can lead to improper prosthetic fit, skin breakdown, and infection. Existing solutions (shrinkers, rigid bandages) provide compression but lack <strong>real-time monitoring capabilities</strong>, forcing clinicians to rely on subjective patient feedback.</p>
+            <p>This project introduces a "Smart Shrinker" that combines traditional compression therapy with integrated sensing to track limb volume, temperature, and humidity, enabling early detection of complications like lymphedema.</p>
+
             <h2>Project Objectives</h2>
             <ul>
-                <li><strong>Non-Invasive Sensing:</strong> Integrate sensors into a standard compression sock without compromising its elasticity or comfort.</li>
-                <li><strong>Early Detection:</strong> Identify temperature spikes indicative of inflammation before visible sores appear.</li>
-                <li><strong>User-Centric Data:</strong> Present complex sensor data in an intuitive mobile format for both patients and clinicians.</li>
+                <li><strong>Multi-Sensor Data Collection:</strong> Integrate force sensing resistors and conductive fabric to track limb dimensional changes within <strong>&plusmn;0.5 cm</strong>.</li>
+                <li><strong>Infection Monitoring:</strong> Detect early signs of inflammation via real-time temperature and humidity tracking.</li>
+                <li><strong>Wireless Telemetry:</strong> Transmit sensor data via Bluetooth (every 2s) to a clinical dashboard for remote monitoring.</li>
             </ul>
 
+            <h2>System Architecture</h2>
+            <p>The system is built around an <strong>ESP32 microcontroller</strong> powered by a LiPo battery. It aggregates data from three distinct sensor modalities before wirelessly transmitting it to a laptop-based clinician dashboard.</p>
+            <img src="/assets/compression_sock/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            
             <h2>Engineering Implementation</h2>
-            <h3>Soft Robotics & Sensor Integration</h3>
-            <p>The primary challenge was maintaining the mechanical properties of the compression fabric while embedding rigid electronics:</p>
+            <h3>Sensing Principle: Conductive Fabric</h3>
+            <p>Unlike standard strain gauges, we utilized <strong>Conductive Fabric</strong> to measure limb circumference changes. As the fabric stretches, its electrical resistance changes. We implemented a voltage divider circuit to measure this resistance:</p>
             <ul>
-                <li><strong>Textile Integration:</strong> We utilized conductive thread to weave pressure and temperature sensor arrays directly into the knit of the sock. This "soft circuit" approach allowed the sock to stretch naturally (up to 20% strain) without breaking connections.</li>
-                <li><strong>Sensor Logic:</strong> Implemented a matrix addressing scheme to read 12 distinct pressure points using only 7 GPIO pins, optimizing the microcontroller's limited I/O.</li>
+                <li><strong>Circuit Topology:</strong> The conductive fabric acts as the variable resistor ($R_{fabric}$) in series with a known reference resistor. By measuring the voltage drop, we calculate the instantaneous resistance.</li>
+                <li><strong>Signal Conditioning:</strong> To mitigate noise, the firmware takes the mean of <strong>20 ADC readings</strong> over a 1-second interval before calculating the resistance.</li>
             </ul>
+             <img src="/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
-            <h3>Firmware & Signal Processing</h3>
-            <p>Amputee gait creates significant motion artifacts in sensor readings. To isolate clinically relevant data:</p>
+            <h3>Electronics & Packaging</h3>
+            <p>A key design constraint was maintaining the "soft" feel of the textile while housing rigid components.</p>
             <ul>
-                <li><strong>Digital Filtering:</strong> Applied a <strong>Low-Pass Butterworth Filter</strong> ($f_c = 5Hz$) on the microcontroller to attenuate high-frequency noise from walking impacts.</li>
-                <li><strong>Drift Compensation:</strong> Developed an auto-calibration routine that establishes a baseline pressure reading each time the user dons the device, accounting for daily limb volume fluctuations.</li>
+                <li><strong>Snap-Fit Housing:</strong> Designed a custom 3D-printed enclosure that clips onto the sleeve. It features a snap-fit lid for easy battery access and protects the ESP32 from impact during daily use.</li>
+                <li><strong>Safety:</strong> The system operates on low-voltage battery power with proper electrical isolation to ensure user safety during prolonged skin contact.</li>
             </ul>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50">
+                <img src="/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50">
+            </div>
+
+            <h2>Testing & Validation</h2>
+            <h3>Simulated Limb Trials</h3>
+            <p>We validated the device using an <strong>Inflatable Air Bladder</strong> to mimic the swelling and shrinking of a residual limb. This allowed us to controllably vary the circumference by < 0.5cm increments while recording sensor outputs.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50">
+                <img src="/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50">
+            </div>
+
+            <h3>Material Selection Study</h3>
+            <p>We compared three conductive fabric candidates to optimize sensitivity:</p>
+            <ul>
+                <li><strong>Candidates:</strong> Sheet Texture vs. Cloth Texture with varying resistivities (55&Omega;, 77&Omega;, 46&Omega;).</li>
+                <li><strong>Result:</strong> The <strong>77&Omega; Sheet Texture</strong> fabric demonstrated the highest linearity and dynamic range under stretch, making it suitable for detecting subtle limb volume changes.</li>
+            </ul>
+             <img src="/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Performance & Results</h2>
             <ul>
-                <li><strong>Clinical Relevance:</strong> Successfully detected localized temperature increases of $0.5^circ C$, a key early marker for subcutaneous inflammation.</li>
-                <li><strong>Durability:</strong> The textile sensor array survived 50 wash cycles with no degradation in signal-to-noise ratio.</li>
-                <li><strong>Connectivity:</strong> Bluetooth Low Energy (BLE) transmission range maintained up to 10 meters, allowing continuous logging to the mobile app.</li>
+                <li><strong>Precision:</strong> successfully tracked limb circumference changes as small as <strong>0.5cm</strong> in benchtop trials.</li>
+                <li><strong>Environmental Sensing:</strong> The DHT sensor accurately captured humidity and temperature shifts (settling time ~40s), validated by comparing "on-body" vs. "ambient" readings.</li>
+                <li><strong>Connectivity:</strong> The Bluetooth link maintained a reliable stream (0.5Hz update rate) to the custom Python-based GUI for real-time visualization.</li>
             </ul>
         </div>`,
     },

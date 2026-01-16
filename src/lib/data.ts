@@ -94,12 +94,12 @@ export const projectsData: Record<string, Project> = {
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>The Rubik's Cube is a classic puzzle with over 43 quintillion permutations. RUBI is an autonomous solving system designed to demystify robotic manipulation and computer vision. By integrating real-time object detection with a precision actuation mechanism, RUBI scans, solves, and physically executes the solution for a scrambled cube without human intervention.</p>
-
             <h2>System Architecture</h2>
             <p>The system operates on a master-slave architecture: A PC-based Vision & Computation subsystem handles the heavy lifting (AI/Solving), while a microcontroller handles the real-time motor control.</p>
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
                 [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
             </p>
+            <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System Overview" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>
@@ -109,6 +109,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>State Reconstruction:</strong> The system captures 6 faces sequentially. A custom mapping algorithm reorders the raw detection stream into a flattened 54-element string compatible with the standard cube notation.</li>
                 <li><strong>Solving Algorithm:</strong> Integrated the <code>kociemba</code> Python library, which implements the Two-Phase Algorithm to find near-optimal solutions (typically &lt;20 moves) in milliseconds.</li>
             </ul>
+            <img src="/portfolio/assets/rubi/computer_vision.jpeg" alt="YOLOv8 Cube Detection" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h3>Mechatronics & Embedded Control</h3>
             <p>The physical solver requires precise, synchronized actuation of 6 faces:</p>
@@ -116,6 +117,10 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Wireless Communication:</strong> Utilized the <strong>Bleak</strong> library to establish a Bluetooth Low Energy (BLE) link between the Python backend and the robot's <strong>Seeed XIAO nRF52840</strong> microcontroller. Move commands are serialized and written to a custom GATT characteristic.</li>
                 <li><strong>Actuation:</strong> 6x NEMA-17 stepper motors drive the faces via custom 5-way 3D-printed gearboxes. The grippers feature compliant TPU inserts to accommodate cube tolerances.</li>
             </ul>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/portfolio/assets/rubi/cube_internal.jpeg" alt="Internal Mechanism" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Wiring Harness" class="rounded-lg border border-slate-200/50">
+            </div>
 
             <h2>Performance</h2>
             <ul>

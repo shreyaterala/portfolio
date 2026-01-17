@@ -97,9 +97,28 @@ export const projectsData: Record<string, Project> = {
             
             <h2>System Architecture</h2>
             <p>The system operates on a master-slave architecture: A PC-based Vision & Computation subsystem handles the heavy lifting (AI/Solving), while a microcontroller handles the real-time motor control.</p>
-            <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
-                [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
-            </p>
+            <div class="system-diagram">
+                <div class="diagram-node">
+                    <strong>PC Vision Subsystem</strong>
+                    <span>YOLOv8 + Kociemba</span>
+                </div>
+                <div class="diagram-arrow">
+                    <span class="arrow-label">BLE UART</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Embedded Control</strong>
+                    <span>Seeed XIAO nRF52840</span>
+                </div>
+                 <div class="diagram-arrow">
+                    <span class="arrow-label">Step/Dir Pulses</span>
+                    <div class="arrow-line"></div>
+                </div>
+                <div class="diagram-node">
+                    <strong>Actuation</strong>
+                    <span>6x NEMA-17 Motors</span>
+                </div>
+            </div>
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>
@@ -227,11 +246,11 @@ export const projectsData: Record<string, Project> = {
         content: `<div>
             <h2>Context & Motivation</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                <div>
+                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg md:col-span-1" />    
+            <div>
                     <p>The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
             <p>My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
                 </div>
-                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg md:col-span-1" />
             </div>
 
             <h2>Project Objectives</h2>

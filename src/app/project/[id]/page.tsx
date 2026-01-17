@@ -74,7 +74,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </div>
 
                     {/* Specs Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-6 border-t border-b border-slate-200/50">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6 border border-slate-200/50 rounded-lg">
                         <div>
                             <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Timeline</span>
                             <p className="text-sm font-medium text-ink">{dateRange}</p>

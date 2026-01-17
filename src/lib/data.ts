@@ -94,13 +94,7 @@ export const projectsData: Record<string, Project> = {
         content: `<div>
             <h2>Context & Motivation</h2>
             <div class="flex flex-col md:flex-row gap-6 mb-6">
-                 <div class="md:w-1/2">
-                    <p>Not only is a self-solving Rubik’s cube a novel idea, but for people who do not know how to solve a Rubik’s cube, this is a great learning tool to understand the mechanics of a solution. When first trying to solve a Rubik’s cube, the number of permutations (43,252,003,274,489,856,000) may appear daunting and discouraging to someone who has yet to solve one. Observing one solve itself in under 5 minutes with fewer than 50 moves can help lower the bar to learn how to solve it.</p> 
-                    <p class="mt-4">Our self-solving Rubik’s cube system was designed to solve itself from any scrambled position using a computer vision system and an internally motorized Rubik’s cube. After reading the faces of the scrambled cube using the vision system, RUBI calculates an algorithm-based solution and autonomously executes it.</p>
-                 </div>
-                 <div class="md:w-1/2">
-                    <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI Prototype" class="rounded-lg shadow-md border border-white/10 w-full h-auto" />
-                 </div>
+                <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI Prototype" class="rounded-lg shadow-md border border-white/10 w-full h-auto" />
             </div>
 
             <h2>System Architecture</h2>
@@ -108,7 +102,6 @@ export const projectsData: Record<string, Project> = {
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
                 [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
             </p>
-            <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI System Overview" class="rounded-lg border border-slate-200/50">
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>
@@ -119,12 +112,13 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Solving Algorithm:</strong> Integrated the <code>kociemba</code> Python library, which implements the Two-Phase Algorithm to find near-optimal solutions (typically &lt;20 moves) in milliseconds.</li>
             </ul>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/portfolio/assets/rubi/computer_vision.jpeg" alt="YOLOv8 Cube Detection" class="rounded-lg border border-slate-200/50">
                 <img src="/portfolio/assets/rubi/cv_training_pipeline.png" alt="CV Training Pipeline" class="rounded-lg border border-slate-200/50">
+                <img src="/portfolio/assets/rubi/computer_vision.jpeg" alt="YOLOv8 Cube Detection" class="rounded-lg border border-slate-200/50">
             </div>
 
             <h3>Mechatronics & Embedded Control</h3>
             <p>The physical solver requires precise, synchronized actuation of 6 faces. We iterated through multiple gearbox designs to ensure torque density.</p>
+            <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI System Overview" class="rounded-lg border border-slate-200/50">
             <img src="/portfolio/assets/rubi/cube_protyping_iterations.png" alt="Prototyping Iterations" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             
             <ul>
@@ -133,10 +127,10 @@ export const projectsData: Record<string, Project> = {
             </ul>
              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 <img src="/portfolio/assets/rubi/cube_internal.jpeg" alt="Internal Mechanism" class="rounded-lg border border-slate-200/50">
-                <img src="/portfolio/assets/rubi/wiring_diagram.png" alt="Wiring Schematic" class="rounded-lg border border-slate-200/50">
-            </div>
-            <div class="flex justify-center my-4">
-                 <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Physical Wiring" class="rounded-lg border border-slate-200/50 w-2/3">
+                <div class="flex justify-center my-4">
+                    <img src="/portfolio/assets/rubi/wiring_diagram.png" alt="Wiring Schematic" class="rounded-lg border border-slate-200/50">
+                    <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Physical Wiring" class="rounded-lg border border-slate-200/50 w-2/3">
+                </div>
             </div>
 
             <h2>Performance</h2>

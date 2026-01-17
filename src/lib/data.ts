@@ -108,10 +108,8 @@ export const projectsData: Record<string, Project> = {
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
                 [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/portfolio/assets/rubi/RUBI.jpg" alt="RUBI System Overview" class="rounded-lg border border-slate-200/50">
-                <img src="/portfolio/assets/rubi/representative_image.png" alt="System Design Render" class="rounded-lg border border-slate-200/50">
-            </div>
+            <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI System Overview" class="rounded-lg border border-slate-200/50">
+            <img src="/portfolio/assets/rubi/representative_image.png" alt="System Design Render" class="rounded-lg border border-slate-200/50">
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>

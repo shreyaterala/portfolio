@@ -11,7 +11,7 @@ export const projectsData: Record<string, Project> = {
     "haptic": {
         id: "haptic",
         title: "VISTA - Haptic Museum Display",
-        meta: "Oct 2025 - Dec 2025 | Mechanical Design & Implementation",
+        meta: "Oct 2025 - Dec 2025 | Haptics & Assitive Technology",
         image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
         technologies: ["Fusion 360", "Arduino", "C++", "Soft Robotics"],
         content: `<div>
@@ -88,7 +88,7 @@ export const projectsData: Record<string, Project> = {
     "rubi": {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
-        meta: "Oct 2024 - Dec 2024 | Mechatronic & Computer Vision",
+        meta: "Oct 2024 - Dec 2024 | Mechatronics & Computer Vision",
         image: "/portfolio/assets/rubi/demo.png",
         technologies: ["Python", "YOLOv8", "OpenCV", "Arduino", "BLE"],
         content: `<div>
@@ -146,7 +146,7 @@ export const projectsData: Record<string, Project> = {
             </ul>
 
             <div class="mt-8 text-center">
-                <a href="/portfolio/assets/rubi/Final Project Demo.pdf" target="_blank" class="inline-block px-6 py-3 bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition-colors">
+                <a href="/portfolio/assets/rubi/Final Project Demo.pdf" target="_blank" class="inline-block px-6 py-3 bg-slate-800 text-black rounded-lg hover:bg-slate-700 transition-colors">
                     📄 View Full Project Report (PDF)
                 </a>
             </div>
@@ -155,7 +155,7 @@ export const projectsData: Record<string, Project> = {
     "sock": {
         id: "sock",
         title: "Smart Shrinker Compression Sleeve",
-        meta: "Aug 2024 - Dec 2024 | Medical Device Design",
+        meta: "Aug 2024 - Dec 2024 | Bioinstrumentation",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
         technologies: ["Wearable Tech", "Mechatronics", "Signal Processing"],
         content: `<div>
@@ -183,6 +183,14 @@ export const projectsData: Record<string, Project> = {
             </ul>
              <img src="/portfolio/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" class="center-img" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
+
+            <h3>Material Selection Study</h3>
+            <p>We compared three conductive fabric candidates to optimize sensitivity:</p>
+            <ul>
+                <li><strong>Candidates:</strong> Sheet Texture vs. Cloth Texture with varying resistivities (55&Omega;, 77&Omega;, 46&Omega;).</li>
+                <li><strong>Result:</strong> The <strong>77&Omega; Sheet Texture</strong> fabric demonstrated the highest linearity and dynamic range under stretch, making it suitable for detecting subtle limb volume changes.</li>
+            </ul>
+             <img src="/portfolio/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             <h3>Electronics & Packaging</h3>
             <p>A key design constraint was maintaining the "soft" feel of the textile while housing rigid components.</p>
             <ul>
@@ -202,18 +210,10 @@ export const projectsData: Record<string, Project> = {
                 <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50">
             </div>
 
-            <h3>Material Selection Study</h3>
-            <p>We compared three conductive fabric candidates to optimize sensitivity:</p>
-            <ul>
-                <li><strong>Candidates:</strong> Sheet Texture vs. Cloth Texture with varying resistivities (55&Omega;, 77&Omega;, 46&Omega;).</li>
-                <li><strong>Result:</strong> The <strong>77&Omega; Sheet Texture</strong> fabric demonstrated the highest linearity and dynamic range under stretch, making it suitable for detecting subtle limb volume changes.</li>
-            </ul>
-             <img src="/portfolio/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
-
             <h2>Performance & Results</h2>
             <ul>
                 <li><strong>Precision:</strong> successfully tracked limb circumference changes as small as <strong>0.5cm</strong> in benchtop trials.</li>
-                <li><strong>Environmental Sensing:</strong> The DHT sensor accurately captured humidity and temperature shifts (settling time ~40s), validated by comparing "on-body" vs. "ambient" readings.</li>
+                <li><strong>Environmental Sensing:</strong> The DHT sensor captured humidity and temperature shifts, validated by comparing "on-body" vs. "ambient" readings.</li>
                 <li><strong>Connectivity:</strong> The Bluetooth link maintained a reliable stream (0.5Hz update rate) to the custom Python-based GUI for real-time visualization.</li>
             </ul>
         </div>`,

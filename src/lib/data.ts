@@ -45,10 +45,10 @@ export const projectsData: Record<string, Project> = {
             
             <h2>Engineering Implementation</h2>
             <h3>Mechanical Actuation & Constraints</h3>
-            <p>The device requires precise independent control of 35 pins. I optimized the mechanical packaging under strict geometric constraints:</p>
+            <p>The device requires precise independent control of 35 pins. I optimized the mechanical packaging to bring the pins as closely together as possible:</p>
             <img src="/portfolio/assets/haptic_museum/pin_array_cad.png" alt="CAD Design of Pin Array" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
             <ul>
-                <li><strong>Cam Design:</strong> I designed logarithmic spiral cams with a 1.5" pitch radius to achieve 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
+                <li><strong>Cam Design:</strong> The cams have a 1.5" pitch radius to achieve the 4 distinct height levels. This necessitated a pin spacing of <strong>1.6 inches</strong>, creating a coarse but intelligible grid for palm-based interaction.</li>
                 <li><strong>Silicone Interface:</strong> To bridge the gap between discrete pins and a continuous image, the team designed and fabricated a <strong>Smooth-On Ecoflex™ 00-30</strong> silicone overlay. The surface was coated in cornstarch to reduce friction and utilized a 3-level tensioning system to optimize tactile transmission.</li>
             </ul>
             <img src="/portfolio/assets/haptic_museum/pin_array_w_silicone.png" alt="Silicone Overlay Prototype" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
@@ -61,7 +61,7 @@ export const projectsData: Record<string, Project> = {
                         Yellow (17.5mm) &gt; Red (9.8mm) &gt; Blue (6.3mm) &gt; White (2.7mm)
                     </div>
                 </li>
-                <li><strong>Distributed Control:</strong> The team implemented a master-slave architecture with two Arduino boards managing 35 servo motors (one per pin) to handle the high PWM channel load.</li>
+                <li><strong>Distributed Control:</strong> The team implemented an electronic architecture with two Arduino boards managing 35 servo motors (one per pin) to handle the high PWM channel load. Each pin was actuated individually to render an image to ensure the servo motors did not surpass the Arduinos’ current limits.</li>
             </ul>
              <img src="/portfolio/assets/haptic_museum/pin_array_electronics.png" alt="Electronics Schematic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 

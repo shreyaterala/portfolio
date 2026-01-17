@@ -89,7 +89,7 @@ export const projectsData: Record<string, Project> = {
         id: "rubi",
         title: "RUBI - Self Solving Cube",
         meta: "Oct 2024 - Dec 2024 | Mechatronic & Computer Vision",
-        image: "/portfolio/assets/rubi/demo.jpg",
+        image: "/portfolio/assets/rubi/demo.png",
         technologies: ["Python", "YOLOv8", "OpenCV", "Arduino", "BLE"],
         content: `<div>
             <h2>Context & Motivation</h2>
@@ -109,7 +109,6 @@ export const projectsData: Record<string, Project> = {
                 [Camera Input] -> [YOLOv8 Detection] -> [State Mapping] -> [Kociemba Solver] -> [BLE Transmission] -> [XIAO nRF52840] -> [Stepper Motors]
             </p>
             <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI System Overview" class="rounded-lg border border-slate-200/50">
-            <img src="/portfolio/assets/rubi/representative_image.png" alt="System Design Render" class="rounded-lg border border-slate-200/50">
 
             <h2>Engineering Implementation</h2>
             <h3>Computer Vision Pipeline</h3>
@@ -158,7 +157,7 @@ export const projectsData: Record<string, Project> = {
         title: "Smart Shrinker Compression Sleeve",
         meta: "Aug 2024 - Dec 2024 | Medical Device Design",
         image: "/portfolio/assets/compression_sock/compression_sock.jpg",
-        technologies: ["Wearable Tech", "ESP32", "Signal Processing", "Bluetooth"],
+        technologies: ["Wearable Tech", "Mechatronics", "Signal Processing"],
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>Over 500,000 Americans experience limb loss annually. Post-amputation care is critical, as fluctuations in residual limb volume can lead to improper prosthetic fit, skin breakdown, and infection. Existing solutions (shrinkers, rigid bandages) provide compression but lack <strong>real-time monitoring capabilities</strong>, forcing clinicians to rely on subjective patient feedback.</p>
@@ -168,7 +167,7 @@ export const projectsData: Record<string, Project> = {
             <ul>
                 <li><strong>Multi-Sensor Data Collection:</strong> Integrate force sensing resistors and conductive fabric to track limb dimensional changes within <strong>&plusmn;0.5 cm</strong>.</li>
                 <li><strong>Infection Monitoring:</strong> Detect early signs of inflammation via real-time temperature and humidity tracking.</li>
-                <li><strong>Wireless Telemetry:</strong> Transmit sensor data via Bluetooth (every 2s) to a clinical dashboard for remote monitoring.</li>
+                <li><strong>Wireless Telemetry:</strong> Transmit sensor data via Bluetooth to a clinical dashboard for remote monitoring.</li>
             </ul>
 
             <h2>System Architecture</h2>
@@ -182,7 +181,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Circuit Topology:</strong> The conductive fabric acts as the variable resistor ($R_{fabric}$) in series with a known reference resistor. By measuring the voltage drop, we calculate the instantaneous resistance.</li>
                 <li><strong>Signal Conditioning:</strong> To mitigate noise, the firmware takes the mean of <strong>20 ADC readings</strong> over a 1-second interval before calculating the resistance.</li>
             </ul>
-             <img src="/portfolio/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+             <img src="/portfolio/assets/compression_sock/signal_processing_formulas.png" alt="Signal Processing Logic" class="center-img" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h3>Electronics & Packaging</h3>
             <p>A key design constraint was maintaining the "soft" feel of the textile while housing rigid components.</p>

@@ -245,12 +245,19 @@ export const projectsData: Record<string, Project> = {
         ],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg md:col-span-1" />    
-                <div class="md:col-span-2">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 hidden md:grid">
+                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="!w-full !m-0 h-auto rounded-lg shadow-lg md:col-span-1 object-cover" />    
+                <div class="md:col-span-2 flex flex-col justify-center">
+                    <p class="!mb-4">The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
+                    <p class="!mb-0">My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
+                </div>
+            </div>
+            <div class="md:hidden space-y-6">
+                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg" />
+                 <div>
                     <p>The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
                     <p>My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
-                </div>
+                 </div>
             </div>
 
             <h2>Project Objectives</h2>
@@ -302,11 +309,12 @@ export const projectsData: Record<string, Project> = {
             <h3 class="font-bold text-lg mt-6 mb-2">Hardware Design (GRAHAM Suit)</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
                 <div class="md:col-span-1">
-                    <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="w-full h-auto rounded-lg shadow-md border border-white/10" />
+                    <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="!w-full !m-0 h-auto rounded-lg shadow-md border border-white/10" />
+                    <p class="text-sm text-gray-400 mt-2 text-center">Custom IMU Sensor Mount</p>
                 </div>
-                <div class="md:col-span-2">
-                    <p>To support autonomous operation, I designed the <strong>Computational Backpack (V8)</strong> using SolidWorks. This ruggedized chassis houses the NVIDIA Jetson TX2, batteries, and a custom USB hub, featuring optimized airflow for thermal management.</p>
-                    <p>I also iterated through multiple versions of <strong>IMU Holders</strong> (mk1 to mk4) to ensure rigid, drift-free alignment of inertial sensors with the user's kinematic chain.</p>
+                <div class="md:col-span-2 flex flex-col justify-center">
+                    <p class="!mb-4">To support autonomous operation, I designed the <strong>Computational Backpack (V8)</strong> using SolidWorks. This ruggedized chassis houses the NVIDIA Jetson TX2, batteries, and a custom USB hub, featuring optimized airflow for thermal management.</p>
+                    <p class="!mb-0">I also iterated through multiple versions of <strong>IMU Holders</strong> (mk1 to mk4) to ensure rigid, drift-free alignment of inertial sensors with the user's kinematic chain.</p>
                 </div>
             </div>
 

@@ -90,13 +90,11 @@ export const projectsData: Record<string, Project> = {
         title: "RUBI - Self Solving Cube",
         meta: "Oct 2024 - Dec 2024 | Mechatronics & Computer Vision",
         image: "/portfolio/assets/rubi/demo.png",
-        technologies: ["Python", "YOLOv8", "OpenCV", "Arduino", "BLE"],
+        technologies: ["Python", "YOLOv8", "OpenCV", "BLE"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <div class="flex flex-col md:flex-row gap-6 mb-6">
-                <img src="/portfolio/assets/rubi/rubi_cube.jpg" alt="RUBI Prototype" class="rounded-lg shadow-md border border-white/10 w-full h-auto" />
-            </div>
-
+            <p>The Rubik's Cube is a classic puzzle with over 43 quintillion permutations. RUBI is an autonomous solving system designed to demystify robotic manipulation and computer vision. By integrating real-time object detection with a precision actuation mechanism, RUBI scans, solves, and physically executes the solution for a scrambled cube without human intervention.</p>
+            
             <h2>System Architecture</h2>
             <p>The system operates on a master-slave architecture: A PC-based Vision & Computation subsystem handles the heavy lifting (AI/Solving), while a microcontroller handles the real-time motor control.</p>
             <p className="font-mono text-sm p-4 bg-slate-100 rounded-md my-4">
@@ -125,11 +123,11 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Wireless Communication:</strong> Utilized the <strong>Bleak</strong> library to establish a Bluetooth Low Energy (BLE) link between the Python backend and the robot's <strong>Seeed XIAO nRF52840</strong> microcontroller. Move commands are serialized and written to a custom GATT characteristic.</li>
                 <li><strong>Actuation:</strong> 6x NEMA-17 stepper motors drive the faces via custom 5-way 3D-printed gearboxes. The grippers feature compliant TPU inserts to accommodate cube tolerances.</li>
             </ul>
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 <img src="/portfolio/assets/rubi/cube_internal.jpeg" alt="Internal Mechanism" class="rounded-lg border border-slate-200/50">
-                <div class="flex justify-center my-4">
-                    <img src="/portfolio/assets/rubi/wiring_diagram.png" alt="Wiring Schematic" class="rounded-lg border border-slate-200/50">
-                    <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Physical Wiring" class="rounded-lg border border-slate-200/50 w-2/3">
+                <div class="flex flex-col gap-4">
+                    <img src="/portfolio/assets/rubi/wiring_diagram.png" alt="Wiring Schematic" class="rounded-lg border border-slate-200/50 w-full">
+                    <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Physical Wiring" class="rounded-lg border border-slate-200/50 w-full">
                 </div>
             </div>
 

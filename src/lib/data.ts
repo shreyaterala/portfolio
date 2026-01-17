@@ -125,7 +125,7 @@ export const projectsData: Record<string, Project> = {
             </ul>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 <img src="/portfolio/assets/rubi/cube_internal.jpeg" alt="Internal Mechanism" class="rounded-lg border border-slate-200/50">
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col">
                     <img src="/portfolio/assets/rubi/wiring_diagram.png" alt="Wiring Schematic" class="rounded-lg border border-slate-200/50 w-full">
                     <img src="/portfolio/assets/rubi/electrical_wiring.jpeg" alt="Physical Wiring" class="rounded-lg border border-slate-200/50 w-full">
                 </div>
@@ -164,7 +164,9 @@ export const projectsData: Record<string, Project> = {
 
             <h2>System Architecture</h2>
             <p>The system is built around an <strong>ESP32 microcontroller</strong> powered by a LiPo battery. It aggregates data from three distinct sensor modalities before wirelessly transmitting it to a laptop-based clinician dashboard.</p>
-            <img src="/portfolio/assets/compression_sock/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+            <div class="flex justify-center my-6">
+                <img src="/portfolio/assets/compression_sock/functional_block_diagram.png" alt="System Block Diagram" class="max-w-full h-auto" style="border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+            </div>
             
             <h2>Engineering Implementation</h2>
             <h3>Sensing Principle: Conductive Fabric</h3>
@@ -189,17 +191,17 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Snap-Fit Housing:</strong> Designed a custom 3D-printed enclosure that clips onto the sleeve. It features a snap-fit lid for easy battery access and protects the ESP32 from impact during daily use.</li>
                 <li><strong>Safety:</strong> The system operates on low-voltage battery power with proper electrical isolation to ensure user safety during prolonged skin contact.</li>
             </ul>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/portfolio/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50">
-                <img src="/portfolio/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                <img src="/portfolio/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50 md:col-span-1 object-cover h-full">
+                <img src="/portfolio/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50 md:col-span-2">
             </div>
 
             <h2>Testing & Validation</h2>
             <h3>Simulated Limb Trials</h3>
             <p>We validated the device using an <strong>Inflatable Air Bladder</strong> to mimic the swelling and shrinking of a residual limb. This allowed us to controllably vary the circumference by < 0.5cm increments while recording sensor outputs.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                <img src="/portfolio/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50">
-                <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                <img src="/portfolio/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50 md:col-span-1 object-cover h-full w-full">
+                <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50 md:col-span-2 w-full">
             </div>
 
             <h2>Performance & Results</h2>

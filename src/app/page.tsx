@@ -7,7 +7,7 @@ export default async function Home() {
     return (
         <div className="max-w-7xl mx-auto px-6 pb-24">
             {/* Hero Section */}
-            <section className="min-h-[80vh] flex flex-col justify-center relative">
+            <section id="about" className="min-h-[80vh] flex flex-col justify-center relative">
                 <div className="flex items-center gap-2 mb-8">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                     <span className="text-[10px] font-mono text-slate-400 font-bold tracking-widest uppercase">

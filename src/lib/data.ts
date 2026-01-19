@@ -73,16 +73,7 @@ export const projectsData: Record<string, Project> = {
             </ul>
 
             <h2>Demos</h2>
-             <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
-                <video controls style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <source src="/portfolio/assets/haptic_museum/IMG_1565.mov" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <video controls style="width: 100%; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-                    <source src="/portfolio/assets/haptic_museum/IMG_6826.mov" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+            <p class="text-slate-500 italic text-sm">Demo videos unavailable.</p>
         </div>`,
     },
     "rubi": {

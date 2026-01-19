@@ -34,7 +34,7 @@ export default function RootLayout({
                         </div>
 
                         <div className="hidden md:flex items-center gap-8">
-                            <a href="/" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">About Me</a>
+                            <a href="/#about" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">About Me</a>
                             <a href="#projects" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Projects</a>
                             <a href="#experience" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Experience</a>
                         </div>

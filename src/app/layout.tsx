@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -34,9 +35,9 @@ export default function RootLayout({
                         </div>
 
                         <div className="hidden md:flex items-center gap-8">
-                            <a href="/#about" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">About Me</a>
-                            <a href="#projects" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Projects</a>
-                            <a href="#experience" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Experience</a>
+                            <Link href="/#about" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">About Me</Link>
+                            <Link href="/#projects" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Projects</Link>
+                            <Link href="/#experience" className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors">Experience</Link>
                         </div>
 
                         <a

@@ -899,13 +899,13 @@ export const projectsData: Record<string, Project> = {
 
     "pid": {
         id: "pid",
-        title: "Ad Astra - PID Autonomous Control",
+        title: "PID Autonomous Control",
         meta: "Apr 2020 - Apr 2021 | C++ Implementation",
         image: "/portfolio/assets/pid/pid_robot_v5.png",
         technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>In high-stakes VEX Robotics competition, consistency is king. As the Lead Programmer for Team 8823A "Ad Astra" during the "Change Up" season, I was responsible for creating an autonomous routine that could reliably score points in the 15-second autonomous period. Finding standard time-based movements too inaccurate, I developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
+            <p>As the Lead Programmer for Team 8823A during the VEX Robotics "Change Up" season, I was responsible for creating an autonomous routine that could reliably score points in the 15-second autonomous period. Finding standard time-based movements too inaccurate, I developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
 
             <h2>System Architecture</h2>
             <div class="system-diagram">
@@ -941,7 +941,7 @@ export const projectsData: Record<string, Project> = {
 
             <h2>Engineering Implementation</h2>
             <h3>Adaptive PID Controller</h3>
-            <p>One set of constants doesn't fit all movements. Short, precise adjustments need different gain values than long cross-field sprints. I implemented an <strong>Adaptive PID system</strong> that dynamically switches gain scheduling based on the target distance:</p>
+            <p>We found that one set of constants doesn't fit all movements and short, precise adjustments need different gain values than long cross-field sprints. I implemented an <strong>Adaptive PID system</strong> that dynamically switches gain scheduling based on the target distance:</p>
             <ul>
                 <li><strong>Gain Scheduling:</strong> The system checks the target distance against defined ranges (e.g., <code>0-11</code>, <code>11-24</code>, <code>24-48</code> inches) and loads the optimal <code>kP</code>, <code>kD</code>, and <code>kI</code> values from a lookup table.</li>
                 <li><strong>Struct-Based Configuration:</strong> A custom <code>PIDValue</code> struct stores these tuned constants, along with <code>motorPowerThresholds</code> to prevent stalling.</li>
@@ -954,12 +954,12 @@ export const projectsData: Record<string, Project> = {
             </div>
 
             <h3>Inertial Sensor Fusion</h3>
-            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, I implemented a <strong>Triple-Redundant Sensor Fusion algorithm</strong>:</p>
+            <p>To combat gyroscope drift and electro-mechanical noise, I implemented a <strong>Triple-Redundant Sensor Fusion algorithm</strong>:</p>
             <ul>
                 <li><strong>Hardware Redundancy:</strong> We mounted three separate V5 Inertial Sensors (A, B, C) on the chassis.</li>
                 <li><strong>Voter Algorithm:</strong> The code continuously calculates the mean and standard deviation of all three sensors. If any single sensor deviates significantly from the consensus (by > 1 standard deviation), it is dynamically excluded, and the heading is derived from the remaining two.</li>
             </ul>
-             <pre style="background: #1e1e1e; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #d4d4d4;">
+             <pre style="border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #d4d4d4;">
 // Outlier Rejection Logic (Turns.cpp)
 avgAll = (InertialA + InertialB + InertialC) / 3;
 standardDev = sqrt((1/3) * (pow(InertialA - avgAll, 2) + ...));

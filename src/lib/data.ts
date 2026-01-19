@@ -299,13 +299,10 @@ export const projectsData: Record<string, Project> = {
             
             <h3 class="font-bold text-lg mt-6 mb-2">Hardware Design (GRAHAM Suit)</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-                <div class="md:col-span-1">
-                    <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="!w-full !m-0 h-auto rounded-lg shadow-md border border-white/10" />
-                    <p class="text-sm text-gray-400 mt-2 text-center">Custom IMU Sensor Mount</p>
-                </div>
+                <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="!w-full !m-0 h-auto rounded-lg shadow-md border border-white/10" />
                 <div class="md:col-span-2 flex flex-col justify-center">
-                    <p class="!mb-4">To support autonomous operation, I designed the <strong>Computational Backpack (V8)</strong> using SolidWorks. This ruggedized chassis houses the NVIDIA Jetson TX2, batteries, and a custom USB hub, featuring optimized airflow for thermal management.</p>
-                    <p class="!mb-0">I also iterated through multiple versions of <strong>IMU Holders</strong> (mk1 to mk4) to ensure rigid, drift-free alignment of inertial sensors with the user's kinematic chain.</p>
+                    <p class="!mb-4">To improve the universality of the exoskeleton, I designed and manufactured new <strong>adjustable aluminum struts</strong> to accommodate users ranging from the 5th to 95th percentile in height. This modular design ensured correct joint alignment for a diverse participant pool during clinical trials.</p>
+                    <p class="!mb-0">I also overhauled the <strong>backpack's cable management system</strong>, designing custom 3D-printed wire holders and routing paths. This significantly reduced setup time and eliminated signal noise caused by loose connections during dynamic walking tasks.</p>
                 </div>
             </div>
 
@@ -908,7 +905,7 @@ export const projectsData: Record<string, Project> = {
         technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
         content: `<div>
             <h2>Context & Motivation</h2>
-            <p>In high-stakes VEX Robotics competition, consistency is king. For the "Change Up" season, Team 8823A "Ad Astra" needed an autonomous routine that could reliably score points in the 15-second autonomous period. Standard time-based movements were too inaccurate, so we developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
+            <p>In high-stakes VEX Robotics competition, consistency is king. As the Lead Programmer for Team 8823A "Ad Astra" during the "Change Up" season, I was responsible for creating an autonomous routine that could reliably score points in the 15-second autonomous period. Finding standard time-based movements too inaccurate, I developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>
 
             <h2>System Architecture</h2>
             <div class="system-diagram">
@@ -957,7 +954,7 @@ export const projectsData: Record<string, Project> = {
             </div>
 
             <h3>Inertial Sensor Fusion</h3>
-            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, we implemented a <strong>Triple-Redundant Sensor Fusion algorithm</strong>:</p>
+            <p>Drift is the enemy of dead-reckoning. To combat gyroscope drift and electro-mechanical noise, I implemented a <strong>Triple-Redundant Sensor Fusion algorithm</strong>:</p>
             <ul>
                 <li><strong>Hardware Redundancy:</strong> We mounted three separate V5 Inertial Sensors (A, B, C) on the chassis.</li>
                 <li><strong>Voter Algorithm:</strong> The code continuously calculates the mean and standard deviation of all three sensors. If any single sensor deviates significantly from the consensus (by > 1 standard deviation), it is dynamically excluded, and the heading is derived from the remaining two.</li>
@@ -975,7 +972,7 @@ if (fabs(InertialA) > fabs(standardDev + avgAll)) {
             </pre>
 
             <h3>Motion Profiling (Slew Rate)</h3>
-            <p>To prevent wheel slip and reduce mechanical stress on the drivetrain, we implemented a <strong>Lookup-Table Based Slew Rate Limiter</strong>:</p>
+            <p>To prevent wheel slip and reduce mechanical stress on the drivetrain, I implemented a <strong>Lookup-Table Based Slew Rate Limiter</strong>:</p>
             <ul>
                 <li><strong>Acceleration Curves:</strong> Instead of calculating acceleration in real-time, the system references a pre-computed array <code>speedChange[] = {1, 1.5, 2... 81}</code>.</li>
                 <li><strong>Traction Control:</strong> This ensures the voltage applied to the motors ramps up according to a curve optimized for the robot's mass and wheel friction, preventing "burnouts" on the anti-static foam tiles.</li>

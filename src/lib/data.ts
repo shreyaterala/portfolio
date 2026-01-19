@@ -573,7 +573,7 @@ export const projectsData: Record<string, Project> = {
         id: "breath",
         title: "breathSense",
         meta: "Aug 2024 - Dec 2024 | Medical Aid",
-        image: "/portfolio/assets/breath/poster.jpg",
+        image: "/portfolio/assets/breath_sense/poster.jpg",
         technologies: ["C++", "PCB Design", "FEA", "Haptics", "User Research"],
         content: `<div>
             <h2>Context & Motivation</h2>
@@ -654,7 +654,7 @@ export const projectsData: Record<string, Project> = {
         id: "cis",
         title: "Computer Integrated Surgery",
         meta: "Oct 2025 - Dec 2025 | Academic Project",
-        image: "/portfolio/assets/cis1/navigation.png",
+        image: "/portfolio/assets/cis1/cis1%20pa1%20problem%204.png",
         technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
         content: `<div>
             <h2>Context & Motivation</h2>
@@ -683,7 +683,6 @@ export const projectsData: Record<string, Project> = {
                     <span>Navigated Tool</span>
                 </div>
             </div>
-            <img src="/portfolio/assets/cis1/navigation.png" alt="Stereotactic Navigation Interface" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
             <h2>Mathematical Implementation</h2>
             <p>The system relies on rigorous linear algebra and computational geometry principles to map between the <strong>Calibration Frame ($F_c$)</strong>, <strong>Optical Tracker Frame ($F_A$)</strong>, and <strong>EM Tracker Frame ($F_D$)</strong>.</p>
@@ -793,7 +792,7 @@ export const projectsData: Record<string, Project> = {
         title: "UR5 Manipulator Control",
         meta: "Dec 2025 | Robotics Control",
         image: "/portfolio/assets/ur5/ur5_control.png",
-        technologies: ["MATLAB", "ROS", "Kinematics", "Controls"],
+        technologies: ["MATLAB", "Python", "ROS", "Kinematics", "Controls"],
         content: `<div>
             <h2>Context & Motivation</h2>
             <p>Robotic manipulation requires precise coordination in SE(3) space. This project focused on a "Push-and-Place" task: programming a UR5e robot to push a target object 3cm along a local axis, lift, and return it. The core objective was to implement and compare two distinct control paradigms: <strong>Resolved-Rate (RR) Control</strong> (differential kinematics) and <strong>Inverse Kinematics (IK)</strong> (analytic plotting).</p>

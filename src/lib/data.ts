@@ -654,7 +654,7 @@ export const projectsData: Record<string, Project> = {
         id: "cis",
         title: "Computer Integrated Surgery",
         meta: "Oct 2025 - Dec 2025 | Academic Project",
-        image: "/portfolio/assets/cis1/cis1%20pa1%20problem%204.png",
+        image: "/portfolio/assets/cis1/cis_cover.png",
         technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
         content: `<div>
             <h2>Context & Motivation</h2>

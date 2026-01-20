@@ -959,7 +959,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Hardware Redundancy:</strong> We mounted three separate V5 Inertial Sensors (A, B, C) on the chassis.</li>
                 <li><strong>Voter Algorithm:</strong> The code continuously calculates the mean and standard deviation of all three sensors. If any single sensor deviates significantly from the consensus (by > 1 standard deviation), it is dynamically excluded, and the heading is derived from the remaining two.</li>
             </ul>
-             <pre style="border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #d4d4d4;">
+             <pre style="border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #757575ff;">
 // Outlier Rejection Logic (Turns.cpp)
 avgAll = (InertialA + InertialB + InertialC) / 3;
 standardDev = sqrt((1/3) * (pow(InertialA - avgAll, 2) + ...));
@@ -985,12 +985,11 @@ if (fabs(InertialA) > fabs(standardDev + avgAll)) {
                 <li><strong>Jig-Based Calibration:</strong> The routine relies on a precise starting "Jig" placement (Top/Left slots) to minimize initial angular error.</li>
                 <li><strong>Performance:</strong> The routine successfully navigates to all 9 goals, using <code>Turn(degrees, direction)</code> commands with <code>timeout</code> failsafes to ensure the robot never gets stuck in an infinite loop if a sensor fails.</li>
             </ul>
-             <div class="video-container" style="background: #000; border-radius: 8px; overflow: hidden; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
+             <div class="video-container" overflow: hidden; margin-top: 1.5rem; border: 1px solid rgba(255,255,255,0.1);">
                  <video controls loop muted class="w-full h-auto rounded-lg">
                     <source src="/portfolio/assets/pid/skills_run.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                  </video>
-                 <p class="text-sm text-gray-400 mt-2 text-center py-2">Autonomous Skills Run - 126 Points</p>
             </div>
         </div>`,
     },

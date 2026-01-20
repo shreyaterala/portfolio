@@ -194,7 +194,7 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Candidates:</strong> Sheet Texture vs. Cloth Texture with varying resistivities (55&Omega;, 77&Omega;, 46&Omega;).</li>
                 <li><strong>Result:</strong> The <strong>77&Omega; Sheet Texture</strong> fabric demonstrated the highest linearity and dynamic range under stretch, making it suitable for detecting subtle limb volume changes.</li>
             </ul>
-             <img src="/portfolio/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+             <img src="/portfolio/assets/compression_sock/fabric_testing_measurements.png" alt="Fabric Sensitivity Data" class="max-w-full h-auto" style="border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
             <h3>Electronics & Packaging</h3>
             <p>A key design constraint was maintaining the "soft" feel of the textile while housing rigid components.</p>
             <ul>
@@ -959,17 +959,17 @@ export const projectsData: Record<string, Project> = {
                 <li><strong>Hardware Redundancy:</strong> We mounted three separate V5 Inertial Sensors (A, B, C) on the chassis.</li>
                 <li><strong>Voter Algorithm:</strong> The code continuously calculates the mean and standard deviation of all three sensors. If any single sensor deviates significantly from the consensus (by > 1 standard deviation), it is dynamically excluded, and the heading is derived from the remaining two.</li>
             </ul>
-             <pre style="border-radius: 8px; overflow-x: auto; font-size: 0.8em; color: #757575ff;">
-// Outlier Rejection Logic (Turns.cpp)
-avgAll = (InertialA + InertialB + InertialC) / 3;
-standardDev = sqrt((1/3) * (pow(InertialA - avgAll, 2) + ...));
+             <div class="bg-slate-100 p-4 rounded-lg my-4 font-mono text-sm">
+                // Outlier Rejection Logic (Turns.cpp)
+                avgAll = (InertialA + InertialB + InertialC) / 3;
+                standardDev = sqrt((1/3) * (pow(InertialA - avgAll, 2) + ...));
 
-if (fabs(InertialA) > fabs(standardDev + avgAll)) {
-  currentDeg = avgBC; // Exclude Sensor A if it's an outlier
+                if (fabs(InertialA) > fabs(standardDev + avgAll)) {
+                currentDeg = avgBC; // Exclude Sensor A if it's an outlier
 } else {
   currentDeg = avgAll;
 }
-            </pre>
+            </div>
 
             <h3>Motion Profiling (Slew Rate)</h3>
             <p>To prevent wheel slip and reduce mechanical stress on the drivetrain, I implemented a <strong>Lookup-Table Based Slew Rate Limiter</strong>:</p>

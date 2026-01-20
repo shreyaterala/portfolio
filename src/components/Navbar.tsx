@@ -7,16 +7,14 @@ import { MouseEvent } from "react";
 export default function Navbar() {
     const pathname = usePathname();
 
+    const isHome = pathname === "/";
+
     const handleScroll = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
-        // Only handle smooth scroll if we are on the home page
-        // pathname is usually just "/" when handling base path in next.config.js? 
-        // Let's assume safely that if it equals "/" or ends with "/", we are home.
-        if (pathname === "/") {
+        if (isHome) {
             e.preventDefault();
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
-                // Also update URL hash without scrolling
                 window.history.pushState(null, "", `/#${id}`);
             }
         }
@@ -31,21 +29,21 @@ export default function Navbar() {
 
                 <div className="hidden md:flex items-center gap-8">
                     <Link
-                        href="/#about"
+                        href={isHome ? "#about" : "/#about"}
                         onClick={(e) => handleScroll(e, "about")}
                         className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors"
                     >
                         About Me
                     </Link>
                     <Link
-                        href="/#projects"
+                        href={isHome ? "#projects" : "/#projects"}
                         onClick={(e) => handleScroll(e, "projects")}
                         className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors"
                     >
                         Projects
                     </Link>
                     <Link
-                        href="/#experience"
+                        href={isHome ? "#experience" : "/#experience"}
                         onClick={(e) => handleScroll(e, "experience")}
                         className="text-xs font-bold uppercase tracking-widest hover:text-slate-500 transition-colors"
                     >

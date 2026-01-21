@@ -1,4 +1,4 @@
-import { Project } from "@/lib/data";
+import { ProjectAPI } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import parse, { DOMNode, domToReact } from "html-react-parser";
@@ -13,14 +13,14 @@ interface ProjectPageProps {
 
 // Generate static params if you want static export
 export async function generateStaticParams() {
-    const projects = await Project.findAll();
+    const projects = await ProjectAPI.findAll();
     return projects.map((project) => ({
         id: project.id,
     }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
-    const project = await Project.findById(params.id);
+    const project = await ProjectAPI.findById(params.id);
     if (!project) return { title: "Project Not Found" };
 
     return {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-    const project = await Project.findById(params.id);
+    const project = await ProjectAPI.findById(params.id);
 
     if (!project) {
         notFound();

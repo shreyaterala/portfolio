@@ -6,6 +6,18 @@ export const sock: Project = {
     meta: "Aug 2024 - Dec 2024 | Bioinstrumentation",
     image: "/portfolio/assets/compression_sock/compression_sock.jpg",
     technologies: ["Wearable Tech", "Mechatronics", "Signal Processing"],
+    summary: "'Smart Shrinker' compression sleeve combining traditional therapy with integrated sensing to track limb volume, temp, and humidity for amputees.",
+    features: [
+        "Conductive Fabric sensor utilizing resistance changes to measure circumference",
+        "ESP32 microcontroller with LiPo power for wireless telemetry",
+        "Integrated DHT sensor for early inflammation detection",
+        "Custom Voltage Divider circuit with signal averaging for noise mitigation"
+    ],
+    takeaways: [
+        "Successfully tracked limb circumference changes as small as 0.5cm",
+        "Validated 77 Ohm Sheet Texture fabric for highest linearity",
+        "Enabled remote patient monitoring via Bluetooth dashboard"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Over 500,000 Americans experience limb loss annually. Post-amputation care is critical, as fluctuations in residual limb volume can lead to improper prosthetic fit, skin breakdown, and infection. Existing solutions (shrinkers, rigid bandages) provide compression but lack <strong>real-time monitoring capabilities</strong>, forcing clinicians to rely on subjective patient feedback.</p>

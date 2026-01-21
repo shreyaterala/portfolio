@@ -6,6 +6,18 @@ export const battlebot: Project = {
     meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
     image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
     technologies: ["SolidWorks", "Metal Fabrication", "MATLAB"],
+    summary: "3lb 'Beetleweight' combat robot 'Insaniti' designed to compete in Motorama 2022, balancing mass budgeting with catastrophic kinetic energy output.",
+    features: [
+        "Vertical asymmetrical drummer spinner with S7 Tool Steel weapon body",
+        "Custom MATLAB simulation for motor sizing and dynamics",
+        "Hybrid armor architecture (Aluminum vs HDPE) for rigidity vs energy dissipation",
+        "Invertible design for continuous operation"
+    ],
+    takeaways: [
+        "Survived heavy hits (2kJ+) without structural failure",
+        "Validated 'Frame and Armor' philosophy with Hybrid materials",
+        "Identified critical need for robust electronics integration and wire strain relief"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Combat robotics is an extreme engineering stress test where mechanical failure is guaranteed without rigorous design. "Insaniti" was a 3lb (Beetleweight) entry designed to compete in the highly destructive RoboJackets internal tournament and <strong>Motorama 2022</strong>. Following the team's standard design methodology (Research &rarr; Sketch &rarr; CAD &rarr; Sim &rarr; Build), the goal was to survive 3 minutes in the arena while delivering catastrophic kinetic energy to opponents.</p>

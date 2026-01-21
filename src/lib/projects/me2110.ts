@@ -6,6 +6,18 @@ export const me2110: Project = {
     meta: "Aug 2022 - Nov 2022 | System Integration & Design",
     image: "/portfolio/assets/me2110/front_iso_view.jpeg",
     technologies: ["Solidworks", "Rapid Prototyping", "Arduino", "Fabrication", "Mechatronics", "Pneumatics", "System Integration"],
+    summary: "Built an autonomous electromechanical robot for the 'Lord of the Rings' design challenge, integrating multiple subsystems to complete tasks within 40 seconds.",
+    features: [
+        "Six-stage pneumatic scissor lift for 31-inch vertical extension",
+        "Gravity-fed passive wing deployment for defensive efficiency",
+        "Dual linear solenoid ramp for precise troop deployment",
+        "Reliability-first design philosophy with rigid structural integrations"
+    ],
+    takeaways: [
+        "Successfully scored the Ring on Mt. Doom before any opponent in finals",
+        "Passive wing system consistently secured defensive points without power draw",
+        "Demonstrated high mechanical reliability across all matches"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>For the ME 2110 "Lord of the Rings" design challenge, we were tasked with building an autonomous robot to complete a complex set of tasks within 40 seconds. The machine had to fit within a 12"x24"x18" volume, strictly adhere to a $100 budget, and integrate multiple electromechanical subsystems to score points.</p>

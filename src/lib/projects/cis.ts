@@ -6,6 +6,18 @@ export const cis: Project = {
     meta: "Oct 2025 - Dec 2025 | Academic Project",
     image: "/portfolio/assets/cis1/cis_cover.png",
     technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
+    summary: "Built a complete stereotactic navigation system from scratch to translate preoperative imaging (CT/MRI) into real-time surgical guidance, addressing tracking, calibration, and registration.",
+    features: [
+        "Rigid Body Registration (Arun's Method) for coordinate alignment",
+        "Pivot Calibration using linear least-squares to solve for tool tip offset",
+        "5th-order 3D Bernstein polynomial correction for EM field distortion",
+        "Generalized ICP and Covariance Trees for real-time surface registration"
+    ],
+    takeaways: [
+        "Mitigated >3mm EM distortion error to clinical standards (<0.5mm)",
+        "Reduced point-to-mesh query complexity from O(N) to O(log N)",
+        "Validated system against multiple noise models for robustness"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>In modern neurosurgery, sub-millimeter precision is not optional—it is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>

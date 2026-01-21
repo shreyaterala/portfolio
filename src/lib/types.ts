@@ -5,4 +5,7 @@ export interface Project {
     image: string;
     technologies: string[];
     content: string;
+    summary?: string;
+    features?: string[];
+    takeaways?: string[];
 }

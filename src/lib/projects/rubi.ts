@@ -6,6 +6,18 @@ export const rubi: Project = {
     meta: "Oct 2024 - Dec 2024 | Mechatronics & Computer Vision",
     image: "/portfolio/assets/rubi/demo.png",
     technologies: ["Python", "YOLOv8", "OpenCV", "BLE"],
+    summary: "Autonomous Rubik's Cube solving system integrating real-time computer vision with precision mechatronics to scan, solve, and execute maneuvers.",
+    features: [
+        "Custom YOLOv8 Object Detection pipeline for robust facelet classification",
+        "Master-Slave architecture: PC (Vision/Kociemba) + Seeed XIAO nRF52840 (Control)",
+        "6x NEMA-17 stepper motors with custom 3D-printed gearboxes",
+        "Bluetooth Low Energy (BLE) using Bleak for wireless command serialization"
+    ],
+    takeaways: [
+        "Achieved average solve time of ~45 seconds (15s scan, <1s compute)",
+        "Eliminated lighting sensitivity issues common in HSV solvers via AI approach",
+        "Demonstrated effective reliable actuation of 6 independent faces"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>The Rubik's Cube is a classic puzzle with over 43 quintillion permutations. RUBI is an autonomous solving system designed to demystify robotic manipulation and computer vision. By integrating real-time object detection with a precision actuation mechanism, RUBI scans, solves, and physically executes the solution for a scrambled cube without human intervention.</p>

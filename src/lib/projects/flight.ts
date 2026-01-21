@@ -6,6 +6,18 @@ export const flight: Project = {
     meta: "Oct 2023 - Dec 2023 | Machine Learning Project",
     image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
     technologies: ["Python", "Amadeus API", "Lasso Regression", "Pandas"],
+    summary: "Developed a flight price prediction model using real-time Amadeus API data to overcome limitations of static datasets and linear assumptions.",
+    features: [
+        "Amadeus Flight Offers Search API integration for real-time data from 400+ airlines",
+        "Feature engineering of 13 key variables including scarce inventory metrics",
+        "Custom data cleaning pipeline for ISO 8601 duration conversion",
+        "Lasso Regression (L1) for dimensionality reduction and feature selection"
+    ],
+    takeaways: [
+        "Identified 'seatsRemaining' as the most significant predictor, indicating scarcity drives pricing",
+        "Discovered airline carrier choice significantly impacts base pricing models",
+        "Found departure date to be statistically insignificant compared to dynamic supply metrics"
+    ],
     content: `<div>
         <h2>Context & Background</h2>
         <p>Flight ticket prices are highly dynamic, often fluctuating based on opaque algoirthms. Our research explored existing predictive models, such as Mulkalla's work on AI-driven pricing and Pratsath et al.'s K-Nearest Neighbors approach (81.77% accuracy). However, we identified that many existing studies relied on limited public datasets (like DB1B) or assumed linear relationships between variables. This project aimed to improve upon these baselines by integrating real-time, high-dimensional data.</p>

@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             <div className="max-w-4xl mx-auto px-6">
                 {/* Navigation Breadcrumb */}
-                <Link href="/#projects" className="inline-flex items-center gap-2 text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors mb-12">
+                <Link href="/#projects" className="inline-flex items-center gap-2 text-xs font-mono text-stone-400 uppercase tracking-widest hover:text-ink transition-colors mb-12">
                     <span>← BACK</span>
                 </Link>
 
@@ -77,25 +77,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </h1>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-sage rounded-full animate-pulse"></div>
-                            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Archived</span>
+                            <span className="text-xs font-mono text-stone-400 uppercase tracking-widest">Archived</span>
                         </div>
                     </div>
 
                     {/* Specs Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6 border border-slate-200/50 rounded-lg">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6 border border-stone-200/50 rounded-lg">
                         <div>
-                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Timeline</span>
+                            <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-2">Timeline</span>
                             <p className="text-sm font-medium text-ink">{dateRange}</p>
                         </div>
                         <div>
-                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Role & Context</span>
+                            <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-2">Role & Context</span>
                             <p className="text-sm font-medium text-ink">{role}</p>
                         </div>
                         <div>
-                            <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block mb-2">Core Tech</span>
+                            <span className="text-[10px] font-mono text-stone-400 uppercase tracking-widest block mb-2">Core Tech</span>
                             <div className="flex flex-wrap gap-2">
                                 {project.technologies?.map((tech) => (
-                                    <span key={tech} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded border border-slate-200">
+                                    <span key={tech} className="text-[10px] bg-stone-100 text-stone-600 px-2 py-1 rounded border border-stone-200">
                                         {tech}
                                     </span>
                                 ))}
@@ -103,6 +103,48 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </div>
                     </div>
                 </header>
+
+                {/* Project Highlights */}
+                {(project.summary || (project.features && project.features.length > 0) || (project.takeaways && project.takeaways.length > 0)) && (
+                    <div className="mb-8 p-8 bg-stone-50 rounded-xl border border-stone-200/50">
+                        {project.summary && (
+                            <div className="mb-8">
+                                <h3 className="text-xs font-mono text-stone-400 uppercase tracking-widest mb-4">Project Summary</h3>
+                                <p className="text-lg text-ink/90 leading-relaxed font-light">{project.summary}</p>
+                            </div>
+                        )}
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            {project.features && project.features.length > 0 && (
+                                <div>
+                                    <h3 className="text-xs font-mono text-stone-400 uppercase tracking-widest mb-4">Key Features</h3>
+                                    <ul className="space-y-3">
+                                        {project.features.map((feature, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-ink/80 leading-relaxed">
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {project.takeaways && project.takeaways.length > 0 && (
+                                <div>
+                                    <h3 className="text-xs font-mono text-stone-400 uppercase tracking-widest mb-4">Impact & Takeaways</h3>
+                                    <ul className="space-y-3">
+                                        {project.takeaways.map((takeaway, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-ink/80 leading-relaxed">
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                                                <span>{takeaway}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
 
                 {/* Main Content Area */}
                 <div className="flex flex-col gap-12">
@@ -114,11 +156,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
 
             {/* Footer Navigation */}
-            <div className="max-w-4xl mx-auto px-6 mt-24 pt-12 border-t border-slate-200/50 flex justify-between items-center">
-                <Link href="/#projects" className="text-xs font-mono text-slate-400 uppercase tracking-widest hover:text-ink transition-colors">
+            <div className="max-w-4xl mx-auto px-6 mt-24 pt-12 border-t border-stone-200/50 flex justify-between items-center">
+                <Link href="/#projects" className="text-xs font-mono text-stone-400 uppercase tracking-widest hover:text-ink transition-colors">
                     BACK
                 </Link>
-                <span className="text-[10px] font-mono text-slate-300">End of File</span>
+                <span className="text-[10px] font-mono text-stone-300">End of File</span>
             </div>
         </div>
     );

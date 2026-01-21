@@ -6,6 +6,18 @@ export const ur5: Project = {
     meta: "Dec 2025 | Robotics Control",
     image: "/portfolio/assets/ur5/ur5_control.png",
     technologies: ["MATLAB", "Python", "ROS", "Kinematics", "Controls"],
+    summary: "Implemented and compared Resolved-Rate (differential kinematics) and Inverse Kinematics control paradigms for a UR5e manipulator completing a 'Push-and-Place' task.",
+    features: [
+        "Resolved-Rate Control using Damped Least-Squares Body Jacobian inversion",
+        "Analytic Inverse Kinematics with cost function for optimal branch selection",
+        "Singularity monitoring and avoidance logic",
+        "SE(3) interpolation for linear Cartesian path generation"
+    ],
+    takeaways: [
+        "IK achieved machine-precision accuracy (error ~10^-15) beating RR (~10^-5)",
+        "RR proved more robust to external disturbances due to instantaneous feedback",
+        "Demonstrated trade-off between absolute accuracy (IK) and smooth real-time control (RR)"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Robotic manipulation requires precise coordination in SE(3) space. This project focused on a "Push-and-Place" task: programming a UR5e robot to push a target object 3cm along a local axis, lift, and return it. The core objective was to implement and compare two distinct control paradigms: <strong>Resolved-Rate (RR) Control</strong> (differential kinematics) and <strong>Inverse Kinematics (IK)</strong> (analytic plotting).</p>

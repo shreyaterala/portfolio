@@ -12,6 +12,18 @@ export const epic: Project = {
         "Control Theory",
         "Human-Robot Interaction"
     ],
+    summary: "Developing back and lower-limb exoskeletons (GRAHAM Suit) to bridge the gap between rigid active assistance and lightweight passive assistance, reducing muscle fatigue for mobility-impaired individuals.",
+    features: [
+        "Hierarchical control architecture (High-level intent, Mid-level admittance, Low-level PID)",
+        "Adjustable aluminum struts for 5th-95th percentile user accommodation",
+        "Pressure insole analysis using CNNs for GRF estimation",
+        "Custom 3D-printed cable management system"
+    ],
+    takeaways: [
+        "Achieved 15% reduction in metabolic energy expenditure",
+        "Reduced trajectory tracking error by 40% with State Space control",
+        "Improved identifying user intent and joint loading"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6 hidden md:grid">

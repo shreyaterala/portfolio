@@ -6,6 +6,18 @@ export const pid: Project = {
     meta: "Apr 2020 - Apr 2021 | C++ Implementation",
     image: "/portfolio/assets/pid/pid_robot_v5.png",
     technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
+    summary: "Developed a robust custom PID controller in C++ for VEX Robotics 'Change Up' season to enable reliable autonomous scoring.",
+    features: [
+        "Adaptive Gain Scheduling adjusting kP, kD, kI based on target distance",
+        "Triple-Redundant Inertial Sensor Fusion with outlier rejection",
+        "Lookup-Table Based Slew Rate Limiter for traction control",
+        "State Machine Logic for complex multi-goal autonomous routines"
+    ],
+    takeaways: [
+        "Achieved high-reliability navigation for 15-second autonomous period",
+        "Eliminated wheel slip and mechanical stress via motion profiling",
+        "Successfully navigated all 9 goal zones in Autonomous Skills Strategy"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>As the Lead Programmer for Team 8823A during the VEX Robotics "Change Up" season, I was responsible for creating an autonomous routine that could reliably score points in the 15-second autonomous period. Finding standard time-based movements too inaccurate, I developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>

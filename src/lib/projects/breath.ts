@@ -6,6 +6,18 @@ export const breath: Project = {
     meta: "Aug 2024 - Dec 2024 | Medical Aid",
     image: "/portfolio/assets/breath_sense/poster.jpg",
     technologies: ["C++", "PCB Design", "FEA", "Haptics", "User Research"],
+    summary: "Haptic wearable for trauma victims to aid 'interoception' and grounding therapy by delivering vibrations synchronized to the user's exhale.",
+    features: [
+        "Wearable Racerback vest with localized strain gauge respiration sensing",
+        "ESP32-S3 and NAU7802 24-bit ADC for high-fidelity signal acquisition",
+        "Linear Resonant Actuator (LRA) for organic, pacing-matched haptic feedback",
+        "Validated thermal and structural safety via ANSYS FEA"
+    ],
+    takeaways: [
+        "Achieved <50ms system latency for causal feedback",
+        "Rated 8.4/10 for comfort in clinical trials",
+        "Offers non-pharmaceutical intervention for anxiety/PTSD"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. While 17.3% of US adults practice meditation, survivors of PTSD face barriers engaging with traditional breath-focused techniques.</p>

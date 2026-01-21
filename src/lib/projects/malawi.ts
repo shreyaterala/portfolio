@@ -6,6 +6,18 @@ export const malawi: Project = {
     meta: "Oct 2021 - Dec 2024 | Project & Technical Lead",
     image: "/portfolio/assets/ewb/ewb_malawi.jpg",
     technologies: ["Civil Engineering", "Project Management", "AutoCAD"],
+    summary: "Designed and implemented a sustainable sanitation facility for Mpitilira Primary School in Malawi, replacing condemned infrastructure with a locally-buildable solution.",
+    features: [
+        "Reinforced concrete ring beam foundation to prevent differential settlement in soft soil",
+        "Solar-driven Ventilated Improved Pit (VIP) mechanism for odor control",
+        "Remote WhatsApp-based construction oversight protocol for QA/QC",
+        "Sustainable design using locally sourced bricks, sand, and cement"
+    ],
+    takeaways: [
+        "Provided safe sanitation for 20 staff members, directly reducing cholera risk",
+        "Completed on-time and under the $15,000 budget despite currency fluctuations",
+        "Won 3rd Place in GAWP competition for technical merit and social impact"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Mpitilira Primary School in Malawi faced a critical sanitation crisis, with failing latrines posing a severe health risk to students and staff. As part of Engineers Without Borders (EWB), our chapter was tasked with designing and implementing a sustainable, locally-buildable solution to replace the condemned infrastructure.</p>

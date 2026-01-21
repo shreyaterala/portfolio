@@ -6,6 +6,18 @@ export const haptic: Project = {
     meta: "Oct 2025 - Dec 2025 | Haptics & Assitive Technology",
     image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
     technologies: ["Fusion 360", "Arduino", "C++", "Soft Robotics"],
+    summary: "Designed a tactile display (VISTA) with a 7x5 pin array to convey art structure and appearance to visually impaired individuals.",
+    features: [
+        "7x5 pin array with independent cam-actuated height control",
+        "Color-to-Height mapping algorithm (Yellow > Red > Blue > White)",
+        "Silicone overlay (Ecoflex 00-30) for continuous tactile surface",
+        "Distributed Arduino control architecture handling 35 servos"
+    ],
+    takeaways: [
+        "Achieved 100% success rate in shape recognition (Flag Identification Study)",
+        "Demonstrated feasibility of multi-modal encoding (Shape + Color via Height)",
+        "Validated the need for a tactile legend to improve color distinguishability"
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>According to the American Alliance of Museums, 7 million visually impaired individuals in the US face a largely inaccessible cultural landscape. This project introduces <strong>VISTA (Visual Information through Sensory Tactile Array)</strong>, a novel tactile display designed by our team to convey both the <em>structure</em> and <em>appearance</em> of art through touch.</p>

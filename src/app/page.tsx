@@ -10,7 +10,7 @@ export default async function Home() {
             <section id="about" className="min-h-[80vh] flex flex-col justify-center relative">
                 <div className="flex items-center gap-2 mb-8">
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                    <span className="text-[10px] font-mono text-slate-400 font-bold tracking-widest uppercase">
+                    <span className="text-[10px] font-mono text-slate-600 font-bold tracking-widest uppercase">
                         System: Online
                     </span>
                 </div>
@@ -20,7 +20,7 @@ export default async function Home() {
                         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-ink leading-[1.1] mb-2">
                             Shreya Terala
                         </h1>
-                        <span className="text-xl md:text-2xl text-slate-400 font-light tracking-wide">Mechanical & Robotics Engineer</span>
+                        <span className="text-xl md:text-2xl text-slate-600 font-light tracking-wide">Mechanical & Robotics Engineer</span>
                     </div>
 
                     <div className="relative group shrink-0">
@@ -32,13 +32,13 @@ export default async function Home() {
                                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                             />
                         </div>
-                        <div className="absolute -bottom-6 right-0 bg-white border border-slate-200 px-2 py-1 rounded text-[8px] font-mono text-slate-400 uppercase tracking-widest">
+                        <div className="absolute -bottom-6 right-0 bg-white border border-slate-200 px-2 py-1 rounded text-[8px] font-mono text-slate-600 uppercase tracking-widest">
                             Node_ID: Shreya
                         </div>
                     </div>
                 </div>
 
-                <div className="w-full space-y-6 text-lg text-slate-600 leading-relaxed">
+                <div className="w-full space-y-6 text-lg text-slate-700 leading-relaxed">
                     <p>
                         Welcome to my portfolio! I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
                     </p>

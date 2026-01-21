@@ -10,7 +10,7 @@ module.exports = {
             colors: {
                 paper: "#fbfaf5",
                 ink: "#1e293b",
-                sage: "#94a3b8",
+                sage: "#5e7087", // Darkened for better contrast
                 clay: "#1e293b",
             },
             fontFamily: {

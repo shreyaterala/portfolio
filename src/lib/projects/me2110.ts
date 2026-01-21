@@ -60,6 +60,14 @@ export const me2110: Project = {
         <h3>4. Button Platform & Drivetrain</h3>
         <p>The robot featured a custom <strong>Multi-Height Button Platform</strong> to interface with the varying heights of the battle stations. The drivetrain used a U-shaped 4-wheel configuration with a dedicated rear steering wheel for precise alignment.</p>
 
+         <div class="video-container" style="background: transparent; border-radius: 8px; text-align: center; margin-top: 2rem;">
+             <video width="100%" controls class="rounded-lg shadow-lg border border-slate-200/50">
+                 <source src="/portfolio/assets/me2110/robot_run.mp4" type="video/mp4">
+                 Your browser does not support the video tag.
+             </video>
+             <p class="text-xs mt-2 text-slate-500">Video: Autonomous Deployment in Testing</p>
+        </div>
+
         <h2>Performance & Results</h2>
         <p>The system was iteratively tested through two design sprints. In the final competition, the robot demonstrated high reliability:</p>
         <ul>
@@ -67,9 +75,10 @@ export const me2110: Project = {
             <li><strong>Defense:</strong> The passive wing system consistently cleared the "Orc" zone, securing defensive points.</li>
             <li><strong>Outcome:</strong> In the final game, the robot was on track to outscore all three opponents (projected 740 points) but faced a disqualification due to a logic error that caused movement after the buzzer.</li>
         </ul>
-         <div class="video-container" style="background: #1e1e1e; padding: 1rem; border-radius: 8px; text-align: center; color: white;">
-             <img src="/portfolio/assets/me2110/project_poster.jpg" alt="Design Poster" style="width: 100%; border-radius: 8px; opacity: 0.9;">
-             <p class="text-xs mt-2 text-slate-400">Competition Project Poster</p>
+
+        <div class="image-container" style="background: transparent; border-radius: 8px; text-align: center; margin-top: 3rem;">
+             <img src="/portfolio/assets/me2110/project_poster.jpg" alt="Design Poster" class="rounded-lg shadow-lg border border-slate-200/50" style="width: 100%;">
+             <p class="text-xs mt-2 text-slate-500">Competition Project Poster</p>
         </div>
     </div>`,
 };

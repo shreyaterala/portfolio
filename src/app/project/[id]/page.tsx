@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import parse, { DOMNode, domToReact } from "html-react-parser";
 import "katex/dist/katex.min.css";
 import Latex from "react-latex-next";
+import AutoplayVideo from "@/components/AutoplayVideo";
 
 interface ProjectPageProps {
     params: {
@@ -41,6 +42,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
     const parseOptions = {
         replace: (domNode: DOMNode) => {
+            if (domNode.type === 'tag' && domNode.name === 'video') {
+                return (
+                    <AutoplayVideo {...domNode.attribs}>
+                        {domToReact(domNode.children as DOMNode[], parseOptions)}
+                    </AutoplayVideo>
+                );
+            }
             if (domNode.type === 'text') {
                 // If text contains LaTeX delimiters, render with Latex component
                 if (domNode.data && (domNode.data.includes('$') || domNode.data.includes('\\'))) {

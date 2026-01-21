@@ -88,7 +88,7 @@ export const epic: Project = {
         <p>Accurate state estimation relies on fusing data from multiple modalities:</p>
         
         <h4 class="font-bold text-md mt-4 mb-2">1. Pressure Insole Analysis</h4>
-        <p>We developed a machine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps:</p>
+        <p>Currently, the lab has a scaling relationship to extract GRF from pressure insoles, however these relationships are not linear and are affected by various factors such as the user's weight. I developed a shallowmachine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps to establish a more accurate relationship:</p>
         <ul>
             <li><strong>Data Processing:</strong> Collection, cleaning, and dimensionality reduction of pressure data (XSensor).</li>
             <li><strong>Model Comparison:</strong> Evaluated <strong>Fully Convolutional Neural Networks (FCNN)</strong> versus <strong>CNNs</strong>. The CNN approach demonstrated superior performance by leveraging the spatial structure of the pressure footprint.</li>

@@ -43,7 +43,7 @@ export default async function Home() {
                         Welcome to my portfolio! I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
                     </p>
                     <p>
-                        Currently, I’m a <strong>Robotics Master's student at Johns Hopkins University</strong>. I also hold a <strong>B.S. in Mechanical Engineering from the Georgia Institute of Technology</strong>, where I built a foundation on several mechanical engineering, mechatronics, and robotics projects. My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>.
+                        Currently, I’m a <strong>Robotics Master's student at Johns Hopkins University</strong>. I also hold a <strong>B.S. in Mechanical Engineering with a minor in Robotics from the Georgia Institute of Technology</strong>, where I built a foundation on several mechanical engineering, mechatronics, and robotics projects. My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>.
                     </p>
                     <p>
                         Curiosity guides me in everything I do. I thrive on iterating designs in the lab to solve real-world problems and exploring the world outside of it. I am dedicated to engineering solutions that prioritize the human element at every stage of the design process.
@@ -61,7 +61,7 @@ export default async function Home() {
             <section id="projects" className="py-24 border-t border-slate-200/50">
                 <div className="flex items-end justify-between mb-16">
                     <h2 className="text-4xl font-bold text-ink tracking-tight">Projects</h2>
-                    <span className="text-xs font-mono text-slate-400 uppercase tracking-widest hidden md:block">Index 2022 — 2026</span>
+                    <span className="text-xs font-mono text-slate-400 uppercase tracking-widest hidden md:block">Index 2020 — 2026</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

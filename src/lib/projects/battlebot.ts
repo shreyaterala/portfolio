@@ -2,10 +2,10 @@ import { Project } from "../types";
 
 export const battlebot: Project = {
     id: "battlebot",
-    title: "Battlebot \"Insaniti\"",
+    title: "3lb Battlebot \"Insaniti\"",
     meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
     image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
-    technologies: ["SolidWorks", "FEA", "Rapid Prototyping"],
+    technologies: ["SolidWorks", "Metal Fabrication", "MATLAB"],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Combat robotics is an extreme engineering stress test where mechanical failure is guaranteed without rigorous design. "Insaniti" was a 3lb (Beetleweight) entry designed to compete in the highly destructive RoboJackets internal tournament and <strong>Motorama 2022</strong>. Following the team's standard design methodology (Research &rarr; Sketch &rarr; CAD &rarr; Sim &rarr; Build), the goal was to survive 3 minutes in the arena while delivering catastrophic kinetic energy to opponents.</p>

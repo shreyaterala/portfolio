@@ -5,7 +5,7 @@ export const me2110: Project = {
     title: "ME2110: Autonomous Electromechanical Robot",
     meta: "Aug 2022 - Nov 2022 | System Integration & Design",
     image: "/portfolio/assets/me2110/front_iso_view.jpeg",
-    technologies: ["Mechatronics", "Pneumatics", "System Integration", "Rapid Prototyping"],
+    technologies: ["Solidworks", "Rapid Prototyping", "Arduino", "Fabrication", "Mechatronics", "Pneumatics", "System Integration"],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>For the ME 2110 "Lord of the Rings" design challenge, we were tasked with building an autonomous robot to complete a complex set of tasks within 40 seconds. The machine had to fit within a 12"x24"x18" volume, strictly adhere to a $100 budget, and integrate multiple electromechanical subsystems to score points.</p>

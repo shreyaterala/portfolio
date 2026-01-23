@@ -10,14 +10,14 @@ export default async function Home() {
             <section className="min-h-screen flex flex-col justify-center items-start md:items-center relative border-b border-slate-200/50 overflow-hidden">
                 {/* Abstract Background Blobs */}
                 <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-                    <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob"></div>
-                    <div className="absolute top-0 right-3/4 w-96 h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob" style={{ animationDelay: "2s" }}></div>
-                    <div className="absolute -bottom-32 left-1/2 w-96 h-96 bg-cyan-200 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-blob" style={{ animationDelay: "4s" }}></div>
+                    <div className="absolute -top-20 -right-20 md:top-0 md:right-1/4 w-72 h-72 md:w-96 md:h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-[50px] md:blur-[100px] opacity-40 animate-blob"></div>
+                    <div className="absolute top-40 -left-20 md:top-0 md:right-3/4 w-72 h-72 md:w-96 md:h-96 bg-emerald-200 rounded-full mix-blend-multiply filter blur-[50px] md:blur-[100px] opacity-40 animate-blob" style={{ animationDelay: "2s" }}></div>
+                    <div className="absolute -bottom-20 right-0 md:-bottom-32 md:left-1/2 w-72 h-72 md:w-96 md:h-96 bg-cyan-200 rounded-full mix-blend-multiply filter blur-[50px] md:blur-[100px] opacity-40 animate-blob" style={{ animationDelay: "4s" }}></div>
                     {/* Soft Vignette to prevent hard edges */}
-                    <div className="absolute inset-0 shadow-[inset_0_0_150px_#fbfaf5] pointer-events-none"></div>
+                    <div className="absolute inset-0 shadow-[inset_0_0_80px_#fbfaf5] md:shadow-[inset_0_0_150px_#fbfaf5] pointer-events-none"></div>
                 </div>
 
-                <div className="flex flex-col md:items-center z-10">
+                <div className="flex flex-col md:items-center z-10 px-6 md:px-0">
                     <div className="flex items-center gap-2 mb-6">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
                         <span className="text-[10px] font-mono text-slate-600 font-bold tracking-widest uppercase">

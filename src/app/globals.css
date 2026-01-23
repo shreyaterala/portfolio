@@ -44,11 +44,11 @@ body::before {
 
 .prose-ink h2::before {
     content: "";
-    @apply block w-2 h-2 bg-sage rounded-sm;
+    @apply block w-2 h-2 bg-accent rounded-sm;
 }
 
 .prose-ink h3 {
-    @apply text-xl font-bold text-slate-800 mt-8 mb-4 border-l-2 border-sage pl-4;
+    @apply text-xl font-bold text-slate-800 mt-8 mb-4 border-l-2 border-accent pl-4;
 }
 
 .prose-ink p {
@@ -60,7 +60,7 @@ body::before {
 }
 
 .prose-ink li {
-    @apply pl-6 relative before:content-['>'] before:absolute before:left-0 before:text-sage before:font-mono before:font-bold;
+    @apply pl-6 relative before:content-['>'] before:absolute before:left-0 before:text-accent before:font-mono before:font-bold;
 }
 
 .prose-ink strong {
@@ -109,12 +109,12 @@ body::before {
 }
 
 .prose-ink .arrow-line {
-    @apply w-0.5 h-8 md:w-8 md:h-0.5 bg-sage relative;
+    @apply w-0.5 h-8 md:w-8 md:h-0.5 bg-accent relative;
 }
 
 .prose-ink .arrow-line::after {
     content: "";
-    @apply absolute block w-2 h-2 border-sage rotate-45 border-r-2 border-b-2 border-t-0 bottom-0 left-1/2 -translate-x-1/2 md:border-b-0 md:border-t-2 md:right-0 md:top-1/2 md:-translate-y-1/2 md:left-auto md:translate-x-0 md:bottom-auto;
+    @apply absolute block w-2 h-2 border-accent rotate-45 border-r-2 border-b-2 border-t-0 bottom-0 left-1/2 -translate-x-1/2 md:border-b-0 md:border-t-2 md:right-0 md:top-1/2 md:-translate-y-1/2 md:left-auto md:translate-x-0 md:bottom-auto;
 }
 
 /* Gallery Handling */

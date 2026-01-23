@@ -76,7 +76,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             {project.title}
                         </h1>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-sage rounded-full animate-pulse"></div>
+                            <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
                             <span className="text-xs font-mono text-stone-500 uppercase tracking-widest">Archived</span>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                                     <ul className="space-y-3">
                                         {project.features.map((feature, i) => (
                                             <li key={i} className="flex items-start gap-3 text-sm text-ink/80 leading-relaxed">
-                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-sage flex-shrink-0" />
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                                                 <span>{feature}</span>
                                             </li>
                                         ))}
@@ -135,7 +135,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                                     <ul className="space-y-3">
                                         {project.takeaways.map((takeaway, i) => (
                                             <li key={i} className="flex items-start gap-3 text-sm text-ink/80 leading-relaxed">
-                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                                                 <span>{takeaway}</span>
                                             </li>
                                         ))}

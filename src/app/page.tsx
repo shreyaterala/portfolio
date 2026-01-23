@@ -7,7 +7,7 @@ export default async function Home() {
     return (
         <div className="w-full pb-24">
             {/* Landing Hero - Full Screen, Minimal */}
-            <section className="min-h-screen flex flex-col justify-start pt-12 md:pt-24 items-start md:items-center relative border-b border-slate-200/50 overflow-hidden">
+            <section className="min-h-screen flex flex-col justify-center items-start md:items-center relative border-b border-slate-200/50 overflow-hidden">
                 {/* Abstract Background Blobs */}
                 <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
                     <div className="absolute -top-20 -right-20 md:top-0 md:right-1/4 w-72 h-72 md:w-96 md:h-96 bg-accent/20 rounded-full mix-blend-multiply filter blur-[50px] md:blur-[100px] opacity-40 animate-blob"></div>

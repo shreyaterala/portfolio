@@ -20,9 +20,9 @@ export const epic: Project = {
         "Custom 3D-printed cable management system"
     ],
     takeaways: [
-        "Achieved 15% reduction in metabolic energy expenditure",
-        "Reduced trajectory tracking error by 40% with State Space control",
-        "Improved identifying user intent and joint loading"
+        "Designed modular hardware accommodating 5th-95th percentile users",
+        "Eliminated signal noise and reduced setup time via custom cable management and load cell automation",
+        "Improved GRF estimation accuracy using CNNs to leverage spatial structure"
     ],
     content: `<div>
         <h2>Context & Motivation</h2>
@@ -100,19 +100,25 @@ export const epic: Project = {
         <p>Accurate state estimation relies on fusing data from multiple modalities:</p>
         
         <h4 class="font-bold text-md mt-4 mb-2">1. Pressure Insole Analysis</h4>
-        <p>Currently, the lab has a scaling relationship to extract GRF from pressure insoles, however these relationships are not linear and are affected by various factors such as the user's weight. I developed a shallowmachine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps to establish a more accurate relationship:</p>
-        <ul>
-            <li><strong>Data Processing:</strong> Collection, cleaning, and dimensionality reduction of pressure data (XSensor).</li>
+        <p>Currently, the lab has a scaling relationship to extract GRF from pressure insoles, however these relationships are not linear and are affected by various factors such as the user's weight. I developed a shallow machine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps to establish a more accurate relationship:</p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li><strong>Experimental Collection:</strong> Gathered raw pressure data from subject trials.</li>
+            <li><strong>Preprocessing:</strong> performed data cleaning, signal processing, and aligned collected signals with ground truth data.</li>
+            <li><strong>Feature Engineering:</strong> Reorganized data for ML workflows and applied feature reduction.</li>
+            <li><strong>Training & Validation:</strong> Trained models using the <strong>Leave-One-Subject-Out</strong> method to ensure robustness.</li>
             <li><strong>Model Comparison:</strong> Evaluated <strong>Fully Convolutional Neural Networks (FCNN)</strong> versus <strong>CNNs</strong>. The CNN approach demonstrated superior performance by leveraging the spatial structure of the pressure footprint.</li>
         </ul>
 
         <h4 class="font-bold text-md mt-4 mb-2">2. Load Cell Automation</h4>
-        <p>To streamline experimental trials, I wrote Python scripts to automate the initialization and "broadcasting" of load cell data, ensuring synchronization with the main control loop.</p>
+        <p>To streamline experimental trials, I wrote Bash scripts to automate the initialization and "broadcasting" of load cell data to a ROS node, ensuring synchronization with the main control loop and making experimentation setup quicker.</p>
 
         <h2>Performance & Results</h2>
+        <p>Through the iterative design and testing process, several key improvements and learnings were identified:</p>
         <ul>
-            <li><strong>Metabolic Cost:</strong> Achieved a <strong>15% reduction</strong> in metabolic energy expenditure for elderly subjects.</li>
-            <li><strong>Tracking Accuracy:</strong> The State Space controller reduced trajectory tracking error by <strong>40%</strong> compared to PID baselines.</li>
+            <li><strong>Hardware Versatility:</strong> The shift to adjustable aluminum struts successfully met the requirement of accommodating 5th-95th percentile users, ensuring consistent joint alignment across a diverse population.</li>
+            <li><strong>Signal Integrity:</strong> The custom cable management system was a critical improvement, eliminating signal noise that previously affected control loop stability during dynamic walking.</li>
+            <li><strong>Machine Learning Efficacy:</strong> Comparative analysis revealed that <strong>CNNs</strong> significantly outperformed FCNNs and linear scaling for GRF estimation. The learning was that preserving the spatial structure of pressure heatmaps is essential for accurate force prediction.</li>
+             <li><strong>Operational Efficiency:</strong> Automating the load cell initialization reduced trial setup time and guaranteed synchronization, streamlining the overall experimental workflow.</li>
         </ul>
     </div>`,
 };

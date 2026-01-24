@@ -92,7 +92,7 @@ export const me2110: Project = {
         <p>The robot featured a custom <strong>Multi-Height Button Platform</strong> to interface with the varying heights of the battle stations. The drivetrain used a U-shaped 4-wheel configuration with a dedicated rear steering wheel for precise alignment.</p>
 
          <div class="flex flex-col items-center my-8">
-             <video controls class="rounded-lg shadow-lg border border-slate-200/50 max-h-[80vh] w-auto h-auto">
+             <video controls class="rounded-lg shadow-lg border border-slate-200/50 max-h-[30vh] w-auto h-auto">
                  <source src="/portfolio/assets/me2110/robot_run.mp4" type="video/mp4">
                  Your browser does not support the video tag.
              </video>

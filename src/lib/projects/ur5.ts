@@ -83,11 +83,11 @@ export const ur5: Project = {
         <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
             <div>
                 <h4 class="text-center font-bold mb-2">Resolved-Rate Control</h4>
-                <video src="/portfolio/assets/ur5/resolved_rate.mp4" muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
+                <video src="/portfolio/assets/ur5/resolved_rate.mp4" autoplay muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
             </div>
             <div>
                 <h4 class="text-center font-bold mb-2">Inverse Kinematics</h4>
-                <video src="/portfolio/assets/ur5/inverse_kinematics.mp4" muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
+                <video src="/portfolio/assets/ur5/inverse_kinematics.mp4" autoplay muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
             </div>
         </div>
     </div>`,

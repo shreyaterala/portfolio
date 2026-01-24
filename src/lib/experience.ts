@@ -22,8 +22,8 @@ export const experienceData: ExperienceItem[] = [
         date: "Jan 2025 - June 2025",
         type: "work",
         accomplishments: [
-            "Designed and benchmarked a servo-pneumatic piston with precise position control for future iterations.",
-            "Implemented dresspack routing for power/signal along the robotic arm to End-of-Arm-Tooling (EoAT).",
+            "Designed and benchmarked a servo-pneumatic piston with precise position control for future development.",
+            "Implemented dresspack routing for power/signal along the robotic arm to the End-of-Arm-Tooling (EoAT).",
             "Fabricated quick-turn prototypes to validate key design decisions and mechanical direction.",
             "Analyzed robot collision modes to derive impact loading requirements for future EoAT designs."
         ]
@@ -44,8 +44,8 @@ export const experienceData: ExperienceItem[] = [
         accomplishments: [
             "Led Ansys Icepak thermal simulations to optimize cooling efficiency and component lifetime.",
             "Developed a heatsink optimization method that reduced component cost while maintaining thermal performance.",
-            "Designed and 3D-printed custom manufacturing fixtures to prevent electrical component damage.",
             "Conducted thermal and airflow testing to define fan specifications and optimal component layout.",
+            "Designed and 3D-printed custom manufacturing fixtures to prevent electrical component damage.",
             "Created assembly instructions with torque specs to streamline handoff between mechanical and industrialization teams.",
             "Generated simplified 3D representations of 3000+ drive configurations, estimated to increase sales by $21M.",
             "Researched UL IP54 standards to design a compliant protective cover using Creo Parametric."

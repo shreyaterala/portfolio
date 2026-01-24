@@ -26,15 +26,6 @@ export const epic: Project = {
     ],
     content: `<div>
         <h2>Context & Motivation</h2>
-        <div class="hidden md:flex gap-6 my-6 items-stretch">
-            <div class="w-1/3 relative shrink-0">
-                <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-lg" />
-            </div>
-            <div class="w-2/3 flex flex-col justify-center">
-                <p class="!mb-4">The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
-                <p class="!mb-0">My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
-            </div>
-        </div>
         <div class="md:hidden space-y-6">
             <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg" />
              <div>

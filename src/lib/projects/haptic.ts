@@ -77,6 +77,21 @@ export const haptic: Project = {
         </ul>
 
         <h2>Demos</h2>
-        <p class="text-slate-500 italic text-sm">Demo videos unavailable.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div class="flex flex-col items-center">
+                <video controls class="rounded-lg shadow-lg border border-slate-200/50 max-h-[50vh] w-auto">
+                    <source src="/portfolio/assets/haptic_museum/Japan.MOV" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="text-xs mt-2 text-slate-500">Japan Flag Demo</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <video controls class="rounded-lg shadow-lg border border-slate-200/50 max-h-[50vh] w-auto">
+                    <source src="/portfolio/assets/haptic_museum/Denmark.MOV" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="text-xs mt-2 text-slate-500">Denmark Flag Demo</p>
+            </div>
+        </div>
     </div>`,
 };

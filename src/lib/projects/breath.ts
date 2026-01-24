@@ -82,9 +82,6 @@ export const breath: Project = {
             <img src="/portfolio/assets/breath_sense/final_prototype.png" alt="Physical Prototype" class="rounded-lg border border-slate-200/50">
         </div>
 
-        <h2>Societal Impact</h2>
-        <p>Ideally, breathSense offers a non-pharmaceutical intervention for managing anxiety and PTSD symptoms. By strictly adhering to IEC 62368-1 (Consumer Electronics Safety) and ISO 10993 (Biocompatibility), the team ensured the device is safe for at-home use, potentially democratizing access to grounding therapy.</p>
-
         <h2>Performance</h2>
         <ul>
             <li><strong>Responsiveness:</strong> Achieved a total system latency of &lt;50ms, providing feedback that feels instantaneous and causal to the user.</li>

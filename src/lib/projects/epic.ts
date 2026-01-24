@@ -90,9 +90,9 @@ export const epic: Project = {
         <h2>Engineering Implementation</h2>
         
         <h3 class="font-bold text-lg mt-6 mb-2">Hardware Design (GRAHAM Suit)</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-            <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="!w-full !m-0 h-auto rounded-lg shadow-md border border-white/10" />
-            <div class="md:col-span-2 flex flex-col justify-center">
+        <div class="flex flex-col md:flex-row gap-8 my-6 items-center">
+            <img src="/portfolio/assets/epic_lab/exo_sid.png" alt="GRAHAM Exoskeleton Side View" class="w-full md:w-auto max-h-[70vh] object-contain rounded-lg shadow-md border border-white/10" />
+            <div class="flex-1 flex flex-col justify-center">
                 <p class="!mb-4">To improve the universality of the exoskeleton, I designed and manufactured new <strong>adjustable aluminum struts</strong> to accommodate users ranging from the 5th to 95th percentile in height. This modular design ensured correct joint alignment for a diverse participant pool during clinical trials.</p>
                 <p class="!mb-0">I also overhauled the <strong>backpack's cable management system</strong>, designing custom 3D-printed wire holders and routing paths. This significantly reduced setup time and eliminated signal noise caused by loose connections during dynamic walking tasks.</p>
             </div>
@@ -101,7 +101,7 @@ export const epic: Project = {
         <h3 class="font-bold text-lg mt-6 mb-2">Sensor Feedback & ML</h3>
         <p>Accurate state estimation relies on fusing data from multiple modalities:</p>
         
-        <h4 class="font-bold text-md mt-4 mb-2">1. Pressure Insole Analysis</h4>
+        <h4 class="font-bold text-md mt-4 mb-2">1. Pressure Insoles Calibration</h4>
         <p>Currently, the lab has a scaling relationship to extract GRF from pressure insoles, however these relationships are not linear and are affected by various factors such as the user's weight. I developed a shallow machine learning pipeline to estimate Ground Reaction Forces (GRF) from pressure heatmaps to establish a more accurate relationship:</p>
         <ul class="list-disc pl-5 space-y-1">
             <li><strong>Experimental Collection:</strong> Gathered raw pressure data from subject trials.</li>

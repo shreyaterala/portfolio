@@ -33,47 +33,66 @@ export const me2110: Project = {
         <h2>System Architecture</h2>
         <p>We prioritized a <strong>reliability-first</strong> design philosophy, focusing on structural rigidity and the seamless integration of five distinct subsystems.</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-            <div>
-                 <img src="/portfolio/assets/me2110/front_iso_view.jpeg" alt="Final Robot Isometric View" class="rounded-lg border border-slate-200/50 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6 items-start">
+            <div class="flex flex-col items-center">
+                 <img src="/portfolio/assets/me2110/front_iso_view.jpeg" alt="Final Robot Isometric View" class="rounded-lg border border-slate-200/50 shadow-sm max-h-[60vh] w-auto h-auto object-contain">
                  <p class="text-xs text-center mt-2 text-slate-500">Robot Configuration (Front View)</p>
             </div>
-             <div>
-                 <img src="/portfolio/assets/me2110/back_iso_view.jpeg" alt="Final Robot Back View" class="rounded-lg border border-slate-200/50 shadow-sm">
+             <div class="flex flex-col items-center">
+                 <img src="/portfolio/assets/me2110/back_iso_view.jpeg" alt="Final Robot Back View" class="rounded-lg border border-slate-200/50 shadow-sm max-h-[60vh] w-auto h-auto object-contain">
                  <p class="text-xs text-center mt-2 text-slate-500">Drivetrain & Electronics Integration</p>
             </div>
         </div>
 
         <h2>Engineering Implementation</h2>
-        <h3>1. Pneumatic Scissor Lift (Ring Placement)</h3>
-        <p>To reach the 31-inch target height of "Mt. Doom" within the size constraints, we engineered a <strong>six-stage pneumatic scissor lift</strong>. </p>
-        <ul>
-            <li><strong>Actuation:</strong> Powered by a single pneumatic piston, ensuring a consistent and purely mechanical extension every time.</li>
-            <li><strong>Stability:</strong> Constructed from reinforced beams with bolt joints to minimize lateral sway during the 2-second deployment window.</li>
-        </ul>
-        <img src="/portfolio/assets/me2110/ring_scissor_lift.jpeg" alt="Scissor Lift Mechanism" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-center">
+            <div>
+                <h3>1. Pneumatic Scissor Lift (Ring Placement)</h3>
+                <p>To reach the 31-inch target height of "Mt. Doom" within the size constraints, we engineered a <strong>six-stage pneumatic scissor lift</strong>.</p>
+                <ul>
+                    <li><strong>Actuation:</strong> Powered by a single pneumatic piston, ensuring a consistent and purely mechanical extension every time.</li>
+                    <li><strong>Stability:</strong> Constructed from reinforced beams with bolt joints to minimize lateral sway during the 2-second deployment window.</li>
+                </ul>
+            </div>
+            <div class="flex justify-center">
+                <img src="/portfolio/assets/me2110/ring_scissor_lift.jpeg" alt="Scissor Lift Mechanism" class="rounded-lg shadow-sm border border-slate-200/50 max-h-[50vh] w-auto h-auto object-contain">
+            </div>
+        </div>
 
-        <h3>2. Gravity-Fed Wing Deployment (Orc Defense)</h3>
-        <p>We avoided using extra motors for the defensive "wings" by integrating their deployment with the drivetrain.</p>
-        <ul>
-            <li><strong>Mechanism:</strong> Large MDF wings were hinged to the chassis side. A small extrusion on the wheel hubs "nudged" the wings open as the robot drove forward, allowing gravity to lock them into full extension.</li>
-            <li><strong>Result:</strong> Effectively cleared "Orc" blocks from our zone without consuming electrical power.</li>
-        </ul>
-        <img src="/portfolio/assets/me2110/robot_wing.jpeg" alt="Wing Deployment" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-center">
+             <div class="order-2 md:order-1 flex justify-center">
+                <img src="/portfolio/assets/me2110/robot_wing.jpeg" alt="Wing Deployment" class="rounded-lg shadow-sm border border-slate-200/50 max-h-[50vh] w-auto h-auto object-contain">
+            </div>
+            <div class="order-1 md:order-2">
+                <h3>2. Gravity-Fed Wing Deployment (Orc Defense)</h3>
+                <p>We avoided using extra motors for the defensive "wings" by integrating their deployment with the drivetrain.</p>
+                <ul>
+                    <li><strong>Mechanism:</strong> Large MDF wings were hinged to the chassis side. A small extrusion on the wheel hubs "nudged" the wings open as the robot drove forward, allowing gravity to lock them into full extension.</li>
+                    <li><strong>Result:</strong> Effectively cleared "Orc" blocks from our zone without consuming electrical power.</li>
+                </ul>
+            </div>
+        </div>
 
-        <h3>3. Solenoid Ramp & Conveyor (Troop & Legolas)</h3>
-        <p>We integrated the troop deployment and rescue systems to save space:</p>
-        <ul>
-            <li><strong>Solenoid Ramp:</strong> A gravity-fed ramp controlled by two linear solenoids released the "Red Arrow" and "Soldiers" at precise timing intervals.</li>
-            <li><strong>Legolas Conveyor:</strong> Positioned directly above the pick-up zone, this belt drive used friction flaps to scoop the "Legolas" ball and deposit it into the soldier ramp for simultaneous deployment.</li>
-        </ul>
-        <img src="/portfolio/assets/me2110/soldier_release_solenoid.jpeg" alt="Solenoid Release Mechanism" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8 items-center">
+            <div>
+                <h3>3. Solenoid Ramp & Conveyor</h3>
+                <p>We integrated the troop deployment and rescue systems to save space:</p>
+                <ul>
+                    <li><strong>Solenoid Ramp:</strong> A gravity-fed ramp controlled by two linear solenoids released the "Red Arrow" and "Soldiers" at precise timing intervals.</li>
+                    <li><strong>Legolas Conveyor:</strong> Positioned directly above the pick-up zone, this belt drive used friction flaps to scoop the "Legolas" ball and deposit it into the soldier ramp for simultaneous deployment.</li>
+                </ul>
+            </div>
+            <div class="flex justify-center">
+                <img src="/portfolio/assets/me2110/soldier_release_solenoid.jpeg" alt="Solenoid Release Mechanism" class="rounded-lg shadow-sm border border-slate-200/50 max-h-[50vh] w-auto h-auto object-contain">
+            </div>
+        </div>
 
         <h3>4. Button Platform & Drivetrain</h3>
         <p>The robot featured a custom <strong>Multi-Height Button Platform</strong> to interface with the varying heights of the battle stations. The drivetrain used a U-shaped 4-wheel configuration with a dedicated rear steering wheel for precise alignment.</p>
 
-         <div class="video-container" style="background: transparent; border-radius: 8px; text-align: center; margin-top: 2rem;">
-             <video width="100%" controls class="rounded-lg shadow-lg border border-slate-200/50">
+         <div class="flex flex-col items-center my-8">
+             <video controls class="rounded-lg shadow-lg border border-slate-200/50 max-h-[80vh] w-auto h-auto">
                  <source src="/portfolio/assets/me2110/robot_run.mp4" type="video/mp4">
                  Your browser does not support the video tag.
              </video>
@@ -88,8 +107,8 @@ export const me2110: Project = {
             <li><strong>Outcome:</strong> In the final game, the robot was on track to outscore all three opponents (projected 740 points) but faced a disqualification due to a logic error that caused movement after the buzzer.</li>
         </ul>
 
-        <div class="image-container" style="background: transparent; border-radius: 8px; text-align: center; margin-top: 3rem;">
-             <img src="/portfolio/assets/me2110/project_poster.jpg" alt="Design Poster" class="rounded-lg shadow-lg border border-slate-200/50" style="width: 100%;">
+        <div class="flex flex-col items-center my-8">
+             <img src="/portfolio/assets/me2110/project_poster.jpg" alt="Design Poster" class="rounded-lg shadow-lg border border-slate-200/50 max-h-[90vh] w-auto h-auto object-contain">
              <p class="text-xs mt-2 text-slate-500">Competition Project Poster</p>
         </div>
     </div>`,

@@ -41,7 +41,6 @@ export const flight: Project = {
         <p>We implemented and compared three distinct supervised learning algorithms to determine the best approach for price prediction:</p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
-            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
                 <h4 class="font-bold text-red-800 mb-2">Linear Regression</h4>
                 <p class="text-sm text-slate-700 mb-2">Failed to capture complexities.</p>
                 <ul class="text-sm space-y-1">
@@ -49,9 +48,7 @@ export const flight: Project = {
                     <li><strong>MSE:</strong> 1076</li>
                     <li><strong>R-squared:</strong> 0.51</li>
                 </ul>
-            </div>
             
-            <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                 <h4 class="font-bold text-blue-800 mb-2">K-Nearest Neighbors</h4>
                 <p class="text-sm text-slate-700 mb-2">High accuracy, low interpretability.</p>
                 <ul class="text-sm space-y-1">
@@ -59,9 +56,7 @@ export const flight: Project = {
                     <li><strong>MSE:</strong> ~210</li>
                     <li><strong>R-squared:</strong> ~0.905</li>
                 </ul>
-            </div>
 
-            <div class="bg-green-50 p-4 rounded-lg border border-green-100 shadow-sm">
                 <h4 class="font-bold text-green-800 mb-2">Random Forest</h4>
                 <p class="text-sm text-slate-700 mb-2">Best performance.</p>
                 <ul class="text-sm space-y-1">
@@ -69,7 +64,6 @@ export const flight: Project = {
                     <li><strong>MSE:</strong> 88.46</li>
                     <li><strong>R-squared:</strong> 0.9599</li>
                 </ul>
-            </div>
         </div>
 
         <h2>Discussion & Conclusion</h2>

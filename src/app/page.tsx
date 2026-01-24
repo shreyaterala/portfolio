@@ -78,7 +78,7 @@ export default async function Home() {
 
                         <div className="pt-4 flex flex-col sm:flex-row gap-4">
                             <a href="#projects" className="group flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest px-8 py-3 bg-ink text-white rounded-full hover:bg-slate-800 transition-all shadow-lg shadow-slate-900/10">
-                                View Work
+                                View My Work
                                 <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                             </a>
                             <a href="#contact" className="group flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest px-8 py-3 border border-slate-300 text-slate-600 rounded-full hover:border-ink hover:text-ink hover:bg-white transition-all">

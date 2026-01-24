@@ -60,16 +60,16 @@ export const sock: Project = {
             <li><strong>Safety:</strong> The system operates on low-voltage battery power with proper electrical isolation to ensure user safety during prolonged skin contact.</li>
         </ul>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-            <img src="/portfolio/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50 md:col-span-1 object-cover h-full">
-            <img src="/portfolio/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50 md:col-span-2">
+            <img src="/portfolio/assets/compression_sock/electronics_housing.jpeg" alt="CAD Housing" class="rounded-lg border border-slate-200/50 md:col-span-1 w-full h-full object-cover">
+            <img src="/portfolio/assets/compression_sock/electrical_wiring_diagram.png" alt="Wiring Diagram" class="rounded-lg border border-slate-200/50 md:col-span-2 w-full h-auto object-contain">
         </div>
 
         <h2>Testing & Validation</h2>
         <h3>Simulated Limb Trials</h3>
         <p>We validated the device using an <strong>Inflatable Air Bladder</strong> to mimic the swelling and shrinking of a residual limb. This allowed us to controllably vary the circumference by < 0.5cm increments while recording sensor outputs.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
-            <img src="/portfolio/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50 md:col-span-1 object-cover h-full w-full">
-            <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50 md:col-span-2 w-full">
+            <img src="/portfolio/assets/compression_sock/test_setup.jpg" alt="Air Bladder Test Setup" class="rounded-lg border border-slate-200/50 md:col-span-1 w-full h-full object-cover">
+            <img src="/portfolio/assets/compression_sock/tracking_interface.png" alt="Real-time Dashboard" class="rounded-lg border border-slate-200/50 md:col-span-2 w-full h-auto object-contain">
         </div>
 
         <h2>Performance & Results</h2>

@@ -66,13 +66,13 @@ export default async function Home() {
                         <h2 className="text-4xl font-bold text-ink tracking-tight">About Me</h2>
                         <div className="space-y-6 text-lg text-slate-600 leading-relaxed font-light">
                             <p>
-                                I am a <strong>Robotics and Mechanical Engineer</strong> driven by a core philosophy of <strong>human-centric design</strong>. My work bridges the gap between rigid electromechanical systems and the organic human experience, creating assistive technologies that are both mechanically robust and intuitively seamless.
+                                Hello! I'm a Robotics and Mechanical Engineer passionate about designing technology that feels natural to use. I specialize in bridging the gap between complex electromechanical systems and human intuition, creating assistive technologies that are mechanically robust yet seamlessly integrated into everyday life.
                             </p>
                             <p>
-                                Currently, I’m a <strong>Robotics Master's student at Johns Hopkins University</strong>. I also hold a <strong>B.S. in Mechanical Engineering with a minor in Robotics from the Georgia Institute of Technology</strong>, where I built a foundation on several mechanical engineering, mechatronics, and robotics projects.
+                                I'm currently pursuing my Master's in Robotics at Johns Hopkins University, building on my B.S. in Mechanical Engineering with a minor in Robotics from Georgia Institute of Technology. My academic foundation spans mechanical design, mechatronics, and robotics systems, skills I've applied across diverse projects and real-world challenges.
                             </p>
                             <p>
-                                My professional journey includes developing hardware solutions at <strong>Amazon Robotics</strong> and <strong>Rockwell Automation</strong>, and researching lower-limb exoskeletons at the <strong>EPIC Lab</strong>. Curiosity guides me in everything I do, from iterating designs in the lab to exploring the world outside of it.
+                                Professionally, I've developed hardware solutions at Amazon Robotics and Rockwell Automation, and conducted research on lower-limb exoskeletons at the EPIC Lab. Whether I'm iterating on designs in the lab or exploring new perspectives outside of it, curiosity drives everything I do.
                             </p>
                         </div>
 
@@ -82,7 +82,7 @@ export default async function Home() {
                                 <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                             </a>
                             <a href="#contact" className="group flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest px-8 py-3 border border-slate-300 text-slate-600 rounded-full hover:border-ink hover:text-ink hover:bg-white transition-all">
-                                Contact Me
+                                Connect with Me!
                             </a>
                         </div>
                     </div>

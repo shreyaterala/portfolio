@@ -38,7 +38,6 @@ export const breath: Project = {
         <img src="/portfolio/assets/breath_sense/functional_block_diagram.png" alt="System Block Diagram" style="width: 100%; border-radius: 8px; margin: 1.5rem 0; border: 1px solid rgba(255,255,255,0.1);">
 
         <h2>Engineering Implementation</h2>
-        <h2>Engineering Implementation</h2>
         <h3>Concept & Form Factor Selection</h3>
         <p>We utilized a Morphological Chart to explore combinations of 5 sensor modalities and various wearable form factors. The <strong>Strain Gauge</strong> was selected for its superior sensitivity to relative respiratory volume compared to accelerometers.</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">

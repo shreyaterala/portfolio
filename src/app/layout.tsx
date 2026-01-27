@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -27,6 +28,20 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-0QSB86F8R4"
+                    strategy="afterInteractive"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-0QSB86F8R4');
+                    `}
+                </Script>
+            </head>
             <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans bg-paper text-ink min-h-screen selection:bg-accent/30`}>
                 <Navbar />
                 <main className="pt-20">

@@ -28,12 +28,13 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <head>
+            <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans bg-paper text-ink min-h-screen selection:bg-accent/30`}>
+                {/* Google Analytics */}
                 <Script
                     src="https://www.googletagmanager.com/gtag/js?id=G-0QSB86F8R4"
-                    strategy="afterInteractive"
+                    strategy="beforeInteractive"
                 />
-                <Script id="google-analytics" strategy="afterInteractive">
+                <Script id="google-analytics" strategy="beforeInteractive">
                     {`
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
@@ -41,8 +42,6 @@ export default function RootLayout({
                         gtag('config', 'G-0QSB86F8R4');
                     `}
                 </Script>
-            </head>
-            <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans bg-paper text-ink min-h-screen selection:bg-accent/30`}>
                 <Navbar />
                 <main className="pt-20">
                     {children}

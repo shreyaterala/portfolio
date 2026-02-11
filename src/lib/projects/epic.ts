@@ -33,13 +33,6 @@ export const epic: Project = {
              </div>
         </div>
 
-        <h2>Project Objectives</h2>
-        <ul>
-            <li><strong>Torque Transparency:</strong> Ensure the exoskeleton allows free movement (zero impedance) when assistance is not required.</li>
-            <li><strong>Hierarchical Control:</strong> Implement a multi-level control architecture ranging from low-level motor drives to high-level intent recognition.</li>
-            <li><strong>Safety & Stability:</strong> Guarantee user safety through strict range-of-motion limits and stable interaction dynamics.</li>
-        </ul>
-
         <h2>System Architecture</h2>
         <div class="system-diagram my-6">
             <div class="diagram-node">

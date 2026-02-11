@@ -12,23 +12,22 @@ export const epic: Project = {
         "Control Theory",
         "Human-Robot Interaction"
     ],
-    summary: "Developing back and lower-limb exoskeletons (GRAHAM Suit) to bridge the gap between rigid active assistance and lightweight passive assistance, reducing muscle fatigue for mobility-impaired individuals.",
+    summary: "Developing lower-limb exoskeletons (GRAHAM Suit) to reduce muscle fatigue and injuries for individuals performing manual labor tasks.",
     features: [
-        "Hierarchical control architecture (High-level intent, Mid-level admittance, Low-level PID)",
         "Adjustable aluminum struts for 5th-95th percentile user accommodation",
         "Pressure insole analysis using CNNs for GRF estimation",
         "Custom 3D-printed cable management system"
     ],
     takeaways: [
         "Designed modular hardware accommodating 5th-95th percentile users",
-        "Eliminated signal noise and reduced setup time via custom cable management and load cell automation",
+        "Reduced setup time via custom cable management and load cell automation",
         "Improved GRF estimation accuracy using CNNs to leverage spatial structure"
     ],
     content: `<div>
         <h2>Context & Motivation</h2>
-        <div class="md:hidden space-y-6">
-            <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full h-auto rounded-lg shadow-lg" />
-             <div>
+        <div class="flex flex-col md:flex-row gap-8 my-6 items-center">
+            <img src="/portfolio/assets/epic_lab/epic_lab_research.jpg" alt="EPIC Lab Research Overview" class="w-full md:w-auto max-h-[70vh] object-contain rounded-lg shadow-lg" />
+             <div class="flex-1 flex flex-col justify-center">
                 <p>The <strong>DoE Exoskeleton Team</strong> at EPIC Lab aims to bridge the gap between rigid, high-power active assistance and ergonomic, lightweight passive assistance. Our goal is to develop back and lower-limb exoskeletons that significantly reduce user muscle fatigue during physically demanding tasks.</p>
                 <p>My work specifically addresses the <strong>GRAHAM Suit</strong>, a knee exoskeleton equipped with a sensor suit and an electronics backpack, designed to assist mobility-impaired individuals and preserve their independence.</p>
              </div>
@@ -65,7 +64,7 @@ export const epic: Project = {
             </div>
         </div>
 
-        <h2>Controller Levels</h2>
+        <h2>Background on Controller Architecture</h2>
         <p>We implemented a robust hierarchical control strategy to manage the complex human-robot interaction:</p>
         <ul>
             <li><strong>Offline Learning:</strong> Training <strong>Joint Loading Estimates</strong> models using collected biomechanical data to understand user exertion profiles.</li>

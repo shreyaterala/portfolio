@@ -73,7 +73,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     >
                         {/* Category Heading */}
                         <div className="flex items-center gap-4 mb-8">
-                            <h3 className="text-lg font-bold text-ink tracking-tight whitespace-nowrap">
+                            <h3 className="text-2xl font-bold text-ink tracking-tight whitespace-nowrap">
                                 {category}
                             </h3>
                             <div className="h-px flex-1 bg-slate-200/70" />

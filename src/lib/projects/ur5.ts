@@ -83,11 +83,17 @@ export const ur5: Project = {
         <div class="video-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
             <div>
                 <h4 class="text-center font-bold mb-2">Resolved-Rate Control</h4>
-                <video src="/portfolio/assets/ur5/RDKDC%20Final%20Project%20-%20RR.MOV" autoplay muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
+                <video controls muted loop playsInline class="w-full rounded-lg shadow-sm">
+                    <source src="/portfolio/assets/ur5/rr_demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
             <div>
                 <h4 class="text-center font-bold mb-2">Inverse Kinematics</h4>
-                <video src="/portfolio/assets/ur5/RDKDC%20Final%20Project%20-%20IK%20Demo.MOV" autoplay muted loop playsinline width="100%" height="auto" class="rounded-lg shadow-sm"></video>
+                <video controls muted loop playsInline class="w-full rounded-lg shadow-sm">
+                    <source src="/portfolio/assets/ur5/ik_demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>`,

@@ -5,7 +5,7 @@ export const cis: Project = {
     title: "Computer Integrated Surgery",
     meta: "Oct 2025 - Dec 2025 | Academic Project",
     image: "/portfolio/assets/cis1/cis_cover.png",
-    technologies: ["MATLAB", "Linear Algebra (SVD)", "Bernstein Polynomials"],
+    technologies: ["MATLAB", "Linear Algebra", "Bernstein Polynomials"],
     summary: "Built a complete stereotactic navigation system from scratch to translate preoperative imaging (CT/MRI) into real-time surgical guidance, addressing tracking, calibration, and registration.",
     features: [
         "Rigid Body Registration (Arun's Method) for coordinate alignment",
@@ -20,7 +20,7 @@ export const cis: Project = {
     ],
     content: `<div>
         <h2>Context & Motivation</h2>
-        <p>In modern neurosurgery, sub-millimeter precision is not optional—it is a requirement. "Computer Integrated Surgery" focused on building a complete stereotactic navigation system from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, translating preoperative imaging (CT/MRI) into real-time surgical guidance.</p>
+        <p>In modern robotic surgery, sub-millimeter precision is a requirement for performing any surgical tasks. Within my "Computer Integrated Surgery" course, we focused on building the registration system for stereotactic navigation from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, calibrating preoperative imaging data to the surgical OR workspace.</p>
 
         <h2>System Architecture</h2>
         <div class="system-diagram">

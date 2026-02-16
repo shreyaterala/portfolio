@@ -10,7 +10,7 @@ export const rubi: Project = {
     features: [
         "Custom YOLOv8 Object Detection pipeline for robust facelet classification",
         "Master-Slave architecture: PC (Vision/Kociemba) + Seeed XIAO nRF52840 (Control)",
-        "6x NEMA-17 stepper motors with custom 3D-printed gearboxes",
+        "6x stripped SG90 servo motors with custom 3D-printed gearboxes",
         "Bluetooth Low Energy (BLE) using Bleak for wireless command serialization"
     ],
     takeaways: [
@@ -43,7 +43,7 @@ export const rubi: Project = {
             </div>
             <div class="diagram-node">
                 <strong>Actuation</strong>
-                <span>6x NEMA-17 Motors</span>
+                <span>6x Motors</span>
             </div>
         </div>
 
@@ -51,7 +51,7 @@ export const rubi: Project = {
         <h3>Computer Vision Pipeline</h3>
         <p>Robustly identifying sticker colors under varying lighting is a notorious challenge. Instead of simple color thresholding, I implemented a robust AI-driven pipeline:</p>
         <ul>
-            <li><strong>YOLOv8 Object Detection:</strong> Trained a custom YOLOv8 model (<code>best.pt</code>) to detect and classify individual cube facelets (White, Yellow, Red, Orange, Green, Blue) with >99% confidence.</li>
+            <li><strong>YOLOv8 Object Detection:</strong> Trained a custom YOLOv8 model to detect and classify individual cube facelets (White, Yellow, Red, Orange, Green, Blue) with >99% confidence.</li>
             <li><strong>State Reconstruction:</strong> The system captures 6 faces sequentially. A custom mapping algorithm reorders the raw detection stream into a flattened 54-element string compatible with the standard cube notation.</li>
             <li><strong>Solving Algorithm:</strong> Integrated the <code>kociemba</code> Python library, which implements the Two-Phase Algorithm to find near-optimal solutions (typically &lt;20 moves) in milliseconds.</li>
         </ul>
@@ -67,7 +67,7 @@ export const rubi: Project = {
         
         <ul>
             <li><strong>Wireless Communication:</strong> Utilized the <strong>Bleak</strong> library to establish a Bluetooth Low Energy (BLE) link between the Python backend and the robot's <strong>Seeed XIAO nRF52840</strong> microcontroller. Move commands are serialized and written to a custom GATT characteristic.</li>
-            <li><strong>Actuation:</strong> 6x NEMA-17 stepper motors drive the faces via custom 5-way 3D-printed gearboxes. The grippers feature compliant TPU inserts to accommodate cube tolerances.</li>
+            <li><strong>Actuation:</strong> 6x motors from SG90s drive the faces via custom 3D resin printed gearboxes. </li>
         </ul>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
             <img src="/portfolio/assets/rubi/cube_internal.jpeg" alt="Internal Mechanism" class="rounded-lg border border-slate-200/50">
@@ -80,7 +80,7 @@ export const rubi: Project = {
         <h2>Performance</h2>
         <ul>
             <li><strong>Solve Speed:</strong> Average total time of ~45 seconds (Scan: 15s, Compute: &lt;1s, Actuation: 30s).</li>
-            <li><strong>Reliability:</strong> The YOLO-based vision system eliminated color calibration issues common in HSV-based solvers, working robustly even in dim or warm lighting.</li>
+            <li><strong>Reliability:</strong> The YOLO-based vision system reduced color calibration issues common in HSV-based solvers, working robustly even in dim or warm lighting.</li>
         </ul>
 
         <div class="mt-8 text-center">

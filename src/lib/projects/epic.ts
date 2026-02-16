@@ -5,6 +5,7 @@ export const epic: Project = {
     title: "EPIC Lab - Exoskeleton Research",
     meta: "Aug 2022 - Dec 2024 | Undergraduate Researcher",
     image: "/portfolio/assets/epic_lab/epic_lab_research.jpg",
+    category: "Haptics & Assistive Tech",
     technologies: [
         "Python (PyTorch)",
         "ROS",

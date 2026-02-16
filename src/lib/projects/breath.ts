@@ -5,6 +5,7 @@ export const breath: Project = {
     title: "breathSense",
     meta: "Aug 2024 - Dec 2024 | Medical Aid",
     image: "/portfolio/assets/breath_sense/poster.jpg",
+    category: "Haptics & Assistive Tech",
     technologies: ["C++", "PCB Design", "FEA", "Haptics", "User Research"],
     summary: "Haptic wearable for trauma victims to aid 'interoception' and grounding therapy by delivering vibrations synchronized to the user's exhale.",
     features: [

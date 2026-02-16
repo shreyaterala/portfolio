@@ -5,6 +5,7 @@ export const me2110: Project = {
     title: "ME2110: Autonomous Electromechanical Robot",
     meta: "Aug 2022 - Nov 2022 | System Integration & Design",
     image: "/portfolio/assets/me2110/front_iso_view.jpeg",
+    category: "Robotics & Controls",
     technologies: ["Solidworks", "Rapid Prototyping", "Arduino", "Fabrication", "Mechatronics", "Pneumatics", "System Integration"],
     summary: "Built an autonomous electromechanical robot for the 'Lord of the Rings' design challenge, integrating multiple subsystems to complete tasks within 40 seconds.",
     features: [

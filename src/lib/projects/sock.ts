@@ -5,6 +5,7 @@ export const sock: Project = {
     title: "Smart Shrinker Compression Sleeve",
     meta: "Aug 2024 - Dec 2024 | Bioinstrumentation",
     image: "/portfolio/assets/compression_sock/compression_sock.jpg",
+    category: "Haptics & Assistive Tech",
     technologies: ["Wearable Tech", "Mechatronics", "Signal Processing"],
     summary: "'Smart Shrinker' compression sleeve combining traditional therapy with integrated sensing to track limb volume, temp, and humidity for amputees.",
     features: [

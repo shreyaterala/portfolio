@@ -5,6 +5,7 @@ export const ur5: Project = {
     title: "UR5 Manipulator Control",
     meta: "Dec 2025 | Robotics Control",
     image: "/portfolio/assets/ur5/ur5_control.png",
+    category: "Robotics & Controls",
     technologies: ["MATLAB", "Python", "ROS", "Kinematics", "Controls"],
     summary: "Implemented and compared Resolved-Rate (differential kinematics) and Inverse Kinematics control paradigms for a UR5e manipulator completing a 'Push-and-Place' task.",
     features: [

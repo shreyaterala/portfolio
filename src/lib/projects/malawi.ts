@@ -5,6 +5,7 @@ export const malawi: Project = {
     title: "EWB - GT Malawi Project",
     meta: "Oct 2021 - Dec 2024 | Project & Technical Lead",
     image: "/portfolio/assets/ewb/ewb_malawi.jpg",
+    category: "Mechatronics & Design",
     technologies: ["Civil Engineering", "Project Management", "AutoCAD"],
     summary: "Designed and implemented a sustainable sanitation facility for Mpitilira Primary School in Malawi, replacing condemned infrastructure with a locally-buildable solution.",
     features: [

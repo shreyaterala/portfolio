@@ -5,6 +5,7 @@ export const haptic: Project = {
     title: "VISTA - Haptic Museum Display",
     meta: "Oct 2025 - Dec 2025 | Haptics & Assitive Technology",
     image: "/portfolio/assets/haptic_museum/haptic_museum_main.jpg",
+    category: "Haptics & Assistive Tech",
     technologies: ["Fusion 360", "Arduino", "C++", "Soft Robotics"],
     summary: "Designed a tactile display (VISTA) with a 7x5 pin array to convey art structure and appearance to visually impaired individuals.",
     features: [

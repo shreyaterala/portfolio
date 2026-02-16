@@ -5,6 +5,7 @@ export const rubi: Project = {
     title: "RUBI - Self Solving Cube",
     meta: "Oct 2024 - Dec 2024 | Mechatronics & Computer Vision",
     image: "/portfolio/assets/rubi/demo.png",
+    category: "Mechatronics & Design",
     technologies: ["Python", "YOLOv8", "OpenCV", "BLE"],
     summary: "Autonomous Rubik's Cube solving system integrating real-time computer vision with precision mechatronics to scan, solve, and execute maneuvers.",
     features: [

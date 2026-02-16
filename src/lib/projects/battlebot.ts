@@ -5,6 +5,7 @@ export const battlebot: Project = {
     title: "3lb Battlebot \"Insaniti\"",
     meta: "Oct 2021 - Mar 2022 | Mechanical Designer",
     image: "/portfolio/assets/battlebot/battlebot_insaniti.jpg",
+    category: "Mechatronics & Design",
     technologies: ["SolidWorks", "Metal Fabrication", "MATLAB"],
     summary: "3lb 'Beetleweight' combat robot 'Insaniti' designed to compete in Motorama 2022, balancing mass budgeting with catastrophic kinetic energy output.",
     features: [

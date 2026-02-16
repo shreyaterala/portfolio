@@ -5,6 +5,7 @@ export const flight: Project = {
     title: "ATL Flight Price Predictor",
     meta: "Oct 2023 - Dec 2023 | Machine Learning Project",
     image: "/portfolio/assets/flight_predictor/flight_price_predictor.png",
+    category: "Machine Learning",
     technologies: ["Python", "Scikit-Learn", "Pandas", "Random Forest", "KNN", "Lasso Regression"],
     summary: "Developed a comprehensive machine learning pipeline to predict economy flight prices for ATL routes. Achieved ~96% accuracy using Random Forest after benchmarking against KNN and Linear Regression models.",
     features: [

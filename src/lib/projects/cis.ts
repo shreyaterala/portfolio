@@ -5,6 +5,7 @@ export const cis: Project = {
     title: "Computer Integrated Surgery",
     meta: "Oct 2025 - Dec 2025 | Academic Project",
     image: "/portfolio/assets/cis1/cis_cover.png",
+    category: "Robotics & Controls",
     technologies: ["MATLAB", "Linear Algebra", "Bernstein Polynomials"],
     summary: "Built a complete stereotactic navigation system from scratch to translate preoperative imaging (CT/MRI) into real-time surgical guidance, addressing tracking, calibration, and registration.",
     features: [

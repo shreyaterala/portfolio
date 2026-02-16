@@ -5,6 +5,7 @@ export const pid: Project = {
     title: "PID Autonomous Control",
     meta: "Apr 2020 - Apr 2021 | C++ Implementation",
     image: "/portfolio/assets/pid/pid_robot_v5.png",
+    category: "Robotics & Controls",
     technologies: ["C++", "PID Control", "Odometry", "Sensor Fusion"],
     summary: "Developed a robust custom PID controller in C++ for VEX Robotics 'Change Up' season to enable reliable autonomous scoring.",
     features: [

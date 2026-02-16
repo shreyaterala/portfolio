@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Project } from "@/lib/types";
 
@@ -18,7 +18,6 @@ interface ProjectsSectionProps {
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     const [activeCategory, setActiveCategory] = useState<string>("All");
-    const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
     const filteredCategories =
         activeCategory === "All"
@@ -27,12 +26,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
     const handleTabClick = (category: string) => {
         setActiveCategory(category);
-        if (category !== "All" && sectionRefs.current[category]) {
-            sectionRefs.current[category]?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-        }
     };
 
     return (
@@ -76,7 +69,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 return (
                     <div
                         key={category}
-                        ref={(el) => { sectionRefs.current[category] = el; }}
                         className="mb-16 last:mb-0 animate-in fade-in duration-500"
                     >
                         {/* Category Heading */}

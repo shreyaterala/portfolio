@@ -10,6 +10,7 @@ import { breath } from "./projects/breath";
 import { cis } from "./projects/cis";
 import { ur5 } from "./projects/ur5";
 import { pid } from "./projects/pid";
+import { safe_rl } from "./projects/safe_rl";
 import { Project as ProjectType } from "./types";
 
 export const projectsData: Record<string, ProjectType> = {
@@ -25,6 +26,7 @@ export const projectsData: Record<string, ProjectType> = {
     cis,
     ur5,
     pid,
+    safe_rl,
 };
 
 export const ProjectAPI = {

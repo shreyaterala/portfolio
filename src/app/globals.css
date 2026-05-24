@@ -3,14 +3,40 @@
 @tailwind utilities;
 
 :root {
-    --foreground-rgb: 30, 41, 59;
-    --background-start-rgb: 251, 250, 245;
-    --background-end-rgb: 251, 250, 245;
+    /* Light theme (default) */
+    --color-paper: 251 250 245;    /* #fbfaf5 cream */
+    --color-ink: 30 41 59;         /* #1e293b slate-800 */
+    --color-accent: 14 116 144;    /* #0e7490 pacific cyan */
+    --color-clay: 30 41 59;
+    --color-surface: 255 255 255;  /* card surface */
+    --color-muted: 100 116 139;    /* slate-500 secondary text */
+    --color-hairline: 226 232 240; /* slate-200 borders */
+}
+
+.dark {
+    /* Dark theme — true-black aesthetic, brighter accent for contrast */
+    --color-paper: 10 14 20;       /* near-black */
+    --color-ink: 226 232 240;      /* slate-200 */
+    --color-accent: 34 211 238;    /* cyan-400, AA-contrast on dark */
+    --color-clay: 226 232 240;
+    --color-surface: 22 27 34;     /* card surface (slate-900-ish) */
+    --color-muted: 148 163 184;    /* slate-400 secondary */
+    --color-hairline: 51 65 85;    /* slate-700 borders */
+}
+
+html {
+    /* Prevent flash by hiding body styles until theme is set */
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
 }
 
 body {
-    color: rgb(var(--foreground-rgb));
-    background: rgb(var(--background-start-rgb));
+    color: rgb(var(--color-ink));
+    background: rgb(var(--color-paper));
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Lofi Grain Texture */
@@ -27,6 +53,10 @@ body::before {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
+.dark body::before {
+    opacity: 0.06;
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;
@@ -36,6 +66,10 @@ body::before {
 /* Custom Engineering Typography for Dynamic Content */
 .prose-ink {
     @apply text-slate-700 leading-relaxed;
+}
+
+.dark .prose-ink {
+    @apply text-slate-300;
 }
 
 .prose-ink h2 {
@@ -49,6 +83,10 @@ body::before {
 
 .prose-ink h3 {
     @apply text-xl font-bold text-slate-800 mt-8 mb-4 border-l-2 border-accent pl-4;
+}
+
+.dark .prose-ink h3 {
+    @apply text-slate-100;
 }
 
 .prose-ink p {
@@ -75,12 +113,24 @@ body::before {
     object-fit: contain;
 }
 
+.dark .prose-ink img {
+    @apply border-slate-700/50 bg-slate-900/50;
+}
+
 .prose-ink video {
     @apply rounded-xl border border-slate-200/50 shadow-sm w-full my-8 bg-white/50 p-2;
 }
 
+.dark .prose-ink video {
+    @apply border-slate-700/50 bg-slate-900/50;
+}
+
 .prose-ink code {
     @apply font-mono text-sm bg-slate-100 text-slate-800 px-1.5 py-0.5 rounded border border-slate-200;
+}
+
+.dark .prose-ink code {
+    @apply bg-slate-800 text-slate-100 border-slate-700;
 }
 
 /* Specific component styles handling */
@@ -88,8 +138,16 @@ body::before {
     @apply flex flex-col md:flex-row items-center justify-center gap-4 my-8 p-6 bg-white/40 border border-slate-200 rounded-xl overflow-x-auto;
 }
 
+.dark .prose-ink .system-diagram {
+    @apply bg-slate-900/40 border-slate-700;
+}
+
 .prose-ink .diagram-node {
     @apply flex flex-col items-center justify-center p-4 bg-white border border-slate-300 rounded-lg shadow-sm min-w-[120px] text-center;
+}
+
+.dark .prose-ink .diagram-node {
+    @apply bg-slate-900 border-slate-700;
 }
 
 .prose-ink .diagram-node strong {
@@ -98,6 +156,10 @@ body::before {
 
 .prose-ink .diagram-node span {
     @apply text-xs text-slate-500 font-mono mt-1;
+}
+
+.dark .prose-ink .diagram-node span {
+    @apply text-slate-400;
 }
 
 .prose-ink .diagram-arrow {
@@ -124,4 +186,85 @@ body::before {
 
 .prose-ink .modal-gallery img {
     @apply my-0 h-32 md:h-48 object-cover cursor-pointer hover:opacity-80 transition-opacity;
+}
+
+/* ============================================================
+ * Dark-mode overrides for inline Tailwind classes used inside
+ * project content HTML strings. These are rendered via
+ * html-react-parser so we can't add `dark:` variants per element;
+ * higher-specificity rules below flip the most common utilities.
+ * ============================================================ */
+.dark .prose-ink [class~="bg-white"],
+.dark .prose-ink [class~="bg-white/40"],
+.dark .prose-ink [class~="bg-white/50"] {
+    background-color: rgb(15 23 42 / 0.6); /* slate-900/60 */
+}
+
+.dark .prose-ink [class~="bg-slate-50"],
+.dark .prose-ink [class~="bg-slate-50/50"] {
+    background-color: rgb(15 23 42 / 0.6);
+}
+
+.dark .prose-ink [class~="bg-slate-100"] {
+    background-color: rgb(30 41 59); /* slate-800 */
+}
+
+.dark .prose-ink [class~="bg-slate-900"] {
+    background-color: rgb(2 6 23); /* slate-950 */
+}
+
+.dark .prose-ink [class~="text-slate-500"] {
+    color: rgb(148 163 184); /* slate-400 */
+}
+.dark .prose-ink [class~="text-slate-600"],
+.dark .prose-ink [class~="text-slate-700"] {
+    color: rgb(203 213 225); /* slate-300 */
+}
+.dark .prose-ink [class~="text-slate-800"],
+.dark .prose-ink [class~="text-slate-900"] {
+    color: rgb(241 245 249); /* slate-100 */
+}
+
+.dark .prose-ink [class~="border-slate-100"] {
+    border-color: rgb(30 41 59); /* slate-800 */
+}
+.dark .prose-ink [class~="border-slate-200"],
+.dark .prose-ink [class~="border-slate-200/50"] {
+    border-color: rgb(51 65 85); /* slate-700 */
+}
+.dark .prose-ink [class~="border-slate-300"] {
+    border-color: rgb(71 85 105); /* slate-600 */
+}
+.dark .prose-ink [class~="divide-slate-100"] > * + * {
+    border-color: rgb(30 41 59);
+}
+
+/* Specific named bg/text colors used in project tables */
+.dark .prose-ink [class~="bg-blue-50"] {
+    background-color: rgb(30 58 138 / 0.2); /* blue-900/20 */
+}
+.dark .prose-ink [class~="text-blue-600"],
+.dark .prose-ink [class~="text-blue-700"],
+.dark .prose-ink [class~="text-blue-800"] {
+    color: rgb(96 165 250); /* blue-400 */
+}
+.dark .prose-ink [class~="bg-red-50"] {
+    background-color: rgb(127 29 29 / 0.2);
+}
+.dark .prose-ink [class~="text-red-800"],
+.dark .prose-ink [class~="text-red-900"] {
+    color: rgb(248 113 113); /* red-400 */
+}
+.dark .prose-ink [class~="border-red-200"] {
+    border-color: rgb(127 29 29);
+}
+.dark .prose-ink [class~="bg-green-50"] {
+    background-color: rgb(20 83 45 / 0.2);
+}
+.dark .prose-ink [class~="text-green-800"],
+.dark .prose-ink [class~="text-green-900"] {
+    color: rgb(74 222 128); /* green-400 */
+}
+.dark .prose-ink [class~="border-green-200"] {
+    border-color: rgb(20 83 45);
 }

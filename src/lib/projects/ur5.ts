@@ -19,6 +19,12 @@ export const ur5: Project = {
         "RR proved more robust to external disturbances due to instantaneous feedback",
         "Demonstrated trade-off between absolute accuracy (IK) and smooth real-time control (RR)"
     ],
+    headlineMetrics: [
+        { value: "10⁻¹⁵", label: "IK rotational error (rad)" },
+        { value: "8", label: "Analytic IK branches" },
+        { value: "2", label: "Control paradigms compared" },
+    ],
+    featured: true,
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Robotic manipulation requires precise coordination in SE(3) space. This project focused on a "Push-and-Place" task: programming a UR5e robot to push a target object 3cm along a local axis, lift, and return it. The core objective was to implement and compare two distinct control paradigms: <strong>Resolved-Rate (RR) Control</strong> (differential kinematics) and <strong>Inverse Kinematics (IK)</strong> (analytic plotting).</p>

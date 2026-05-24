@@ -19,6 +19,11 @@ export const cis: Project = {
         "Reduced point-to-mesh query complexity from O(N) to O(log N)",
         "Validated system against multiple noise models for robustness"
     ],
+    headlineMetrics: [
+        { value: "<0.5 mm", label: "Final EM-tracking error" },
+        { value: "O(log N)", label: "ICP query complexity" },
+        { value: "5th-order", label: "Bernstein distortion fit" },
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>In modern robotic surgery, sub-millimeter precision is a requirement for performing any surgical tasks. Within my "Computer Integrated Surgery" course, we focused on building the registration system for stereotactic navigation from scratch. This project addresses the critical "interventional loops" of tracking, calibration, registration, and error correction, calibrating preoperative imaging data to the surgical OR workspace.</p>

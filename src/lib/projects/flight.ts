@@ -20,6 +20,11 @@ export const flight: Project = {
         "Total travel distance and arrival date were identified as the highest-impact features",
         "Trade-off observed between model accuracy (Random Forest) and interpretability (Linear models)"
     ],
+    headlineMetrics: [
+        { value: "R² 0.96", label: "Random Forest accuracy" },
+        { value: "12×", label: "MSE reduction vs. Linear" },
+        { value: "3", label: "Models benchmarked" },
+    ],
     content: `<div>
         <h2>Project Definition</h2>
         <p>Flight ticket prices are highly dynamic and significantly influence consumer travel choices. This project aimed to develop a machine learning model specifically geared towards <strong>Georgia Tech students</strong>, predicting costs for economy-class flights to and from <strong>Hartsfield-Jackson Atlanta International Airport (ATL)</strong>. By focusing strictly on economy seats and pruning unrelated data, we aimed to create a highly specific and accurate predictor.</p>

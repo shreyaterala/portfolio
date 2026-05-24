@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: "class",
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,10 +9,13 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                paper: "#fbfaf5",
-                ink: "#1e293b",
-                accent: "#0e7490", // Vivid Pacific Cyan
-                clay: "#1e293b",
+                paper: "rgb(var(--color-paper) / <alpha-value>)",
+                ink: "rgb(var(--color-ink) / <alpha-value>)",
+                accent: "rgb(var(--color-accent) / <alpha-value>)",
+                clay: "rgb(var(--color-clay) / <alpha-value>)",
+                surface: "rgb(var(--color-surface) / <alpha-value>)",
+                muted: "rgb(var(--color-muted) / <alpha-value>)",
+                hairline: "rgb(var(--color-hairline) / <alpha-value>)",
             },
             fontFamily: {
                 sans: ["var(--font-outfit)"],

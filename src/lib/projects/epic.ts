@@ -24,6 +24,13 @@ export const epic: Project = {
         "Reduced setup time via custom cable management and load cell automation",
         "Improved GRF estimation accuracy using CNNs to leverage spatial structure"
     ],
+    headlineMetrics: [
+        { value: "5–95th", label: "Percentile user fit" },
+        { value: "2 yrs", label: "Continuous lab research" },
+        { value: "CNN", label: "GRF estimation model" },
+    ],
+    myContribution: "Hardware modularity, cable system, ML pipeline for pressure-insole GRF estimation",
+    featured: true,
     content: `<div>
         <h2>Context & Motivation</h2>
         <div class="flex flex-col md:flex-row gap-8 my-6 items-center">

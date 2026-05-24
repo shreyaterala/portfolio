@@ -19,6 +19,12 @@ export const haptic: Project = {
         "Demonstrated feasibility of multi-modal encoding (Shape + Color via Height)",
         "Validated the need for a tactile legend to improve color distinguishability"
     ],
+    headlineMetrics: [
+        { value: "100%", label: "Shape-ID success rate" },
+        { value: "7 × 5", label: "Pin array resolution" },
+        { value: "35", label: "Independently driven servos" },
+    ],
+    myContribution: "Mechanical design lead — pin-and-cam actuation, silicone overlay tooling",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>According to the American Alliance of Museums, 7 million visually impaired individuals in the US face a largely inaccessible cultural landscape. This project introduces <strong>VISTA (Visual Information through Sensory Tactile Array)</strong>, a novel tactile display designed by our team to convey both the <em>structure</em> and <em>appearance</em> of art through touch.</p>

@@ -19,6 +19,12 @@ export const breath: Project = {
         "Rated 8.4/10 for comfort in clinical trials",
         "Offers non-pharmaceutical intervention for anxiety/PTSD"
     ],
+    headlineMetrics: [
+        { value: "<50 ms", label: "Sense-to-actuation latency" },
+        { value: "8.4/10", label: "Comfort rating (clinical)" },
+        { value: "24-bit", label: "ADC for strain sensing" },
+    ],
+    myContribution: "Wearable mechanical design, PCB integration, user research protocol",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Trauma victims and individuals capable of dissociation often lose "interoception"—the ability to sense their own internal bodily states. While 17.3% of US adults practice meditation, survivors of PTSD face barriers engaging with traditional breath-focused techniques.</p>

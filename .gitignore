@@ -29,3 +29,7 @@ pnpm-debug.log*
 # Large Assets
 public/assets/ur5/RDKDC Final Project - RR.MOV
 public/assets/ur5/RDKDC Final Project - IK Demo.MOV
+
+# Local Temp Cache Folders
+.next-old-*/
+.next-old-*

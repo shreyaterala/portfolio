@@ -19,6 +19,11 @@ export const rubi: Project = {
         "Eliminated lighting sensitivity issues common in HSV solvers via AI approach",
         "Demonstrated effective reliable actuation of 6 independent faces"
     ],
+    headlineMetrics: [
+        { value: "~45 s", label: "Avg full solve time" },
+        { value: "<1 s", label: "Kociemba compute time" },
+        { value: "6", label: "Independently driven faces" },
+    ],
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>The Rubik's Cube is a classic puzzle with over 43 quintillion permutations. RUBI is an autonomous solving system designed to demystify robotic manipulation and computer vision. By integrating real-time object detection with a precision actuation mechanism, RUBI scans, solves, and physically executes the solution for a scrambled cube without human intervention.</p>

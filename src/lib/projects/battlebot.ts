@@ -19,6 +19,13 @@ export const battlebot: Project = {
         "Validated 'Frame and Armor' philosophy with Hybrid materials",
         "Identified critical need for robust electronics integration and wire strain relief"
     ],
+    headlineMetrics: [
+        { value: "2126 J", label: "Simulated weapon energy" },
+        { value: "12,210", label: "Weapon RPM" },
+        { value: "1.03 s", label: "Spin-up to 67% RPM" },
+    ],
+    myContribution: "Mechanical designer — weapon system, motor simulation, chassis CAD",
+    featured: true,
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Combat robotics is an extreme engineering stress test where mechanical failure is guaranteed without rigorous design. "Insaniti" was a 3lb (Beetleweight) entry designed to compete in the highly destructive RoboJackets internal tournament and <strong>Motorama 2022</strong>. Following the team's standard design methodology (Research &rarr; Sketch &rarr; CAD &rarr; Sim &rarr; Build), the goal was to survive 3 minutes in the arena while delivering catastrophic kinetic energy to opponents.</p>

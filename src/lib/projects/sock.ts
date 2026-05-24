@@ -19,6 +19,12 @@ export const sock: Project = {
         "Validated 77 Ohm Sheet Texture fabric for highest linearity",
         "Enabled remote patient monitoring via Bluetooth dashboard"
     ],
+    headlineMetrics: [
+        { value: "0.5 cm", label: "Detectable circumference Δ" },
+        { value: "77 Ω", label: "Optimal fabric sheet resistance" },
+        { value: "3", label: "Sensed modalities (Ω, T, RH)" },
+    ],
+    myContribution: "Sensor selection, signal conditioning circuit, wireless telemetry firmware",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Over 500,000 Americans experience limb loss annually. Post-amputation care is critical, as fluctuations in residual limb volume can lead to improper prosthetic fit, skin breakdown, and infection. Existing solutions (shrinkers, rigid bandages) provide compression but lack <strong>real-time monitoring capabilities</strong>, forcing clinicians to rely on subjective patient feedback.</p>

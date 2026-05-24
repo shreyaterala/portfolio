@@ -19,6 +19,12 @@ export const malawi: Project = {
         "Completed on-time and under the $15,000 budget despite currency fluctuations",
         "Won 3rd Place in GAWP competition for technical merit and social impact"
     ],
+    headlineMetrics: [
+        { value: "20", label: "Staff served" },
+        { value: "<$15k", label: "Budget delivered" },
+        { value: "3rd", label: "GAWP competition place" },
+    ],
+    myContribution: "Project & Technical Lead — design coordination, remote QA/QC oversight",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>Mpitilira Primary School in Malawi faced a critical sanitation crisis, with failing latrines posing a severe health risk to students and staff. As part of Engineers Without Borders (EWB), our chapter was tasked with designing and implementing a sustainable, locally-buildable solution to replace the condemned infrastructure.</p>

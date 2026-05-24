@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/dev-clean.js",
+    "build": "node scripts/build-clean.js",
     "start": "next start",
     "lint": "next lint"
   },

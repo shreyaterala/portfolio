@@ -1,3 +1,8 @@
+export interface HeadlineMetric {
+    value: string;
+    label: string;
+}
+
 export interface Project {
     id: string;
     title: string;
@@ -9,4 +14,8 @@ export interface Project {
     summary?: string;
     features?: string[];
     takeaways?: string[];
+    headlineMetrics?: HeadlineMetric[];
+    myContribution?: string;
+    githubUrl?: string;
+    featured?: boolean;
 }

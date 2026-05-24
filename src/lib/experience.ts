@@ -5,6 +5,11 @@ export interface ExperienceItem {
     date: string;
     type: 'education' | 'work';
     accomplishments?: string[];
+    /**
+     * Skill names matching entries in `skills.ts`. Used to bidirectionally
+     * link experiences ↔ skills in the UI.
+     */
+    skills?: string[];
 }
 
 export const experienceData: ExperienceItem[] = [
@@ -14,6 +19,13 @@ export const experienceData: ExperienceItem[] = [
         role: "M.S.E. in Robotics",
         date: "Expected Dec 2026",
         type: "education"
+    },
+    {
+        id: "roche",
+        institution: "Roche",
+        role: "Advanced Systems Engineering Intern",
+        date: "May 2026 - Aug 2026",
+        type: "work"
     },
     {
         id: "amazon",
@@ -26,6 +38,14 @@ export const experienceData: ExperienceItem[] = [
             "Implemented dresspack routing for power/signal along the robotic arm to the End-of-Arm-Tooling (EoAT).",
             "Fabricated quick-turn prototypes to validate key design decisions and mechanical direction.",
             "Analyzed robot collision modes to derive impact loading requirements for future EoAT designs."
+        ],
+        skills: [
+            "SolidWorks",
+            "Pneumatics",
+            "Mechatronics",
+            "Rapid Prototyping",
+            "System Integration",
+            "Control Theory"
         ]
     },
     {
@@ -49,6 +69,13 @@ export const experienceData: ExperienceItem[] = [
             "Created assembly instructions with torque specs to streamline handoff between mechanical and industrialization teams.",
             "Generated simplified 3D representations of 3000+ drive configurations, estimated to increase sales by $21M.",
             "Researched UL IP54 standards to design a compliant protective cover using Creo Parametric."
+        ],
+        skills: [
+            "Creo Parametric",
+            "SolidWorks",
+            "FEA / ANSYS",
+            "Rapid Prototyping",
+            "Project Management"
         ]
     },
     {
@@ -61,6 +88,10 @@ export const experienceData: ExperienceItem[] = [
             "Collaborated on maintaining and improving the Xcelerator Cloud Platform administration app.",
             "Utilized Git for version control and incremental feature development.",
             "Executed software development tasks within an Agile/Scrum environment."
+        ],
+        skills: [
+            "Git",
+            "Project Management"
         ]
     }
 ];

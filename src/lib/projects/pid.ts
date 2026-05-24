@@ -19,6 +19,12 @@ export const pid: Project = {
         "Eliminated wheel slip and mechanical stress via motion profiling",
         "Successfully navigated all 9 goal zones in Autonomous Skills Strategy"
     ],
+    headlineMetrics: [
+        { value: "9/9", label: "Goal zones navigated" },
+        { value: "3×", label: "Redundant inertial sensors" },
+        { value: "15 s", label: "Autonomous window" },
+    ],
+    myContribution: "Lead Programmer (Team 8823A) — full PID stack, sensor fusion, state machine",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>As the Lead Programmer for Team 8823A during the VEX Robotics "Change Up" season, I was responsible for creating an autonomous routine that could reliably score points in the 15-second autonomous period. Finding standard time-based movements too inaccurate, I developed a robust custom PID (Proportional-Integral-Derivative) controller in C++.</p>

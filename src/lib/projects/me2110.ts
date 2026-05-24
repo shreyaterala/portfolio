@@ -19,6 +19,12 @@ export const me2110: Project = {
         "Passive wing system consistently secured defensive points without power draw",
         "Demonstrated high mechanical reliability across all matches"
     ],
+    headlineMetrics: [
+        { value: "40 s", label: "Autonomous window" },
+        { value: "31 in", label: "Vertical scissor-lift reach" },
+        { value: "$100", label: "Strict budget cap" },
+    ],
+    myContribution: "Team mechanical lead — pneumatic lift system, structural integration",
     content: `<div>
         <h2>Context & Motivation</h2>
         <p>For the ME 2110 "Lord of the Rings" design challenge, we were tasked with building an autonomous robot to complete a complex set of tasks within 40 seconds. The machine had to fit within a 12"x24"x18" volume, strictly adhere to a $100 budget, and integrate multiple electromechanical subsystems to score points.</p>
